@@ -5,6 +5,7 @@ public partial class Form1 : Form
     public TextBox? maintextbox;
     public MenuStrip? MainMenuStrip;
     public int currentformheight;
+    private string? currentfilename;
     public Form1()
     {
         InitializeComponent();
@@ -12,8 +13,8 @@ public partial class Form1 : Form
     }
     public void TurnEditPrepare()
     {
-        this.Text = "TurnEdit";
-        this.Size = new Size(700, 900);
+        this.Text = "New File - TurnEdit";
+        this.Size = new Size(1000, 700);
         this.currentformheight = this.Size.Height;
         TurnEditGUI();
     }
@@ -38,20 +39,36 @@ public partial class Form1 : Form
         ToolStripMenuItem FileOpenMenuItem = new ToolStripMenuItem();
         FileOpenMenuItem.Name = "FileOpenMenuItem";
         FileOpenMenuItem.Text = "Open";
+        FileOpenMenuItem.Click += new EventHandler(this.FileOpenMenuItem_Clicked);
         ToolStripMenuItem FileSaveMenuItem = new ToolStripMenuItem();
         FileSaveMenuItem.Name = "FileSaveMenuItem";
         FileSaveMenuItem.Text = "Save";
         ToolStripMenuItem FileSaveAsMenuItem = new ToolStripMenuItem();
         FileSaveAsMenuItem.Name = "FileSaveAsMenuItem";
         FileSaveAsMenuItem.Text = "Save As";
+        FileSaveAsMenuItem.Click += new EventHandler(this.FileSaveAsMenuItem_Click);
         FileMenuItem.DropDownItems.AddRange(new ToolStripItem[] {
             FileNewMenuItem,
             FileOpenMenuItem,
             FileSaveMenuItem,
             FileSaveAsMenuItem
         });
+        /* "Edit" Menu */
+        /* "Settings" Menu */
+        /* "Help" Menu */
+        ToolStripMenuItem HelpMenuItem = new ToolStripMenuItem();
+        HelpMenuItem.Name = "HelpMenuItem";
+        HelpMenuItem.Text = "Help";
+        ToolStripMenuItem HelpAboutMenuItem = new ToolStripMenuItem();
+        HelpAboutMenuItem.Name = "HelpAboutMenuItem";
+        HelpAboutMenuItem.Text = "About";
+        HelpAboutMenuItem.Click += new EventHandler(this.HelpAboutMenuItem_Clicked);
+        HelpMenuItem.DropDownItems.AddRange(new ToolStripItem[] {
+            HelpAboutMenuItem
+        });
         this.MainMenuStrip.Items.AddRange(new ToolStripItem[] {
-            FileMenuItem
+            FileMenuItem,
+            HelpMenuItem
         });
         this.Controls.Add(MainMenuStrip);
         this.Controls.Add(this.maintextbox);
@@ -65,5 +82,33 @@ public partial class Form1 : Form
     public void FileNewMenuItem_Click(object? sender, EventArgs e)
     {
         this.maintextbox.Clear();
+    }
+    public void HelpAboutMenuItem_Clicked(object? sender, EventArgs e) {
+        var AboutForm = new TurnEditAboutForm();
+        AboutForm.Show();
+    }
+    public void FileOpenMenuItem_Clicked(object? sender, EventArgs e) {
+        OpenFileDialog opendialog = new OpenFileDialog();
+        opendialog.ShowHelp = true;
+        opendialog.CheckFileExists = true;
+        opendialog.Filter = "Text file(*.txt)|*.txt|All file (*.*)|*.*";
+        if (opendialog.ShowDialog() == DialogResult.OK) {
+            string OpenedFileName = opendialog.FileName;
+            string OpenFileContent = File.ReadAllText(OpenedFileName);
+            this.maintextbox.Text = OpenFileContent;
+            this.Text = @$"{OpenedFileName} - TurnEdit";
+            this.currentfilename = OpenedFileName;
+        }
+    }
+    public void FileSaveAsMenuItem_Click(object? sender, EventArgs e) {
+        SaveFileDialog savedialog = new SaveFileDialog();
+        savedialog.ShowHelp = true;
+        savedialog.Filter = "Text file (*.txt)|*.txt|All file (*.*)|*.*";
+        if (savedialog.ShowDialog() == DialogResult.OK) {
+            string savefilename = savedialog.FileName;
+            File.WriteAllText(savefilename, this.maintextbox.Text);
+            this.Text = @$"{savefilename} - TurnEdit";
+            this.currentfilename = savefilename;
+        }
     }
 }
