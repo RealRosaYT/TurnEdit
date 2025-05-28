@@ -6,6 +6,6 @@ TurnEdit is an simplified text editor written by C#.
 - Change font
 More feature is coming soon!
 ## How to install
-1. If not installed .NET Desktop Runtime, please install.
+1. If not installed .NET Desktop Runtime, install it.
 2. Download turnedit-1.0-installer.exe.
-3. Execute turnedit-1.0-installer.exe as administrator.
+3. Run turnedit-1.0-installer.exe as administrator.
