@@ -11,3 +11,4 @@ More feature is coming soon!
 1. If not installed .NET Desktop Runtime, [install it](https://dotnet.microsoft.com/en-us/download/dotnet/9.0).
 3. Download turnedit-setup.exe.
 4. Run turnedit-setup.exe as administrator.
+## Contribute
