@@ -5,7 +5,7 @@ Documents is here.
 ## Features
 - Search
 - Replace
-- Change font
+- Change font  
 More feature is coming soon!
 ## How to install
 1. If not installed .NET Desktop Runtime, [install it](https://dotnet.microsoft.com/en-us/download/dotnet/9.0).
