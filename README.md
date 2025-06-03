@@ -12,3 +12,4 @@ More feature is coming soon!
 3. Download turnedit-setup.exe.
 4. Run turnedit-setup.exe as administrator.
 ## Contribute
+[Click here to see how to contribute](https://github.com/suzuki3932/TurnEdit/blob/main/CONTRIBUTING.md).
