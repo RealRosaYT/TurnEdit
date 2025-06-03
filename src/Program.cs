@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Text.Json;
+using System.Text.Encodings.Web;
 
 namespace TurnEdit;
 

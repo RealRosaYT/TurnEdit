@@ -1,15 +1,26 @@
 namespace TurnEdit;
 
+public class SettingsJSONSyntax {
+	public string FontFamily { get; set; } = "Segoe UI";
+	public int FontSize { get; set; } = 11;
+	public bool SaveBackupWhenFileSave { get; set; } =  false;
+}
+
 public partial class Form1 : Form
 {
     public TextBox? maintextbox;
     public MenuStrip? MainMenuStrip;
     public int currentformheight;
     private string? currentfilename;
+      public string SettingsSavedDirectory;
+    private SettingsJSONSyntax TurnEditSettings;
+    private string SettingsFilePath;
     public Form1()
     {
         InitializeComponent();
         TurnEditPrepare();
+        CreateDefaultSettings();
+        LoadTurnEditSettings();
     }
     public void TurnEditPrepare()
     {
@@ -17,7 +28,7 @@ public partial class Form1 : Form
         this.Size = new Size(1000, 700);
         this.currentformheight = this.Size.Height;
         TurnEditGUI();
-    }
+        }
     public void TurnEditGUI()
     {
         this.MainMenuStrip = new MenuStrip();
@@ -54,7 +65,32 @@ public partial class Form1 : Form
             FileSaveAsMenuItem
         });
         /* "Edit" Menu */
+        ToolStripMenuItem EditMenuItem = new ToolStripMenuItem();
+        EditMenuItem.Name = "EditMenuItem";
+        EditMenuItem.Text = "Edit";
+        ToolStripMenuItem  EditSearchMenuItem = new ToolStripMenuItem();
+        EditSearchMenuItem.Name = "EditSearchMenuItem";
+        EditSearchMenuItem.Text = "Search";
+        EditSearchMenuItem.Click += new EventHandler(this.EditSearchMenuItem_Click);
+        ToolStripMenuItem EditReplaceMenuItem = new ToolStripMenuItem();
+        EditReplaceMenuItem.Name = "EditReplaceMenuItem";
+        EditReplaceMenuItem.Text = "Replace";
+        EditReplaceMenuItem.Click += new EventHandler(this.EditReplaceMenuItem_Click);
+        EditMenuItem.DropDownItems.AddRange(new ToolStripItem[] {
+            EditSearchMenuItem,
+            EditReplaceMenuItem
+        });
         /* "Settings" Menu */
+        ToolStripMenuItem SettingsMenuItem = new ToolStripMenuItem();
+        SettingsMenuItem.Name = "SettingsMenuItem";
+        SettingsMenuItem.Text = "Settings";
+        ToolStripMenuItem SettingsFontMenuItem = new ToolStripMenuItem();
+        SettingsFontMenuItem.Name = "SettingsFontMenuItem";
+        SettingsFontMenuItem.Text = "Font";
+        SettingsFontMenuItem.Click += new EventHandler(this.SettingsFontMenuItem_Click);
+        SettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] {
+            SettingsFontMenuItem
+        });
         /* "Help" Menu */
         ToolStripMenuItem HelpMenuItem = new ToolStripMenuItem();
         HelpMenuItem.Name = "HelpMenuItem";
@@ -68,6 +104,8 @@ public partial class Form1 : Form
         });
         this.MainMenuStrip.Items.AddRange(new ToolStripItem[] {
             FileMenuItem,
+            EditMenuItem,
+            SettingsMenuItem,
             HelpMenuItem
         });
         this.Controls.Add(MainMenuStrip);
@@ -110,5 +148,57 @@ public partial class Form1 : Form
             this.Text = @$"{savefilename} - TurnEdit";
             this.currentfilename = savefilename;
         }
+    }
+    public void EditSearchMenuItem_Click(object? sender, EventArgs e) {
+        var SearchForm = new TurnEditSearchForm(this);
+        SearchForm.Show();
+    }
+    public void EditReplaceMenuItem_Click(object? sender, EventArgs e) {
+        var ReplaceForm = new TurnEditReplaceForm(this);
+        ReplaceForm.Show();
+    }
+    public void SettingsFontMenuItem_Click(object? sender, EventArgs e) {
+        FontDialog fontdlg = new FontDialog();
+        fontdlg.Font = this.maintextbox.Font;
+        if (fontdlg.ShowDialog() == DialogResult.OK) {
+            this.maintextbox.Font = fontdlg.Font;
+            this.TurnEditSettings.FontFamily = fontdlg.Font.FontFamily.Name;
+            this.TurnEditSettings.FontSize = (int)fontdlg.Font.Size;
+            SaveTurnEditSettings(this.TurnEditSettings);
+        }
+    }
+    public void CreateDefaultSettings() {
+    	this.TurnEditSettings = new SettingsJSONSyntax
+    	{
+    		FontFamily = "Segoe UI",
+    		FontSize = 11,
+    		SaveBackupWhenFileSave = false
+    	};
+    }
+    public bool SaveTurnEditSettings(SettingsJSONSyntax settings) {
+    	try {
+    		this.SettingsFilePath = Path.Combine(Application.LocalUserAppDataPath, "turnedit-settings.json");
+    		System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions { WriteIndented = true };
+    		string JSONString = System.Text.Json.JsonSerializer.Serialize(settings, options);
+    		File.WriteAllText(this.SettingsFilePath, JSONString);
+    		return true;
+    	} catch (Exception ex) {
+    		MessageBox.Show($@"Error saving settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    		return false;
+    	}
+    }
+    public bool LoadTurnEditSettings() {
+    	try {
+    	var SettingsJSONPathForLoad = Path.Combine(Application.LocalUserAppDataPath, "turnedit-settings.json");
+    	var SettingsJSONContent = File.ReadAllText(SettingsJSONPathForLoad);
+    	SettingsJSONSyntax DeserializedJSON = System.Text.Json.JsonSerializer.Deserialize<SettingsJSONSyntax>(SettingsJSONContent);
+    	this.maintextbox.Font = new Font(DeserializedJSON.FontFamily, DeserializedJSON.FontSize);
+    	return true;
+    	} catch (Exception ex) {
+    	MessageBox.Show($@"Failed to load settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    	CreateDefaultSettings();
+    	this.maintextbox.Font = new Font(this.TurnEditSettings.FontFamily, this.TurnEditSettings.FontSize);
+    	return false;
+    	}
     }
 }

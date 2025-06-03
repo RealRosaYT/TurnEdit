@@ -1,5 +1,7 @@
 # TurnEdit
 TurnEdit is an simplified text editor written by C#.
+Documents is here.
+日本語版は、こちらからご覧ください。
 ## Features
 - Search
 - Replace

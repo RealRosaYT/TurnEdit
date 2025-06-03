@@ -13,18 +13,22 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\suzki\\Desktop\\turnedit\\TurnEdit.csproj",
+      "projectUniqueName": "C:\\youmu\\projects\\turnedit\\TurnEdit.csproj",
       "projectName": "TurnEdit",
-      "projectPath": "C:\\Users\\suzki\\Desktop\\turnedit\\TurnEdit.csproj",
+      "projectPath": "C:\\youmu\\projects\\turnedit\\TurnEdit.csproj",
       "packagesPath": "C:\\Users\\suzki\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\suzki\\Desktop\\turnedit\\obj\\",
+      "outputPath": "C:\\youmu\\projects\\turnedit\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\suzki\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\suzki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0-windows"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+      },
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",

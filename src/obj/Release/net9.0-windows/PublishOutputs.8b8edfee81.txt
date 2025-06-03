@@ -1,0 +1,5 @@
+C:\youmu\projects\turnedit-release\TurnEdit.exe
+C:\youmu\projects\turnedit-release\TurnEdit.dll
+C:\youmu\projects\turnedit-release\TurnEdit.deps.json
+C:\youmu\projects\turnedit-release\TurnEdit.runtimeconfig.json
+C:\youmu\projects\turnedit-release\TurnEdit.pdb
