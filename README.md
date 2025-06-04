@@ -13,3 +13,7 @@ More feature is coming soon!
 4. Run turnedit-setup.exe as administrator.
 ## Contribute
 [Click here to see how to contribute](https://github.com/suzuki3932/TurnEdit/blob/main/CONTRIBUTING.md).
+## License
+TurnEdit is open-source.
+development by Bacon Hair(Self-proclaimed).
+Licensed by GNU general public license 3.0.
