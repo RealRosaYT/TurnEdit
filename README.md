@@ -31,4 +31,5 @@ More feature is coming soon!
 TurnEdit is open-source.  
 development by Bacon Hair(Self-proclaimed).  
 Licensed by GNU general public license 3.0.  
-[Click this](https://github.com/suzuki3932/TurnEdit?tab=GPL-3.0-1-ov-file) to see license text.
+[Click this](https://github.com/suzuki3932/TurnEdit?tab=GPL-3.0-1-ov-file) to see license text.  
+&copy; 2025 youmu1948 All rights reserved.
