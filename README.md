@@ -15,7 +15,10 @@ Documents is here.
 ![TurnEdit screen shot](https://raw.githubusercontent.com/suzuki3932/TurnEdit/refs/heads/main/screenshots/turnedit-window.JPG)
 More feature is coming soon!
 ## How to install
-1. If not installed .NET Desktop Runtime, [install it](https://dotnet.microsoft.com/download/dotnet/9.0/runtime).
+1. If not installed .NET Desktop Runtime, Run below:
+```
+winget install Microsoft.DotNet.Runtime.9
+```
 3. Download turnedit-setup.exe.
 4. Run turnedit-setup.exe as administrator.
 ## References
