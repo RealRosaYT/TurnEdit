@@ -23,7 +23,7 @@ ArchitecturesAllowed=x64compatible
 ; the 64-bit view of the registry.
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-LicenseFile=C:\youmu\projects\turnedit-repository\LICENSE
+LicenseFile=C:\youmu\projects\turnedit-repository\LICENSE.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 OutputBaseFilename=turnedit-setup
@@ -42,7 +42,6 @@ Source: "C:\youmu\projects\turnedit-release\TurnEdit.dll"; DestDir: "{app}"; Fla
 Source: "C:\youmu\projects\turnedit-release\TurnEdit.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\youmu\projects\turnedit-release\TurnEdit.deps.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\youmu\projects\turnedit-release\TurnEdit.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit\installer\uninstaller\Output\turnedit-uninstall.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

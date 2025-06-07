@@ -28,7 +28,10 @@ public class TurnEditSearchForm : Form {
     public void searchbutton_Clicked(object? sender, EventArgs e) {
         // mainformがnullの場合は何もしない
         if (this.mainform == null) return;
-
+		if (this.mainform.maintextbox is null) {
+			MessageBox.Show("Main text box is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			return;
+		}
         // mainformのmaintextboxからテキストを取得
         string textboxcontent = this.mainform.maintextbox.Text;
         string searchtarget = this.searchtextbox.Text;

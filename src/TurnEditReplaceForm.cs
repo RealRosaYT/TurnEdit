@@ -50,6 +50,10 @@ public class TurnEditReplaceForm : Form {
         if (this.mainformrequirereplace == null) {
             return;
         }
+		if (this.mainformrequirereplace.maintextbox is null) {
+			MessageBox.Show("Main text box is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			return;
+		}
         string textboxcontentforreplace = this.mainformrequirereplace.maintextbox.Text;
         string replacetarget = this.ReplaceTextBx.Text;
         string replacedestination = this.ReplaceDestinationTextBx.Text;
