@@ -42,6 +42,7 @@ Source: "C:\youmu\projects\turnedit-release\TurnEdit.dll"; DestDir: "{app}"; Fla
 Source: "C:\youmu\projects\turnedit-release\TurnEdit.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\youmu\projects\turnedit-release\TurnEdit.deps.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\youmu\projects\turnedit-release\TurnEdit.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\youmu\projects\turnedit-repository\src\turnedit-updater.ps1"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
