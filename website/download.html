@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TurnEdit - an simplified text editor for Windows</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">TurnEdit</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="docs.html">Docs</a>
+        </li>
+		<li class="nav-item">
+			<a class="nav-link active" href="download.html">Download</a>
+		</li>
+    </div>
+  </div>
+</nav>
+<main>
+<h1 style="position: relative;display: block;width: fit-content;margin: 0 auto;">Download TurnEdit</h1>
+<p style="position: relative;display: block;width: fit-content;margin: 0 auto;">Latest release: <span class="latest-release"></span></p>
+<a href="" class="download-button btn btn-primary" style="position: relative;display: block;width: fit-content;margin: 0 auto;" download>Download .exe installer file</a>
+<p style="position: relative;display: block;width: fit-content;margin: 0 auto;"><small>By using TurnEdit, you agree <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank">License agreement</a>.</small></p>
+
+</main>
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+		<li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="docs.html">Docs</a>
+        </li>
+		<li class="nav-item">
+			<a class="nav-link" href="download.html">Download</a>
+		</li>
+    </ul>
+    <p class="text-center text-body-secondary">&copy; 2025 youmu1948, All rights reserved.</p>
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+	<script src="responsive-images.js"></script>
+	<script src="current-version.js"></script>
+	<script>
+		const LatestReleaseDOM = document.querySelector(".latest-release");
+		LatestReleaseDOM.innerText = CurrentTurnEditVersion;
+		
+		const DownloadButtonDOM = document.querySelector(".download-button");
+		DownloadButtonDOM.setAttribute("href", `https://github.com/suzuki3932/TurnEdit/releases/download/${CurrentTurnEditReleaseTag}/turnedit-setup.exe`);
+	</script>
+  </body>
+</html>
