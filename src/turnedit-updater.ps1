@@ -4,7 +4,7 @@ Write-Output "****************************************"
 Write-Output "TurnEdit updater"
 Write-Output "****************************************"
 
-$currentappversion = [version]"1.1"
+$currentappversion = [version]"1.0"
 $apiurl = "https://api.github.com/repos/suzuki3932/TurnEdit/releases"
 $choice = Read-Host "Do you want update TurnEdit(y/n)"
 if ($choice -ceq "y") {

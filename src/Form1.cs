@@ -20,6 +20,7 @@ public partial class Form1 : Form
 	private TurnEditTextCounter? textCounterForm;
 	private StatusStrip? mainstatus;
 	private ToolStripStatusLabel? StatusColumnAndLine;
+	private bool? ChangesUnsaved;
     public Form1()
     {
         InitializeComponent();
@@ -32,8 +33,13 @@ public partial class Form1 : Form
 		this.textCounterForm = new TurnEditTextCounter(this);
         this.Text = "New File - TurnEdit";
         this.Size = new Size(1000, 700);
+		var IconPath = @Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-icon.ico");
+		if (File.Exists(IconPath)) {
+			this.Icon = new Icon(IconPath);
+		}
         this.currentformheight = this.Size.Height;
         TurnEditGUI();
+		this.ChangesUnsaved = false;
 		// this.textCounterForm = new TurnEditTextCounter(this);
         }
     public void TurnEditGUI()
@@ -151,17 +157,105 @@ public partial class Form1 : Form
 		this.Controls.Add(this.mainstatus);
 		this.maintextbox.TextChanged += new EventHandler(this.maintextboxTextChangedEvent);
 		this.maintextbox.KeyUp += new KeyEventHandler(this.maintextbox_KeyUp);
+		this.FormClosing += new FormClosingEventHandler(this.mainform_closing);
+		UpdateColumnAndLineStatus();
     }
-	public void maintextbox_KeyUp(object? sender, KeyEventArgs e) {
+	public Form1(string filePath) : this()
+	{
+			try {
+				if (File.Exists(filePath)) {
+					string OpenFileContent = File.ReadAllText(filePath);
+					this.maintextbox!.Text = OpenFileContent;
+					this.Text = @$"{filePath} - TurnEdit";
+					this.currentfilename = filePath;
+					this.ChangesUnsaved = false;
+				} else {
+					MessageBox.Show($@"File {filePath} not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			} catch (Exception ex) {
+				MessageBox.Show($@"An error occurred during opening file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+	}
+	public void mainform_closing(object? sender, FormClosingEventArgs e) {
+		if (ChangesUnsaved == true) {
+			DialogResult result = MessageBox.Show(
+			"Changes are unsaved. do you want save changes?",
+			"Warning",
+			MessageBoxButtons.YesNoCancel,
+			MessageBoxIcon.Warning
+			);
+		if (result == DialogResult.Yes) {
+			bool savesuccessful;
+			if (currentfilename is not null) {
+				savesuccessful = SaveCurrentFile();
+			} else {
+				savesuccessful = SaveAs();
+			}
+			if (!savesuccessful) {
+				e.Cancel = true;
+			}
+		} else if (result == DialogResult.No) {
 		
+		} else {
+			e.Cancel = true;
+		}
+		}
+	}
+	public void maintextbox_KeyUp(object? sender, KeyEventArgs e) {
+		UpdateColumnAndLineStatus();
 	}
 	public void UpdateColumnAndLineStatus() {
+		if (this.maintextbox!.Text.Length == 0) {
+			this.StatusColumnAndLine!.Text = "Line: 0 Column: 0";
+			return;
+		}
+		int caretPosition = this.maintextbox.SelectionStart;
+		int line = this.maintextbox.GetLineFromCharIndex(caretPosition);
+		int displayLine = line + 1;
 		
+		int firstCharOfLine = this.maintextbox.GetFirstCharIndexFromLine(line);
+		int column = caretPosition - firstCharOfLine + 1;
+		this.StatusColumnAndLine!.Text = $"Line: {displayLine} Column: {column}";
+	}
+	public bool SaveAs() {
+		try {
+			SaveFileDialog savedialog = new SaveFileDialog();
+			savedialog.ShowHelp = true;
+			savedialog.Filter = "Text file (*.txt)|*.txt|All file (*.*)|*.*";
+			if (savedialog.ShowDialog() == DialogResult.OK) {
+				string savefilename = savedialog.FileName;
+				File.WriteAllText(savefilename, this.maintextbox!.Text);
+				this.Text = @$"{savefilename} - TurnEdit";
+				this.currentfilename = savefilename;
+				this.ChangesUnsaved = false;
+				return true;
+			}
+			return false;
+		} catch (Exception ex) {
+			MessageBox.Show($"Error saving file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			return false;
+		}
+	}
+	public bool SaveCurrentFile() {
+		if (this.currentfilename != null) {
+			try {
+				File.WriteAllText(this.currentfilename!, this.maintextbox!.Text);
+				this.ChangesUnsaved = false;
+				return true;
+			} catch (Exception ex) {
+				MessageBox.Show($@"Failed to save file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+		} else {
+			MessageBox.Show("Please open file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			return false;
+		}
 	}
     public void FileNewMenuItem_Click(object? sender, EventArgs e)
     {
         this.maintextbox!.Clear();
 		this.currentfilename = null;
+		this.ChangesUnsaved = true;
     }
     public void HelpAboutMenuItem_Clicked(object? sender, EventArgs e) {
         var AboutForm = new TurnEditAboutForm();
@@ -178,18 +272,11 @@ public partial class Form1 : Form
             this.maintextbox!.Text = OpenFileContent;
             this.Text = @$"{OpenedFileName} - TurnEdit";
             this.currentfilename = OpenedFileName;
+			this.ChangesUnsaved = false;
         }
     }
     public void FileSaveAsMenuItem_Click(object? sender, EventArgs e) {
-        SaveFileDialog savedialog = new SaveFileDialog();
-        savedialog.ShowHelp = true;
-        savedialog.Filter = "Text file (*.txt)|*.txt|All file (*.*)|*.*";
-        if (savedialog.ShowDialog() == DialogResult.OK) {
-            string savefilename = savedialog.FileName;
-            File.WriteAllText(savefilename, this.maintextbox!.Text);
-            this.Text = @$"{savefilename} - TurnEdit";
-            this.currentfilename = savefilename;
-        }
+        SaveAs();
     }
 	public void FileExitMenuItem_Click(object? sender, EventArgs e) {
 		Application.Exit();
@@ -263,17 +350,10 @@ public partial class Form1 : Form
 	public void maintextboxTextChangedEvent(object? sender, EventArgs e) {
 		
 		this.textCounterForm!.UpdateCounter();
+		this.ChangesUnsaved = true;
 	}
 	public void FileSaveMenuItem_Click(object? sender, EventArgs e) {
-		if (this.currentfilename != null) {
-			try {
-				File.WriteAllText(this.currentfilename!, this.maintextbox!.Text);
-			} catch (Exception ex) {
-				MessageBox.Show($@"Failed to save file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		} else {
-			MessageBox.Show("Please open file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-		}
+		SaveCurrentFile();
 	}
 	public void HelpOnlineMenuItem_Click(object? sender, EventArgs e) {
 		try {

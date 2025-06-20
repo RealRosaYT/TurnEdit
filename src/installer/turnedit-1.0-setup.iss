@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TurnEdit"
-#define MyAppVersion "1.1"
+#define MyAppVersion "1.2"
 #define MyAppExeName "TurnEdit.exe"
 
 [Setup]
@@ -28,7 +28,7 @@ LicenseFile=C:\youmu\projects\turnedit-repository\LICENSE.md
 ;PrivilegesRequired=lowest
 OutputBaseFilename=turnedit-setup
 SolidCompression=yes
-WizardStyle=modern
+WizardStyle=classic
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -37,12 +37,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\youmu\projects\turnedit-release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit-release\TurnEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit-release\TurnEdit.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit-release\TurnEdit.deps.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit-release\TurnEdit.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit-repository\src\turnedit-updater.ps1"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\youmu\projects\turnedit\bin\Release\net9.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\youmu\projects\turnedit\bin\Debug\net9.0-windows\turnedit-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

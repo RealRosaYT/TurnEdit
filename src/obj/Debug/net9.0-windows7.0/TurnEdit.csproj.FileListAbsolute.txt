@@ -1,0 +1,14 @@
+C:\youmu\projects\turnedit\bin\Debug\net9.0-windows7.0\TurnEdit.exe
+C:\youmu\projects\turnedit\bin\Debug\net9.0-windows7.0\TurnEdit.deps.json
+C:\youmu\projects\turnedit\bin\Debug\net9.0-windows7.0\TurnEdit.runtimeconfig.json
+C:\youmu\projects\turnedit\bin\Debug\net9.0-windows7.0\TurnEdit.dll
+C:\youmu\projects\turnedit\bin\Debug\net9.0-windows7.0\TurnEdit.pdb
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.GeneratedMSBuildEditorConfig.editorconfig
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.AssemblyInfoInputs.cache
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.AssemblyInfo.cs
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.csproj.CoreCompileInputs.cache
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.dll
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\refint\TurnEdit.dll
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.pdb
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\TurnEdit.genruntimeconfig.cache
+C:\youmu\projects\turnedit\obj\Debug\net9.0-windows7.0\ref\TurnEdit.dll
