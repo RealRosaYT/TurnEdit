@@ -16,3 +16,4 @@ dotnet clean
 dotnet build
 ```
 4. And then write code.
+5. If errors occurred, please contact to issue of this repository.
