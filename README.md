@@ -21,8 +21,8 @@ More feature is coming soon!
 ## What's "Under construction" text?  
 The "Under construction" text was developing feature, that feature may be not work.  
 ## Source code  
-You can download source code in releases.  
-if redistribute or change code, please add credit.  
+<p>You can download source code in releases.</p>
+<p>if redistribute or change code, please add credit.</p>  
 [Please read README_SOURCE.md](src/README_SOURCE.md).  
 ===========  
 ## Contribute
