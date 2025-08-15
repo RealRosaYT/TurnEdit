@@ -8,7 +8,6 @@ If know .NET C# and Windows Forms, you can contribute.
 ## Optional component for contribute
 1. Visual Studio
 ## How to Contribute
-<<<<<<< HEAD
 1. [Download Source](https://github.com/suzuki3932/TurnEdit/releases/).
 2. Edit code.
 3. Build the project.
@@ -23,4 +22,3 @@ dotnet build
 ```
 4. And then write code.
 5. If errors occurred, please contact to issue of this repository.
->>>>>>> 3a41892be58bac2e481a6253addd1bb145000cdc
