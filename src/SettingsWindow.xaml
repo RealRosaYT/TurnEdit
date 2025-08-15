@@ -1,0 +1,54 @@
+﻿<Window x:Class="TurnEdit.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TurnEdit"
+        mc:Ignorable="d"
+        Title="Settings" Height="530" Width="350" ResizeMode="NoResize">
+    <StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TabControl Height="420">
+                <TabItem Header="Design">
+                    <StackPanel Background="#FFE5E5E5">
+                        <TextBlock Text="Font" Margin="10" />
+                        <ComboBox Margin="10" x:Name="txtfnt" ItemsSource="{x:Static Fonts.SystemFontFamilies}"></ComboBox>
+                        <TextBlock Text="Mode(Under construction)" Margin="10" />
+                        <ComboBox Margin="10" x:Name="thememd">
+                            <ComboBoxItem Content="Light" IsSelected="True" />
+                            <ComboBoxItem Content="Dark" />
+                            <ComboBoxItem Content="Auto" />
+                        </ComboBox>
+                        <TextBlock Text="Font Size" Margin="10" />
+                        <TextBox x:Name="fontSize" Margin="10" PreviewTextInput="fontSize_PreviewTextInput" />
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="File/Folder">
+                    <StackPanel Margin="10">
+                        <CheckBox Content="Deny file double open(Under construction)" Margin="10" IsChecked="False" x:Name="denyFiledblOpen" />
+                        <CheckBox Content="Create file when file not exists" Margin="10" IsChecked="True" x:Name="createFileWhenFNotExists" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Default directory" Margin="10" />
+                            <CheckBox IsChecked="False" Margin="10" x:Name="defaultDirectoryEnabled" Click="defaultDirectoryEnabled_Click" />
+                        </StackPanel>
+                        <TextBox x:Name="defaultDirectory" IsEnabled="False" />
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Others">
+                    <StackPanel>
+                        <TextBlock Text="Language(Under construction)" Margin="10"/>
+                        <ComboBox x:Name="languageCmbBox" Margin="10">
+                            <ComboBoxItem Content="English" IsSelected="True" x:Name="englishLanguage" />
+                            <ComboBoxItem Content="Japanese(日本語)" x:Name="japaneseLanguage" />
+                        </ComboBox>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+            <Button Content="Apply" Padding="5" Margin="10" x:Name="applySettings" Click="applySettings_Click" />
+            <Button Content="OK" Padding="5" Margin="10" x:Name="okSettings" Click="okSettings_Click" />
+            <Button Content="Cancel" Padding="5" Margin="10" x:Name="cancelSettings" Click="cancelSettings_Click" />
+        </StackPanel>
+    </StackPanel>
+</Window>

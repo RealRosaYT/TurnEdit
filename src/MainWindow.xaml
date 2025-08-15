@@ -1,0 +1,44 @@
+﻿<Window x:Class="TurnEdit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TurnEdit"
+        mc:Ignorable="d"
+        Title="New File - TurnEdit" Height="450" Width="800" KeyDown="Window_KeyDown" Closing="Window_Closing">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" x:Name="mainMenu">
+            <MenuItem Header="File">
+                <MenuItem Header="New" x:Name="newFileNav" Click="newFileNav_Click" InputGestureText="Ctrl+N" />
+                <MenuItem Header="Open" x:Name="openNav" Click="openNav_Click" InputGestureText="Ctrl+O" />
+                <MenuItem Header="Save" x:Name="saveNav" Click="saveNav_Click" InputGestureText="Ctrl+S" />
+                <MenuItem Header="Save As" x:Name="saveAsNav" Click="saveAsNav_Click" InputGestureText="Ctrl+S" />
+                <MenuItem Header="Exit" x:Name="exitNav" Click="ExitTurnEdit" InputGestureText="Alt+F4" />
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Settings" x:Name="settingsNav" Click="settingsNav_Click" />
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Search" x:Name="searchNav" Click="searchNav_Click" InputGestureText="Ctrl+F" />
+                <MenuItem Header="Replace" x:Name="replaceNav" Click="replaceNav_Click" InputGestureText="Ctrl+H" />
+                <MenuItem Header="Insert date and time" x:Name="insertDateAndTimeNav" Click="insertDateAndTimeNav_Click" />
+            </MenuItem>
+            <MenuItem Header="Help">
+				<MenuItem Header="Help" x:Name="helpNav" Click="helpNav_Click" />
+                <MenuItem Header="About TurnEdit" x:Name="aboutTurnEditNav" Click="aboutTurnEditNav_Click" />
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Line: 0" x:Name="lineStatus" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Column: 0" x:Name="columnStatus" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Total text count(includes returning code): 0" x:Name="totalTextCount" />
+            </StatusBarItem>
+        </StatusBar>
+        <TextBox x:Name="mainTextBox" x:FieldModifier="public" FontFamily="Segoe UI" AcceptsReturn="True" KeyUp="mainTextBox_KeyUp" TextChanged="mainTextBox_TextChanged" />
+    </DockPanel>
+</Window>

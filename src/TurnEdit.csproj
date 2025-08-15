@@ -4,13 +4,17 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-	<Version>1.2.0</Version>
-	<AssemblyVersion>1.2.0.0</AssemblyVersion>
-	<FileVersion>1.2.0.0</FileVersion>
-	<InformationalVersion>1.2.0.0</InformationalVersion>
-	<ApplicationIcon>C:\youmu\projects\turnedit\bin\Debug\net9.0-windows\turnedit-icon.ico</ApplicationIcon>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>turnedit-icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="turnedit-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+  </ItemGroup>
 
 </Project>

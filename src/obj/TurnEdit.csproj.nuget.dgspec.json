@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\youmu\\projects\\turnedit\\TurnEdit.csproj": {}
+    "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\TurnEdit.csproj": {}
   },
   "projects": {
-    "C:\\youmu\\projects\\turnedit\\TurnEdit.csproj": {
-      "version": "1.2.0",
+    "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\TurnEdit.csproj": {
+      "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\youmu\\projects\\turnedit\\TurnEdit.csproj",
+        "projectUniqueName": "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\TurnEdit.csproj",
         "projectName": "TurnEdit",
-        "projectPath": "C:\\youmu\\projects\\turnedit\\TurnEdit.csproj",
+        "projectPath": "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\TurnEdit.csproj",
         "packagesPath": "C:\\Users\\suzki\\.nuget\\packages\\",
-        "outputPath": "C:\\youmu\\projects\\turnedit\\obj\\",
+        "outputPath": "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\suzki\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +44,12 @@
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
+          "dependencies": {
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[5.2.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -58,26 +64,26 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[9.0.6, 9.0.6]"
+              "version": "[9.0.8, 9.0.8]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[9.0.6, 9.0.6]"
+              "version": "[9.0.8, 9.0.8]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[9.0.6, 9.0.6]"
+              "version": "[9.0.8, 9.0.8]"
             }
           ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "Microsoft.WindowsDesktop.App.WPF": {
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

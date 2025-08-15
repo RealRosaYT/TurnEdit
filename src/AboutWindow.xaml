@@ -1,0 +1,19 @@
+﻿<Window x:Class="TurnEdit.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TurnEdit"
+        mc:Ignorable="d"
+        Title="About TurnEdit" Height="270" Width="800" ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Margin="7">
+            <TextBlock Text="TurnEdit Version 1.3" FontSize="20" />
+        </StackPanel>
+        <TextBlock Text="Copyright (c) 2025 youmu1948 All Rights Reserved." Margin="5" />
+        <TextBlock Text="This text editor licensed by GNU GPL 3.0." Margin="5" />
+        <TextBlock Text="AppData:" x:Name="appdataForDebug" Margin="5" />
+        <TextBlock Text="Installed directory: " Margin="5" x:Name="installedDirectory"  />
+        <Button Content="OK" Margin="3" x:Name="okButton" Click="okButton_Click" />
+    </StackPanel>
+</Window>

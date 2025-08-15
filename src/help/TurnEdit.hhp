@@ -1,0 +1,30 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=turnedit-help.chm
+Contents file=TurnEdit-Help-TOC.hhc
+Default Window=TurnEdit
+Default topic=index.htm
+Display compile progress=Yes
+Index file=TurnEdit-Help-Index.hhk
+Language=0x409 âpåÍ (ïƒçë)
+
+[WINDOWS]
+TurnEdit="TurnEdit - Help","TurnEdit-Help-TOC.hhc",,"index.htm",,,,,,0x2120,,0x3006,,,,,,,,0
+
+
+[FILES]
+index.htm
+select.htm
+basic-usage.htm
+installation.htm
+indent.htm
+menus.htm
+file.htm
+insert-date.htm
+open-file.htm
+save-file.htm
+search-replace.htm
+usuful-tools.htm
+
+[INFOTYPES]
+
