@@ -24,7 +24,6 @@ The "Under construction" text was developing feature, that feature may be not wo
 You can download source code in releases.
 if redistribute or change code, please add credit.  
 [Please read README_SOURCE.md](src/README_SOURCE.md).  
-===========  
 ## Contribute
 [Click here to see how to contribute](https://github.com/suzuki3932/TurnEdit/blob/main/CONTRIBUTING.md).
 ## Others
