@@ -17,12 +17,22 @@ More feature is coming soon!
 ## How to install
 1. Download turnedit-setup.exe.
 2. Run turnedit-setup.exe as administrator.
+<<<<<<< HEAD
 ## What's "Under construction" text?
 The "Under construction" text was developing feature, that feature may be not work.
 ## Source code
 You can download source code in releases.
 if redistribute or change code, please add credit.
 [Please read README_SOURCE.md](src/README_SOURCE.md).
+=======
+## References
+- System
+- System.IO
+- System.Drawing
+- System.Windows.Forms
+- System.Text.Json
+- System.Text.Encodings.Web
+>>>>>>> 3a41892be58bac2e481a6253addd1bb145000cdc
 ## Contribute
 [Click here to see how to contribute](https://github.com/suzuki3932/TurnEdit/blob/main/CONTRIBUTING.md).
 ## Others
