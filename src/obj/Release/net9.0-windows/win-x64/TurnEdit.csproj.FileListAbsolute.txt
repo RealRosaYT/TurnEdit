@@ -422,3 +422,5 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.pdb
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.genruntimeconfig.cache
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\ref\TurnEdit.dll
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Wpf.Ui.dll
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Wpf.Ui.Abstractions.dll

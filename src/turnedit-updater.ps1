@@ -4,7 +4,7 @@ Write-Output "****************************************"
 Write-Output "TurnEdit updater"
 Write-Output "****************************************"
 
-$currentappversion = [version]"1.0"
+$currentappversion = [version]"1.3.1"
 $apiurl = "https://api.github.com/repos/suzuki3932/TurnEdit/releases"
 $choice = Read-Host "Do you want update TurnEdit(y/n)"
 if ($choice -ceq "y") {
@@ -84,6 +84,7 @@ if ($choice -ceq "y") {
     Write-Output "Canceled."
     Write-Output "Press any key to continue..."
     Read-Host | Out-Null
+    Exit 2
 } else {
     Write-Error "The selection is invalid."
     Write-Output "Press any key to continue..."

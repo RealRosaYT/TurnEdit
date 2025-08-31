@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TurnEdit"
-#define MyAppVersion "1.2"
+#define MyAppVersion "1.5"
 #define MyAppExeName "TurnEdit.exe"
 
 [Setup]
@@ -32,13 +32,17 @@ WizardStyle=classic
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\youmu\projects\turnedit\bin\Release\net9.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\youmu\projects\turnedit\bin\Debug\net9.0-windows\turnedit-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\turnedit-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\youmu\projects\turnedit-updater\bin\Release\net9.0-windows\win-x64\publish\TurnEditUpdater.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\japanese\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion; Languages: japanese
+Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\english\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion; Languages: english
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

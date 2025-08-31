@@ -22,6 +22,8 @@ namespace TurnEdit
     {
         private bool? CreateFileFileNotExists;
         private string? DefaultDirectory;
+		public string? TurnEditLanguage;
+		private string[] msgboxStringsMain;
         public class TurnEditSettings
         {
             public bool DenyFileDoubleOpen { get; set; }
@@ -30,6 +32,7 @@ namespace TurnEdit
             public string? ThemeMode { get; set; }
             public string? TextFont { get; set; }
             public double TextFontSize { get; set; }
+			public string? language { get; set; }
         }
         public bool CheckSettingsFileExists()
         {
@@ -65,11 +68,118 @@ namespace TurnEdit
                 {
                     this.DefaultDirectory = null;
                 }
+                if (obj.ThemeMode == "Light" || obj.ThemeMode == "ライト")
+                {
+                    this.AppTheme = "Light";
+                } else if (obj.ThemeMode == "Dark" || obj.ThemeMode == "ダーク")
+                {
+                    this.AppTheme = "Dark";
+                } else if (obj.ThemeMode == "Auto" || obj.ThemeMode == "自動")
+                {
+                    this.AppTheme = "Auto";
+                }
+				LoadTurnEditLanguage(obj.language);
+				this.TurnEditLanguage = obj.language;
+				InitlaizeMsgboxStrings(obj.language);
+            
             } catch (Exception ex)
             {
                 MessageBox.Show("Failed to load settings. more information is available on debug console.\r\nTurnEdit is using default settings.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Debug.WriteLine($"TurnEdit: error: failed to load settings:\r\n{ex.Message}");
+                mainTextBox.FontSize = 13;
+                this.CreateFileFileNotExists = false;
+                FontFamily fontDefault = new FontFamily("Segoe UI");
+                mainTextBox.FontFamily = fontDefault;
+                this.DefaultDirectory = null;
+                this.AppTheme = "Light";
+				this.TurnEditLanguage = "en-US";
             }
         }
+		/// <summary>
+		/// This method loads TurnEdit language.
+		/// </summary>
+		// <param name="languageCode">Language code(example: en-US)</param>
+		public void LoadTurnEditLanguage(string languageCode) {
+			if (languageCode == "ja-JP") {
+				fileNav.Header = "ファイル";
+				viewNav.Header = "表示";
+				editNav.Header = "編集";
+				windowNav.Header = "ウィンドウ";
+				helpNav.Header = "ヘルプ";
+				newFileNav.Header = "新規作成";
+				openNav.Header = "開く";
+				saveNav.Header = "上書き保存";
+				saveAsNav.Header = "名前を付けて保存";
+				//recentlyOpenedFile.Header = "最近開いたファイル";
+				exitNav.Header = "終了";
+				settingsNav.Header = "設定";
+				searchNav.Header = "検索";
+				replaceNav.Header = "置換";
+				insertDateAndTimeNav.Header = "日付と時刻を挿入";
+				undoNav.Header = "元に戻す";
+				redoNav.Header = "やり直す";
+				cutNav.Header = "切り取り";
+				copyNav.Header = "コピー";
+				pasteNav.Header = "貼り付け";
+				pasteWithQuotes.Header = "引用符付きで貼り付け";
+				deleteCurrentLine.Header = "現在の行を削除";
+				selectAllNav.Header = "すべて選択";
+				newWindowNav.Header = "新規ウィンドウ";
+				helpNav.Header = "ヘルプ";
+				helpOfflineNav.Header = "ヘルプ";
+				aboutTurnEditNav.Header = "バージョン情報";
+				updaterNav.Header = "TurnEdit をアップデート";
+				searchOnGoogle.Header = "Googleで検索";
+				searchOnBing.Header = "Bingで検索";
+				searchEngineNav.Header = "検索";
+				this.Title = "無題 - TurnEdit";
+				lineStatus.Text = "行: 1";
+				columnStatus.Text = "列: 1";
+				totalTextCount.Text = "文字の総数: 0";
+			}
+		}
+		private void InitlaizeMsgboxStrings(string languageCode2) {
+			if (languageCode2 == "ja-JP") {
+			this.msgboxStringsMain[0] = "「path」は許可されていないパスです。";
+			this.msgboxStringsMain[1] = "入出力エラーによりファイルを開く操作が失敗しました。";
+			this.msgboxStringsMain[2] = "予期しないエラーによりファイルを開く操作が失敗しました。";
+			this.msgboxStringsMain[3] = "ファイルを開いてください。";
+			this.msgboxStringsMain[4] = "入出力エラーによりファイル保存が失敗しました。";
+			this.msgboxStringsMain[5] = "予期しないエラーによりファイル保存が失敗しました。";
+			this.msgboxStringsMain[6] = "変更が保存されていません。変更を保存しますか?";
+			this.msgboxStringsMain[7] = "入出力エラーによりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
+			this.msgboxStringsMain[8] = "セキュリティ違反によりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
+			this.msgboxStringsMain[9] = "予期しないエラーによりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
+			this.msgboxStringsMain[10] = "ヘルプファイルが見つかりません。";
+			this.msgboxStringsMain[11] = "ヘルプを開けませんでした: exc";
+			this.msgboxStringsMain[12] = "クリップボードのアクセス中にエラーが発生しました。";
+			this.msgboxStringsMain[13] = "エラー";
+			this.msgboxStringsMain[14] = "警告";
+			this.msgboxStringsMain[15] = "セキュリティ違反";
+			this.msgboxStringsMain[16] = "アップデーターを開けませんでした: ";
+			this.msgboxStringsMain[17] = "アップデーターの実行ファイルが見つかりません。";
+			this.msgboxStringsMain[18] = "ファイルが大き過ぎます。最大のファイルサイズは50MBです。";
+			} else if (languageCode2 == "en-US") {
+			this.msgboxStringsMain[0] = "path is not allowed path.";
+			this.msgboxStringsMain[1] = "File opening failed because I/O error.";
+			this.msgboxStringsMain[2] = "File opening failed because unexpected error.";
+			this.msgboxStringsMain[3] = "Please open file.";
+			this.msgboxStringsMain[4] = "Failed to save file because I/O error.";
+			this.msgboxStringsMain[5] = "Failed to save file because unexpected error.";
+			this.msgboxStringsMain[6] = "Changes are unsaved. do you want save a changes?";
+			this.msgboxStringsMain[7] = "Window closing failed because I/O error. unsaved changes will be destroyed, please force exit TurnEdit.";
+			this.msgboxStringsMain[8] = "Window closing failed because security violation. unsaved changes will be destroyed, please force exit TurnEdit.";
+			this.msgboxStringsMain[9] = "Window closing failed because unexpected error. unsaved changes will be destroyed, please force exit TurnEdit.";
+			this.msgboxStringsMain[10] = "Help file not found.";
+			this.msgboxStringsMain[11] = "Failed to open help: ";
+			this.msgboxStringsMain[12] = "Error accessing clipboard.";
+			this.msgboxStringsMain[13] = "Error";
+			this.msgboxStringsMain[14] = "Warning";
+			this.msgboxStringsMain[15] = "Security violation";
+			this.msgboxStringsMain[16] = "Error opening updater: ";
+			this.msgboxStringsMain[17] = "Updater executable file not found.";
+			this.msgboxStringsMain[18] = "File is too big. maximum file size is 50MB.";
+			}
+		}
     }
 }

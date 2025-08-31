@@ -31,5 +31,7 @@ C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\bin\Debug\net9.0-windows\Materi
 C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\bin\Debug\net9.0-windows\Microsoft.Xaml.Behaviors.dll
 C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\obj\Debug\net9.0-windows\TurnEdit.csproj.AssemblyReference.cache
 C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\obj\Debug\net9.0-windows\TurnEdit.csproj.Up2Date
-C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\obj\Debug\net9.0-windows\App.baml
 C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\obj\Debug\net9.0-windows\TurnEdit_Content.g.cs
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Debug\net9.0-windows\App.baml
+C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\bin\Debug\net9.0-windows\Wpf.Ui.dll
+C:\youmu\projects\Turnedit-wpf\TurnEdit\TurnEdit\bin\Debug\net9.0-windows\Wpf.Ui.Abstractions.dll

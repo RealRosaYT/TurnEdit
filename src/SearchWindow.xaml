@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Search" Height="195" Width="300" ResizeMode="NoResize">
     <StackPanel>
-        <TextBlock Text="Search text" Margin="10" FontSize="15" />
+        <TextBlock Text="Search text" Margin="10" FontSize="15" x:Name="searchTextblk" />
         <TextBox Margin="10" x:Name="searchText" />
         <StackPanel Orientation="Horizontal">
             <Button Content="Search" Width="100" Margin="10" x:Name="searchButton" Click="searchButton_Click" />

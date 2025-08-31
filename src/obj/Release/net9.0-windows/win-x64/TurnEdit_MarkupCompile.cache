@@ -1,5 +1,5 @@
 ﻿TurnEdit
-
+1.5
 
 winexe
 C#
@@ -12,8 +12,8 @@ TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\App.xaml
 52070060177
 11597911044
-10648172838
-203674938996
+11-1555507185
+205-1251860221
 AboutWindow.xaml;MainWindow.xaml;ReplaceWindow.xaml;SearchWindow.xaml;SettingsWindow.xaml;
 
 False

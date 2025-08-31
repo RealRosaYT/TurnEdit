@@ -1,0 +1,9 @@
+{
+  "DenyFileDoubleOpen": true,
+  "CreateFileWhenFileNotExists": true,
+  "DefaultDirectoryWhenFileOpen": "",
+  "ThemeMode": "Light",
+  "TextFont": "MS Gothic",
+  "TextFontSize": 15,
+  "language": "ja-JP"
+}

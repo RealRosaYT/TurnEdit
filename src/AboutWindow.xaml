@@ -8,10 +8,10 @@
         Title="About TurnEdit" Height="270" Width="800" ResizeMode="NoResize">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal" Margin="7">
-            <TextBlock Text="TurnEdit Version 1.3" FontSize="20" />
+            <TextBlock Text="TurnEdit Version 0.0" FontSize="20" x:Name="versionText" />
         </StackPanel>
         <TextBlock Text="Copyright (c) 2025 youmu1948 All Rights Reserved." Margin="5" />
-        <TextBlock Text="This text editor licensed by GNU GPL 3.0." Margin="5" />
+        <TextBlock Text="This text editor licensed by GNU GPL 3.0." x:Name="licenseText" Margin="5" />
         <TextBlock Text="AppData:" x:Name="appdataForDebug" Margin="5" />
         <TextBlock Text="Installed directory: " Margin="5" x:Name="installedDirectory"  />
         <Button Content="OK" Margin="3" x:Name="okButton" Click="okButton_Click" />

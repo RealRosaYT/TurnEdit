@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         Title="Replace" Height="310" Width="300" ResizeMode="NoResize">
     <StackPanel>
-        <TextBlock Text="What to replace" Margin="10" FontSize="15" />
+        <TextBlock Text="What to replace" Margin="10" FontSize="15" x:Name="whatToReplaceTextBlk" />
         <TextBox x:Name="whatToReplace" Margin="10" FontSize="15"></TextBox>
-        <TextBlock Text="Replace destination" Margin="10" FontSize="15" />
+        <TextBlock Text="Replace destination" Margin="10" FontSize="15" x:Name="replaceDestinationTextBlk" />
         <TextBox x:Name="replaceDestination" Margin="10" FontSize="15"></TextBox>
         <StackPanel Orientation="Horizontal">
             <Button Content="Replace" Margin="10" x:Name="replaceButton" Click="replaceButton_Click" />
+            <Button Content="Replace all" Margin="10" x:Name="replaceAllButton" Click="replaceAllButton_Click" />
             <Button Content="Cancel" Margin="10" x:Name="cancelReplaceButton" Click="cancelReplaceButton_Click" />
         </StackPanel>
     </StackPanel>
