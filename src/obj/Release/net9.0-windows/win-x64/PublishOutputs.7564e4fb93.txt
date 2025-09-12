@@ -392,8 +392,3 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\zh-Hant\UIAutomationProvider.resources.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\zh-Hant\UIAutomationTypes.resources.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\zh-Hant\WindowsBase.resources.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\MaterialDesignColors.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\MaterialDesignThemes.Wpf.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\Microsoft.Xaml.Behaviors.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\Wpf.Ui.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\Wpf.Ui.Abstractions.dll

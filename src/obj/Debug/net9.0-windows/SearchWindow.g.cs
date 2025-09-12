@@ -84,7 +84,7 @@ namespace TurnEdit {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TurnEdit;V1.5;component/searchwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TurnEdit;V1.6;component/searchwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SearchWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -14,39 +14,75 @@ using Microsoft.Win32;
 using System.Configuration;
 using System.Windows.Media.TextFormatting;
 using System.Diagnostics;
-using System.Text.Json;
 using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Security;
+using System.Windows.Controls.Ribbon;
 
 namespace TurnEdit
 {
+	using System.Text.Json;
+	using System.Text.Json.Serialization;
+	public class GitHubRelease {
+		[JsonPropertyName("tag_name")]
+		public string? TagName {get; set;}
+	}
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// The TurnEdit main window
     /// </summary>
     public partial class MainWindow : Window
     {
+		private static MainWindow _instance;
         public bool IsFileOpened;
         public string? currentFileName;
         public bool ChangesUnsaved;
         public string? AppTheme;
+        public string? CommandLineArgumentFileName;
+		public bool? AcssFromApp;
         // public  List<string>? recentFiles;
         public MainWindow()
         {
+            //this.CommandLineArgumentFileName = null;
             InitializeComponent();
             this.IsFileOpened = false;
             this.currentFileName = null;
-			this.msgboxStringsMain = new string[19];
+            this.msgboxStringsMain = new string[28];
             mainTextBox.Width = this.Width;
             mainTextBox.Height = this.Height - mainMenu.Height;
             this.CreateFileFileNotExists = null;
             this.SizeChanged += new SizeChangedEventHandler(sizeChangedEvent);
             this.ChangesUnsaved = false;
-			this.TurnEditLanguage = "en-US";
-			InitlaizeMsgboxStrings("en-US");
+            this.TurnEditLanguage = "en-US";
+            InitlaizeMsgboxStrings("en-US");
             LoadTurnEditSettings();
+            try
+            {
+                PluginLoader.InitPluginAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this.msgboxStringsMain[19], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+                Debug.WriteLine("TurnEdit: error: error loading plugins: " + ex.Message);
+            }
+            this.MouseLeftButtonDown += new MouseButtonEventHandler(this.MainWindow_MouseLeftButtonDown);
             // this.StateChanged += MainWindow_StateChanged;
+            // this is using when officially released
+            //this.ThemeMode = ThemeMode.Light;
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.OnUnhandledException);
+			CheckTurnEditUpdate();
         }
+		public MainWindow(string filePath) : this() {
+			OpenInCommandLineArgument(filePath);
+		}
+		public static MainWindow Instance {
+			get {
+				if (_instance == null) {
+					_instance = new MainWindow();
+				}
+				return _instance;
+			}
+		}
+		
         /*
         private void MainWindow_StateChanged(object? sender, EventArgs e)
         {
@@ -57,26 +93,65 @@ namespace TurnEdit
             }
         }
         */
-
-		public bool IsPathSafe(string filePath) {
-			string[] forbiddenDirectories = {
-				@"C:\Windows\",
-				@"C:\Program Files\",
-				@"C:\Program Files (x86)\",
-				Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-				Environment.GetFolderPath(Environment.SpecialFolder.System),
-				Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-				System.IO.Path.GetTempPath()
-			};
-			string fullPath = System.IO.Path.GetFullPath(filePath);
-			foreach (string forbiddenDirectory in forbiddenDirectories) {
-				string normalizedForbiddenDirectory = System.IO.Path.GetFullPath(forbiddenDirectory);
-				if (fullPath.StartsWith(normalizedForbiddenDirectory, StringComparison.OrdinalIgnoreCase)) {
-					throw new System.Security.SecurityException(this.msgboxStringsMain[0].Replace("path", filePath));
+		
+		private async void CheckTurnEditUpdate() {
+			try {
+			Version version = Version.Parse(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+			var client = new System.Net.Http.HttpClient();
+			client.DefaultRequestHeaders.UserAgent.ParseAdd("TurnEdit-Updater");
+			var str = await client.GetStringAsync("https://api.github.com/repos/RealRosaYT/TurnEdit/releases/latest");
+			var deserializedJson = JsonSerializer.Deserialize<GitHubRelease>(str);
+			Version GitHubVersion = Version.Parse(deserializedJson.TagName);
+			if (GitHubVersion < version) {
+				if (File.Exists("TurnEditUpdater.exe")) {
+					MessageBoxResult result = MessageBox.Show(this.msgboxStringsMain[27], this.msgboxStringsMain[13], MessageBoxButton.YesNo, MessageBoxImage.Question);
+					if (result == MessageBoxResult.Yes) {
+						Process.Start("TurnEditUpdater.exe");
+					}
 				}
 			}
-			return true;
+			} catch (Exception ex) {
+				return;
+			}
 		}
+		
+		/// <summary>
+		/// Handles unhandled exception.
+		/// </summary>
+		public void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
+			Exception ex = (Exception)e.ExceptionObject;
+			MessageBox.Show(this.msgboxStringsMain[26].Replace("exc", ex.ToString()), this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+			Environment.Exit(1);
+		}
+        /// <summary>
+        /// Checks path is safe.
+        /// </summary>
+        /// <param name="filePath">File path to check</param>
+        /// <returns>bool</returns>
+        /// <exception cref="System.Security.SecurityException">This exception throws when path is not safe</exception>
+        public bool IsPathSafe(string filePath)
+        {
+            string[] forbiddenDirectories = {
+                @"C:\Windows\",
+                @"C:\Program Files\",
+                @"C:\Program Files (x86)\",
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                Environment.GetFolderPath(Environment.SpecialFolder.System),
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                System.IO.Path.GetTempPath()
+            };
+            string fullPath = System.IO.Path.GetFullPath(filePath);
+            foreach (string forbiddenDirectory in forbiddenDirectories)
+            {
+                string normalizedForbiddenDirectory = System.IO.Path.GetFullPath(forbiddenDirectory);
+                if (fullPath.StartsWith(normalizedForbiddenDirectory, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new System.Security.SecurityException(this.msgboxStringsMain[0].Replace("path", filePath));
+                }
+            }
+            return true;
+        }
+		
         public void ExitTurnEdit(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
@@ -107,68 +182,83 @@ namespace TurnEdit
             mainTextBox.Text += nowStr;
         }
 
-        private void openNav_Click(object sender, RoutedEventArgs e)
+        private async void openNav_Click(object sender, RoutedEventArgs e)
         {
-            OpenFile();
+            await OpenFile();
         }
-		public void OpenInCommandLineArgument(string filePath) {
-			try {
-				string validatedPath = System.IO.Path.GetFullPath(filePath);
-				if (!File.Exists(validatedPath)) {
-				MessageBox.Show("File not found.");
-				return;
-				}
-				FileInfo fileInfo = new FileInfo(validatedPath);
-				long fileSizeInBytes = fileInfo.Length;
-				const long maxFileSizeInBytes = 50 * 1024 * 1024;
-				if (fileSizeInBytes > maxFileSizeInBytes) {
-					MessageBox.Show(this.msgboxStringsMain[18], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				IsPathSafe(validatedPath);
-				string content = File.ReadAllText(validatedPath);
-				this.mainTextBox.Text = content;
-				this.currentFileName = validatedPath;
-				this.Title = $"{this.currentFileName} - TurnEdit";
-				this.IsFileOpened = true;
-				this.ChangesUnsaved = false;
-			} catch (System.Security.SecurityException ex) {
-				MessageBox.Show(filePath + " is not allowed path.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			} catch (IOException ex) {
-				MessageBox.Show($"Error opening file because I/O error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			} catch (Exception ex) {
-				MessageBox.Show($"Error opening file because unexpected error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-		}
-		private void UpdateLineNumbers() {
-			var text = mainTextBox.Text;
-			var lines = text.Split(new char[] { '\n' }, StringSplitOptions.None);
-			int lineCount = lines.Length;
-			if (text.Length > 0 && lines.Last().Length == 0)
-			{
-			lineCount--;
-			}
-			StringBuilder sb = new StringBuilder();
-			for (int i = 1; i <= lineCount; i++)
-			{
-				sb.AppendLine(i.ToString());
-			}
-			lineNumberTxtBox.Text = sb.ToString();
-		}
-		private void searchOnGoogle_Click(object sender, RoutedEventArgs e) {
-			string encodedText = Uri.EscapeDataString(mainTextBox.SelectedText);
-			Process.Start(new ProcessStartInfo{
-				FileName = $"https://www.google.com/search?q={encodedText}",
-				UseShellExecute = true
-			});
-		}
-		private void searchOnBing_Click(object sender, EventArgs e) {
-			string encodedText = Uri.EscapeDataString(mainTextBox.SelectedText);
-			Process.Start(new ProcessStartInfo{
-				FileName = $"https://www.bing.com/search?q={encodedText}",
-				UseShellExecute = true
-			});
-		}
-        private void OpenFile()
+        public void OpenInCommandLineArgument(string filePath)
+        {
+            try
+            {
+                string validatedPath = System.IO.Path.GetFullPath(filePath);
+                if (!File.Exists(validatedPath))
+                {
+                    MessageBox.Show("File not found.");
+                    return;
+                }
+                FileInfo fileInfo = new FileInfo(validatedPath);
+                long fileSizeInBytes = fileInfo.Length;
+                const long maxFileSizeInBytes = 50 * 1024 * 1024;
+                if (fileSizeInBytes > maxFileSizeInBytes)
+                {
+                    MessageBox.Show(this.msgboxStringsMain[18], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                IsPathSafe(validatedPath);
+                string content = File.ReadAllText(validatedPath);
+                this.mainTextBox.Text = content;
+                this.currentFileName = validatedPath;
+                this.Title = $"{this.currentFileName} - TurnEdit";
+                this.IsFileOpened = true;
+                this.ChangesUnsaved = false;
+            }
+            catch (System.Security.SecurityException)
+            {
+                MessageBox.Show(filePath + " is not allowed path.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Error opening file because I/O error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening file because unexpected error: {ex.ToString()}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void UpdateLineNumbers()
+        {
+            var text = mainTextBox.Text;
+            var lines = text.Split(new char[] { '\n' }, StringSplitOptions.None);
+            int lineCount = lines.Length;
+            if (text.Length > 0 && lines.Last().Length == 0)
+            {
+                lineCount--;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= lineCount; i++)
+            {
+                sb.AppendLine(i.ToString());
+            }
+            lineNumberTxtBox.Text = sb.ToString();
+        }
+        private void searchOnGoogle_Click(object sender, RoutedEventArgs e)
+        {
+            string encodedText = Uri.EscapeDataString(mainTextBox.SelectedText);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://www.google.com/search?q={encodedText}",
+                UseShellExecute = true
+            });
+        }
+        private void searchOnBing_Click(object sender, EventArgs e)
+        {
+            string encodedText = Uri.EscapeDataString(mainTextBox.SelectedText);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://www.bing.com/search?q={encodedText}",
+                UseShellExecute = true
+            });
+        }
+        private async Task OpenFile()
         {
             try
             {
@@ -181,16 +271,16 @@ namespace TurnEdit
                 {
                     ofd.CheckFileExists = false;
                 }
-                    if (this.DefaultDirectory is not null)
-                    {
+                if (this.DefaultDirectory is not null)
+                {
                     ofd.DefaultDirectory = this.DefaultDirectory;
-                    }
-                    ofd.CheckPathExists = true;
+                }
+                ofd.CheckPathExists = true;
                 ofd.Filter = "Text File(*.txt)|*.txt|All File(*.*)|*.*";
                 if (ofd.ShowDialog() == true)
                 {
-					IsPathSafe(ofd.FileName);
-                    string fileText = File.ReadAllText(ofd.FileName);
+                    IsPathSafe(ofd.FileName);
+                    string fileText = await File.ReadAllTextAsync(ofd.FileName);
                     mainTextBox.Text = fileText;
                     this.currentFileName = ofd.FileName;
                     this.IsFileOpened = true;
@@ -198,10 +288,11 @@ namespace TurnEdit
                     this.ChangesUnsaved = false;
                 }
             }
-			catch (System.Security.SecurityException ex) {
-				MessageBox.Show(ex.Message, this.msgboxStringsMain[15], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-			catch (IOException)
+            catch (System.Security.SecurityException ex)
+            {
+                MessageBox.Show(ex.Message, this.msgboxStringsMain[15], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (IOException)
             {
                 MessageBox.Show(this.msgboxStringsMain[1], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -210,7 +301,7 @@ namespace TurnEdit
                 MessageBox.Show(this.msgboxStringsMain[2], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
         private void sizeChangedEvent(object sender, SizeChangedEventArgs e)
         {
             mainTextBox.Width = this.ActualWidth;
@@ -222,21 +313,29 @@ namespace TurnEdit
             AboutWindow aboutWindow = new AboutWindow(this);
             aboutWindow.ShowDialog();
         }
-		private void updaterNav_Click(object sender, RoutedEventArgs e) {
-			try {
-				if (File.Exists("TurnEditUpdater.exe")) {
-				System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo{
-				FileName = "TurnEditUpdater.exe",
-				UseShellExecute = false
-				});
-				Environment.Exit(0);
-				} else {
-					MessageBox.Show(this.msgboxStringsMain[17], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-			} catch (Exception ex) {
-				MessageBox.Show($@"{this.msgboxStringsMain[16]}{ex.Message}", this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-		}
+        private void updaterNav_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (File.Exists("TurnEditUpdater.exe"))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "TurnEditUpdater.exe",
+                        UseShellExecute = false
+                    });
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    MessageBox.Show(this.msgboxStringsMain[17], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($@"{this.msgboxStringsMain[16]}{ex.Message}", this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void saveNav_Click(object sender, RoutedEventArgs e)
         {
             SaveFile();
@@ -248,7 +347,7 @@ namespace TurnEdit
             {
                 if (currentFileName is not null)
                 {
-					IsPathSafe(currentFileName);
+                    IsPathSafe(currentFileName);
                     File.WriteAllText(currentFileName, mainTextBox.Text);
                     this.ChangesUnsaved = false;
                 }
@@ -257,19 +356,21 @@ namespace TurnEdit
                     MessageBox.Show(this.msgboxStringsMain[3], this.msgboxStringsMain[14], MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
-			catch (System.Security.SecurityException ex) {
-				MessageBox.Show(ex.Message, this.msgboxStringsMain[15], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-			catch (IOException) {
-				MessageBox.Show(this.msgboxStringsMain[4], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+            catch (System.Security.SecurityException ex)
+            {
+                MessageBox.Show(ex.Message, this.msgboxStringsMain[15], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show(this.msgboxStringsMain[4], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception)
             {
                 MessageBox.Show(this.msgboxStringsMain[5], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void SaveAs()
+        private async Task SaveAs()
         {
             try
             {
@@ -277,29 +378,31 @@ namespace TurnEdit
                 sfd.Filter = "Text file(*.txt)|*.txt|All file(*.*)|*.*";
                 if (sfd.ShowDialog() == true)
                 {
-					IsPathSafe(sfd.FileName);
-                    File.WriteAllText(sfd.FileName, mainTextBox.Text);
+                    IsPathSafe(sfd.FileName);
+                    await File.WriteAllTextAsync(sfd.FileName, mainTextBox.Text);
                     this.IsFileOpened = true;
                     this.currentFileName = sfd.FileName;
                     this.Title = $@"{this.currentFileName} - TurnEdit";
                     this.ChangesUnsaved = false;
                 }
             }
-			catch (System.Security.SecurityException ex) {
-				MessageBox.Show(ex.Message, this.msgboxStringsMain[15], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+            catch (System.Security.SecurityException ex)
+            {
+                MessageBox.Show(ex.Message, this.msgboxStringsMain[15], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (IOException)
             {
                 MessageBox.Show(this.msgboxStringsMain[4], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
             }
-			catch (Exception) {
-				MessageBox.Show(this.msgboxStringsMain[5], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+            catch (Exception)
+            {
+                MessageBox.Show(this.msgboxStringsMain[5], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void saveAsNav_Click(object sender, RoutedEventArgs e)
+        private async void saveAsNav_Click(object sender, RoutedEventArgs e)
         {
-            SaveAs();
+            await SaveAs();
         }
 
         /// <summary>
@@ -320,28 +423,33 @@ namespace TurnEdit
             replaceWindow.Show();
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private async void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.N && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 NewFile();
-            } else if (e.Key == Key.O && Keyboard.Modifiers == ModifierKeys.Control)
+            }
+            else if (e.Key == Key.O && Keyboard.Modifiers == ModifierKeys.Control)
             {
-                OpenFile();
-            } else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+                await OpenFile();
+            }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 if (this.currentFileName is not null)
                 {
                     SaveFile();
-                } else if (this.currentFileName is null)
-                {
-                    SaveAs();
                 }
-            } else if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
+                else if (this.currentFileName is null)
+                {
+                    await SaveAs();
+                }
+            }
+            else if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 SearchWindow searchWindow = new SearchWindow(this);
                 searchWindow.Show();
-            } else if (e.Key == Key.H && Keyboard.Modifiers == ModifierKeys.Control)
+            }
+            else if (e.Key == Key.H && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 ReplaceWindow replaceWindow = new ReplaceWindow(this);
                 replaceWindow.Show();
@@ -354,76 +462,104 @@ namespace TurnEdit
             int lineIndex = mainTextBox.GetLineIndexFromCharacterIndex(caretIndex);
             int firstCharIndexInLine = mainTextBox.GetCharacterIndexFromLineIndex(lineIndex);
             int columnIndex = caretIndex - firstCharIndexInLine;
-			if (this.TurnEditLanguage == "ja-JP") {
-            lineStatus.Text = $@"行: {lineIndex + 1}";
-            columnStatus.Text = $@"列: {columnIndex + 1}";
-			} else if (this.TurnEditLanguage == "en-US") {
-			lineStatus.Text = $@"Line: {lineIndex + 1}";
-			columnStatus.Text = $@"Column: {columnIndex + 1}";
-			}
+            if (this.TurnEditLanguage == "ja-JP")
+            {
+                lineStatus.Text = $@"行: {lineIndex + 1}";
+                columnStatus.Text = $@"列: {columnIndex + 1}";
+            }
+            else if (this.TurnEditLanguage == "en-US")
+            {
+                lineStatus.Text = $@"Line: {lineIndex + 1}";
+                columnStatus.Text = $@"Column: {columnIndex + 1}";
+            }
         }
 
         private void mainTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.ChangesUnsaved = true;
             int textLength = mainTextBox.Text.Replace("\n", null).Length;
-			if (this.TurnEditLanguage == "en-US") {
-            totalTextCount.Text = "Total text count: " + textLength;
-			} else if (this.TurnEditLanguage == "ja-JP") {
-				totalTextCount.Text = "文字の総数: " + textLength;
-			}
-			UpdateLineNumbers();
-        }
-		private void mainTextBox_ScrollChanged(object sender, ScrollChangedEventArgs e) {
-			UpdateLineNumbers();
-			lineNumberTxtBox.ScrollToVerticalOffset(mainTextBox.VerticalOffset);
-		}
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-			try {
-            if (this.ChangesUnsaved == true)
+            if (this.TurnEditLanguage == "en-US")
             {
-                MessageBoxResult msgbox = MessageBox.Show(this.msgboxStringsMain[6], this.msgboxStringsMain[14], MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
-                if (msgbox == MessageBoxResult.Yes)
+                totalTextCount.Text = "Total text count: " + textLength;
+            }
+            else if (this.TurnEditLanguage == "ja-JP")
+            {
+                totalTextCount.Text = "文字の総数: " + textLength;
+            }
+            UpdateLineNumbers();
+        }
+        private void mainTextBox_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            UpdateLineNumbers();
+            lineNumberTxtBox.ScrollToVerticalOffset(mainTextBox.VerticalOffset);
+        }
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                if (this.ChangesUnsaved == true)
                 {
-                    if (this.currentFileName is not null)
+                    MessageBoxResult msgbox = MessageBox.Show(this.msgboxStringsMain[6], this.msgboxStringsMain[14], MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                    if (msgbox == MessageBoxResult.Yes)
                     {
-                        SaveFile();
-                    } else if (this.currentFileName is null)
-                    {
-                        SaveAs();
+                        if (this.currentFileName is not null)
+                        {
+                            SaveFile();
+							Environment.Exit(0);
+                        }
+                        else if (this.currentFileName is null)
+                        {
+                            await SaveAs();
+							Environment.Exit(0);
+                        }
                     }
-                } else if (msgbox == MessageBoxResult.Cancel)
+                    else if (msgbox == MessageBoxResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+						Environment.Exit(0);
+                    }
+                }
+				Environment.Exit(0);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show(this.msgboxStringsMain[7], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (System.Security.SecurityException)
+            {
+                MessageBox.Show(this.msgboxStringsMain[8], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(this.msgboxStringsMain[9], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void helpNav_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-help.chm")))
                 {
-                    e.Cancel = true;
-                } else
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "C:\\Windows\\hh.exe",
+                        Arguments = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-help.chm"),
+                        UseShellExecute = false
+                    });
+                }
+                else
                 {
-                    // Do nothing
+                    MessageBox.Show(this.msgboxStringsMain[10], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-			} catch (IOException) {
-				MessageBox.Show(this.msgboxStringsMain[7], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			} catch (System.Security.SecurityException) {
-				MessageBox.Show(this.msgboxStringsMain[8], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			} catch (Exception) {
-				MessageBox.Show(this.msgboxStringsMain[9], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+            catch (Exception ex)
+            {
+                MessageBox.Show(this.msgboxStringsMain[11] + ex.Message, this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-		private void helpNav_Click(object sender, RoutedEventArgs e) {
-			try {
-				if (File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-help.chm"))) {
-					System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo{
-					FileName = "C:\\Windows\\hh.exe",
-					Arguments = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-help.chm"),
-					UseShellExecute = false
-					});
-				} else {
-					MessageBox.Show(this.msgboxStringsMain[10], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-			} catch (Exception ex) {
-				MessageBox.Show(this.msgboxStringsMain[11] + ex.Message, this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);	
-			}
-		}
 
         private void undoNav_Click(object sender, RoutedEventArgs e)
         {
@@ -469,17 +605,22 @@ namespace TurnEdit
 
         private void pasteWithQuotes_Click(object sender, RoutedEventArgs e)
         {
-			try {
-				if (Clipboard.ContainsText(TextDataFormat.Text)) {
-				string clipboardText = Clipboard.GetText(TextDataFormat.Text);
-				string modifiedText = "\"" + clipboardText + "\"";
-				Clipboard.SetText(modifiedText);
-				mainTextBox.Paste();
-				Clipboard.SetText(clipboardText);
-				}
-			} catch (Exception ex) {
-				MessageBox.Show(this.msgboxStringsMain[12], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+            try
+            {
+                if (Clipboard.ContainsText(TextDataFormat.Text))
+                {
+                    string clipboardText = Clipboard.GetText(TextDataFormat.Text);
+                    string modifiedText = "\"" + clipboardText + "\"";
+                    Clipboard.SetText(modifiedText);
+                    mainTextBox.Paste();
+                    Clipboard.SetText(clipboardText);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this.msgboxStringsMain[12], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+                Debug.WriteLine($"TurnEdit: error: failure accessing clipboard: {ex.Message}");
+            }
         }
 
         private void newWindowNav_Click(object sender, RoutedEventArgs e)
@@ -487,5 +628,31 @@ namespace TurnEdit
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
         }
+        public void pluginsNav_Click(object sender, RoutedEventArgs e)
+        {
+            PluginsLstWindow _pluginsWindow = new PluginsLstWindow(this);
+            _pluginsWindow.ShowDialog();
+        }
+		public void IsLineNumberShowed_Checked(object sender, RoutedEventArgs e) {
+			if (lineNumberTxtBox != null) {
+			lineNumberTxtBox.Visibility = Visibility.Visible;
+			}
+		}
+		public void IsLineNumberShowed_Unchecked(object sender, RoutedEventArgs e) {
+			if (lineNumberTxtBox != null) {
+			lineNumberTxtBox.Visibility = Visibility.Collapsed;
+			}
+		}
+		private void MainWindow_MouseLeftButtonDown(object? sender, MouseButtonEventArgs e) {
+			if (e.LeftButton == MouseButtonState.Pressed) {
+				Point startPoint = e.GetPosition(this);
+				if (this.WindowState == WindowState.Maximized) {
+					this.WindowState = WindowState.Normal;
+					this.DragMove();
+				} else {
+					this.DragMove();
+				}
+			}
+		}
     }
 }

@@ -108,7 +108,7 @@ namespace TurnEdit {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TurnEdit;V1.5;component/replacewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TurnEdit;V1.6;component/replacewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ReplaceWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

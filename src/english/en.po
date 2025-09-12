@@ -1,0 +1,152 @@
+msgid "fileNav"
+msgstr "File"
+
+msgid "newFileNav"
+msgstr "New File"
+
+msgid "openNav"
+msgstr "Open"
+
+msgid "saveNav"
+msgstr "Save"
+
+msgid "saveAsNav"
+msgstr "Save"
+
+msgid "exitNav"
+msgstr "Exit"
+
+msgid "viewNav"
+msgstr "View"
+
+msgid "settingsNav"
+msgstr "Settings"
+
+msgid "searchEngineNavText"
+msgstr "Search"
+
+msgid "searchEngineNav_searchOnGoogle"
+msgstr "on Google"
+
+msgid "searchEngineNav_searchOnBing"
+msgstr "on Bing"
+
+msgid "editNav"
+msgstr "Edit"
+
+msgid "searchNav"
+msgstr "Search"
+
+msgid "replaceNav"
+msgstr "Replace"
+
+msgid "insertDateAndTimeNav"
+msgstr "Insert date and time"
+
+msgid "undoNav"
+msgstr "Undo"
+
+msgid "redoNav"
+msgstr "Redo"
+
+msgid "cutNav"
+msgstr "Cut"
+
+msgid "copyNav"
+msgstr "Copy"
+
+msgid "pasteNav"
+msgstr "Paste"
+
+msgid "pasteWithQuotes"
+msgstr "Paste with quotes"
+
+msgid "deleteCurrentLine"
+msgstr "Delete current line"
+
+msgid "selectAllNav"
+msgstr "Select all"
+
+msgid "windowNav"
+msgstr "Window"
+
+msgid "newWindowNav"
+msgstr "New window"
+
+msgid "helpNavText"
+msgstr "Help"
+
+msgid "helpNav_helpOfflineNav"
+msgstr "Help"
+
+msgid "helpNav_updaterNav"
+msgstr "Update TurnEdit"
+
+msgid "helpNav_aboutTurnEditNav"
+msgstr "About TurnEdit"
+
+msgid "lineStatus"
+msgstr "Line: %d"
+
+msgid "columnStatus"
+msgstr "Column: %d"
+
+msgid "totalTextCount"
+msgstr "Total text count: %d"
+
+msgid "notAllowedPath"
+msgstr "%s is not allowed path."
+
+msgid "ioErrorFileOpening"
+msgstr "File opening failed because I/O error."
+
+msgid "unexpectedErrorFileOpening"
+msgstr "File opening failed because unexpected error."
+
+msgid "pleaseOpenFile"
+msgstr "Please open file."
+
+msgid "ioErrorFileSaving"
+msgstr "File saving failed because I/O error."
+
+msgid "unexpectedErrorFileSaving"
+msgstr "File saving failed because unexpected error."
+
+msgid "unsavedChanges"
+msgstr "Changes are unsaved. do you want save a changes?"
+
+msgid "windowClosingIoError"
+msgstr "Window closing failed because I/O error. unsaved changes will be destroyed, please force exit TurnEdit."
+
+msgid "windowClosingSecurityError"
+msgstr "Window closing failed because security violation. unsaved changes will be destroyed, please force exit TurnEdit."
+
+msgid "windowClosingUnexpectedError"
+msgstr "Window closing failed because unexpected error. unsaved changes will be destroyed, please force exit TurnEdit."
+
+msgid "helpFileNotFound"
+msgstr "Help file not found."
+
+msgid "errorOpeningHelp"
+msgstr "Failed to open help: %s"
+
+msgid "errorClipboard"
+msgstr "Error accessing clipboard."
+
+msgid "error"
+msgstr "Error"
+
+msgid "warni"
+msgstr "Warning"
+
+msgid "securityViolation"
+msgstr "Security violation"
+
+msgid "errorOpeningUpdater"
+msgstr "Error opening updater: %s"
+
+msgid "updaterExecutableNotFound"
+msgstr "Updater executable file not found."
+
+msgid "fileTooBig"
+msgstr "File is too big. maximum file size is 50MB."

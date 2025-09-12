@@ -5,7 +5,7 @@
   },
   "projects": {
     "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\TurnEdit.csproj": {
-      "version": "1.5.0",
+      "version": "1.6.0",
       "restore": {
         "projectUniqueName": "C:\\youmu\\projects\\turnedit-wpf\\TurnEdit\\TurnEdit\\TurnEdit.csproj",
         "projectName": "TurnEdit",
@@ -44,16 +44,6 @@
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
-          "dependencies": {
-            "MaterialDesignThemes": {
-              "target": "Package",
-              "version": "[5.2.1, )"
-            },
-            "WPF-UI": {
-              "target": "Package",
-              "version": "[4.0.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

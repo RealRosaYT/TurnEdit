@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <fileNav>File</fileNav>
+    <newFileNav>New File</newFileNav>
+    <openNav>Open</openNav>
+    <saveNav>Save</saveNav>
+    <saveAsNav>Save</saveAsNav>
+    <exitNav>Exit</exitNav>
+    <viewNav>View</viewNav>
+    <settingsNav>Settings</settingsNav>
+    <searchEngineNavText>Search</searchEngineNavText>
+    <searchEngineNav_searchOnGoogle>on Google</searchEngineNav_searchOnGoogle>
+    <searchEngineNav_searchOnBing>on Bing</searchEngineNav_searchOnBing>
+    <editNav>Edit</editNav>
+    <searchNav>Search</searchNav>
+    <replaceNav>Replace</replaceNav>
+    <insertDateAndTimeNav>Insert date and time</insertDateAndTimeNav>
+    <undoNav>Undo</undoNav>
+    <redoNav>Redo</redoNav>
+    <cutNav>Cut</cutNav>
+    <copyNav>Copy</copyNav>
+    <pasteNav>Paste</pasteNav>
+    <pasteWithQuotes>Paste with quotes</pasteWithQuotes>
+    <deleteCurrentLine>Delete current line</deleteCurrentLine>
+    <selectAllNav>Select all</selectAllNav>
+    <windowNav>Window</windowNav>
+    <newWindowNav>New window</newWindowNav>
+    <helpNavText>Help</helpNavText>
+    <helpNav_helpOfflineNav>Help</helpNav_helpOfflineNav>
+    <helpNav_updaterNav>Update TurnEdit</helpNav_updaterNav>
+    <helpNav_aboutTurnEditNav>About TurnEdit</helpNav_aboutTurnEditNav>
+    <lineStatus>Line: %d</lineStatus>
+    <columnStatus>Column: %d</columnStatus>
+    <totalTextCount>Total text count: %d</totalTextCount>
+    <notAllowedPath>%s is not allowed path.</notAllowedPath>
+    <ioErrorFileOpening>File opening failed because I/O error.</ioErrorFileOpening>
+    <unexpectedErrorFileOpening>File opening failed because unexpected error.</unexpectedErrorFileOpening>
+    <pleaseOpenFile>Please open file.</pleaseOpenFile>
+    <ioErrorFileSaving>File saving failed because I/O error.</ioErrorFileSaving>
+    <unexpectedErrorFileSaving>File saving failed because unexpected error.</unexpectedErrorFileSaving>
+    <unsavedChanges>Changes are unsaved. do you want save a changes?</unsavedChanges>
+    <windowClosingIoError>Window closing failed because I/O error. unsaved changes will be destroyed, please force exit TurnEdit.</windowClosingIoError>
+    <windowClosingSecurityError>Window closing failed because security violation. unsaved changes will be destroyed, please force exit TurnEdit.</windowClosingSecurityError>
+    <windowClosingUnexpectedError>Window closing failed because unexpected error. unsaved changes will be destroyed, please force exit TurnEdit.</windowClosingUnexpectedError>
+    <helpFileNotFound>Help file not found.</helpFileNotFound>
+    <errorOpeningHelp>Failed to open help: %s</errorOpeningHelp>
+    <errorClipboard>Error accessing clipboard.</errorClipboard>
+    <error>Error</error>
+    <warni>Warning</warni>
+    <securityViolation>Security violation</securityViolation>
+    <errorOpeningUpdater>Error opening updater: %s</errorOpeningUpdater>
+    <updaterExecutableNotFound>Updater executable file not found.</updaterExecutableNotFound>
+    <fileTooBig>File is too big. maximum file size is 50MB.</fileTooBig>
+</root>

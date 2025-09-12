@@ -34,11 +34,11 @@ namespace TurnEdit
     }
     public class TurnEditLanguage
     {
-        public string[] menuTexts { get; set; }
-        public string[] searchWindowTexts { get; set; }
-        public string[] replaceWindowTexts { get; set; }
-        public string[] settingsWindowTexts { get; set; }
-        public string language { get; set; }
+        public required string[] menuTexts { get; set; }
+        public required string[] searchWindowTexts { get; set; }
+        public required string[] replaceWindowTexts { get; set; }
+        public required string[] settingsWindowTexts { get; set; }
+        public required string language { get; set; }
     }
     public partial class SettingsWindow : Window
     {
@@ -79,18 +79,20 @@ namespace TurnEdit
         /// This method loads and views TurnEdit settings.
         /// Settings are saved in C:\Users\%USERNAME%\AppData\Roaming\TurnEdit\turnedit-settings.json
         /// </summary>
-        private void ViewTurnEditSettings()
+        private async void ViewTurnEditSettings()
         {
-            if (!File.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TurnEdit\turnedit-settings.json"))
+			string AppData = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TurnEdit");
+			string SettingsPath = System.IO.Path.Combine(AppData, "turnedit-settings.json");
+            if (!File.Exists(SettingsPath))
             {
                 return;
             }
             try
             {
-                string json = File.ReadAllText($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TurnEdit\turnedit-settings.json");
+                string json = await File.ReadAllTextAsync(SettingsPath);
                 var obj = JsonSerializer.Deserialize<TurnEditSettings>(json);
-                createFileWhenFNotExists.IsEnabled = obj.CreateFileWhenFileNotExists;
-                defaultDirectory.Text = obj.DefaultDirectoryWhenFileOpen;
+                createFileWhenFNotExists!.IsEnabled = obj!.CreateFileWhenFileNotExists;
+                defaultDirectory!.Text = obj!.DefaultDirectoryWhenFileOpen;
                 thememd.Text = obj.ThemeMode;
                 txtfnt.Text = obj.TextFont;
                 fontSize.Text = obj.TextFontSize.ToString();

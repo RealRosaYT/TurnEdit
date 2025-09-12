@@ -29,11 +29,11 @@ namespace TurnEdit
             installedDirectory.Text = $@"Installed directory: {AppDomain.CurrentDomain.BaseDirectory}";
 			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
 			var version = assembly.GetName().Version;
-			string versionString = version.ToString();
-			versionText.Text = $"TurnEdit version {versionString}";
+			string? versionString = version!.ToString();
+			versionText!.Text = $"TurnEdit version {versionString}";
 			if (this._mainWindow.TurnEditLanguage == "ja-JP") {
 				installedDirectory.Text = $@"インストールディレクトリ: {AppDomain.CurrentDomain.BaseDirectory}";
-				versionText.Text = $"TurnEdit バージョン {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
+				versionText!.Text = $"TurnEdit バージョン {version!.ToString()}";
 				licenseText.Text = "このテキストエディタはGNU GPL 3.0に基づいてライセンスされています。";
 				this.Title = "TurnEdit のバージョン情報";
 			}

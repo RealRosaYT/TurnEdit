@@ -23,7 +23,7 @@ namespace TurnEdit
         private bool? CreateFileFileNotExists;
         private string? DefaultDirectory;
 		public string? TurnEditLanguage;
-		private string[] msgboxStringsMain;
+		public string[] msgboxStringsMain;
         public class TurnEditSettings
         {
             public bool DenyFileDoubleOpen { get; set; }
@@ -44,7 +44,7 @@ namespace TurnEdit
                 return false;
             }
         }
-        public void LoadTurnEditSettings()
+        public async void LoadTurnEditSettings()
         {
             if (!CheckSettingsFileExists())
             {
@@ -52,8 +52,10 @@ namespace TurnEdit
             }
             try
             {
-                string json = File.ReadAllText($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TurnEdit\turnedit-settings.json");
-                var obj = JsonSerializer.Deserialize<TurnEditSettings>(json);
+				string AppDataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TurnEdit");
+				string SettingsPath = System.IO.Path.Combine(AppDataPath, "turnedit-settings.json");
+                string json = await File.ReadAllTextAsync(SettingsPath);
+                TurnEditSettings? obj = JsonSerializer.Deserialize<TurnEditSettings>(json);
                 mainTextBox.FontSize = obj!.TextFontSize;
                 this.CreateFileFileNotExists = obj.CreateFileWhenFileNotExists;
                 FontFamily font = new FontFamily(obj.TextFont);
@@ -78,9 +80,9 @@ namespace TurnEdit
                 {
                     this.AppTheme = "Auto";
                 }
-				LoadTurnEditLanguage(obj.language);
-				this.TurnEditLanguage = obj.language;
-				InitlaizeMsgboxStrings(obj.language);
+				LoadTurnEditLanguage(obj?.language);
+				this.TurnEditLanguage = obj!.language;
+				InitlaizeMsgboxStrings(obj?.language);
             
             } catch (Exception ex)
             {
@@ -99,7 +101,7 @@ namespace TurnEdit
 		/// This method loads TurnEdit language.
 		/// </summary>
 		// <param name="languageCode">Language code(example: en-US)</param>
-		public void LoadTurnEditLanguage(string languageCode) {
+		public void LoadTurnEditLanguage(string? languageCode) {
 			if (languageCode == "ja-JP") {
 				fileNav.Header = "ファイル";
 				viewNav.Header = "表示";
@@ -136,49 +138,72 @@ namespace TurnEdit
 				lineStatus.Text = "行: 1";
 				columnStatus.Text = "列: 1";
 				totalTextCount.Text = "文字の総数: 0";
+				pluginsNav.Header = "プラグイン";
+				IsLineNumberShowed.Header = "行番号";
 			}
 		}
-		private void InitlaizeMsgboxStrings(string languageCode2) {
-			if (languageCode2 == "ja-JP") {
-			this.msgboxStringsMain[0] = "「path」は許可されていないパスです。";
-			this.msgboxStringsMain[1] = "入出力エラーによりファイルを開く操作が失敗しました。";
-			this.msgboxStringsMain[2] = "予期しないエラーによりファイルを開く操作が失敗しました。";
-			this.msgboxStringsMain[3] = "ファイルを開いてください。";
-			this.msgboxStringsMain[4] = "入出力エラーによりファイル保存が失敗しました。";
-			this.msgboxStringsMain[5] = "予期しないエラーによりファイル保存が失敗しました。";
-			this.msgboxStringsMain[6] = "変更が保存されていません。変更を保存しますか?";
-			this.msgboxStringsMain[7] = "入出力エラーによりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
-			this.msgboxStringsMain[8] = "セキュリティ違反によりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
-			this.msgboxStringsMain[9] = "予期しないエラーによりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
-			this.msgboxStringsMain[10] = "ヘルプファイルが見つかりません。";
-			this.msgboxStringsMain[11] = "ヘルプを開けませんでした: exc";
-			this.msgboxStringsMain[12] = "クリップボードのアクセス中にエラーが発生しました。";
-			this.msgboxStringsMain[13] = "エラー";
-			this.msgboxStringsMain[14] = "警告";
-			this.msgboxStringsMain[15] = "セキュリティ違反";
-			this.msgboxStringsMain[16] = "アップデーターを開けませんでした: ";
-			this.msgboxStringsMain[17] = "アップデーターの実行ファイルが見つかりません。";
-			this.msgboxStringsMain[18] = "ファイルが大き過ぎます。最大のファイルサイズは50MBです。";
-			} else if (languageCode2 == "en-US") {
-			this.msgboxStringsMain[0] = "path is not allowed path.";
-			this.msgboxStringsMain[1] = "File opening failed because I/O error.";
-			this.msgboxStringsMain[2] = "File opening failed because unexpected error.";
-			this.msgboxStringsMain[3] = "Please open file.";
-			this.msgboxStringsMain[4] = "Failed to save file because I/O error.";
-			this.msgboxStringsMain[5] = "Failed to save file because unexpected error.";
-			this.msgboxStringsMain[6] = "Changes are unsaved. do you want save a changes?";
-			this.msgboxStringsMain[7] = "Window closing failed because I/O error. unsaved changes will be destroyed, please force exit TurnEdit.";
-			this.msgboxStringsMain[8] = "Window closing failed because security violation. unsaved changes will be destroyed, please force exit TurnEdit.";
-			this.msgboxStringsMain[9] = "Window closing failed because unexpected error. unsaved changes will be destroyed, please force exit TurnEdit.";
-			this.msgboxStringsMain[10] = "Help file not found.";
-			this.msgboxStringsMain[11] = "Failed to open help: ";
-			this.msgboxStringsMain[12] = "Error accessing clipboard.";
-			this.msgboxStringsMain[13] = "Error";
-			this.msgboxStringsMain[14] = "Warning";
-			this.msgboxStringsMain[15] = "Security violation";
-			this.msgboxStringsMain[16] = "Error opening updater: ";
-			this.msgboxStringsMain[17] = "Updater executable file not found.";
-			this.msgboxStringsMain[18] = "File is too big. maximum file size is 50MB.";
+		private void InitlaizeMsgboxStrings(string? languageCode2) {
+			if (languageCode2 == "ja-JP")
+			{
+				this.msgboxStringsMain[0] = "「path」は許可されていないパスです。";
+				this.msgboxStringsMain[1] = "入出力エラーによりファイルを開く操作が失敗しました。";
+				this.msgboxStringsMain[2] = "予期しないエラーによりファイルを開く操作が失敗しました。";
+				this.msgboxStringsMain[3] = "ファイルを開いてください。";
+				this.msgboxStringsMain[4] = "入出力エラーによりファイル保存が失敗しました。";
+				this.msgboxStringsMain[5] = "予期しないエラーによりファイル保存が失敗しました。";
+				this.msgboxStringsMain[6] = "変更が保存されていません。変更を保存しますか?";
+				this.msgboxStringsMain[7] = "入出力エラーによりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
+				this.msgboxStringsMain[8] = "セキュリティ違反によりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
+				this.msgboxStringsMain[9] = "予期しないエラーによりウィンドウを閉じる操作が失敗しました。保存されていない変更は失われます。TurnEditを強制終了してください。";
+				this.msgboxStringsMain[10] = "ヘルプファイルが見つかりません。";
+				this.msgboxStringsMain[11] = "ヘルプを開けませんでした: exc";
+				this.msgboxStringsMain[12] = "クリップボードのアクセス中にエラーが発生しました。";
+				this.msgboxStringsMain[13] = "エラー";
+				this.msgboxStringsMain[14] = "警告";
+				this.msgboxStringsMain[15] = "セキュリティ違反";
+				this.msgboxStringsMain[16] = "アップデーターを開けませんでした: ";
+				this.msgboxStringsMain[17] = "アップデーターの実行ファイルが見つかりません。";
+				this.msgboxStringsMain[18] = "ファイルが大き過ぎます。最大のファイルサイズは50MBです。";
+				this.msgboxStringsMain[19] = "プラグインを読み込めません。";
+				this.msgboxStringsMain[20] = "情報";
+				this.msgboxStringsMain[21] = "プラグイン名: plgname\r\n説明: desc\r\nバージョン: ver\r\n作者: autr";
+				this.msgboxStringsMain[22] = "プラグインをインストールできませんでした。詳細情報はデバッグコンソールにあります。";
+				this.msgboxStringsMain[23] = "不正なプラグインの形式です。";
+				this.msgboxStringsMain[24] = "チェックサムの検証に失敗しました。セキュリティのため、プラグインのインストールを中止します。";
+				this.msgboxStringsMain[25] = "本当に 「plg」プラグインを削除してよろしいですか ?";
+				this.msgboxStringsMain[26] = "アプリケーションで重大なエラーが発生しました。\r\n技術情報: \r\n exc\r\nアプリケーションを終了します。";
+				this.msgboxStringsMain[27] = "アップデートが利用可能です。更新しますか ?";
+			}
+			else if (languageCode2 == "en-US")
+			{
+				this.msgboxStringsMain[0] = "path is not allowed path.";
+				this.msgboxStringsMain[1] = "File opening failed because I/O error.";
+				this.msgboxStringsMain[2] = "File opening failed because unexpected error.";
+				this.msgboxStringsMain[3] = "Please open file.";
+				this.msgboxStringsMain[4] = "Failed to save file because I/O error.";
+				this.msgboxStringsMain[5] = "Failed to save file because unexpected error.";
+				this.msgboxStringsMain[6] = "Changes are unsaved. do you want save a changes?";
+				this.msgboxStringsMain[7] = "Window closing failed because I/O error. unsaved changes will be destroyed, please force exit TurnEdit.";
+				this.msgboxStringsMain[8] = "Window closing failed because security violation. unsaved changes will be destroyed, please force exit TurnEdit.";
+				this.msgboxStringsMain[9] = "Window closing failed because unexpected error. unsaved changes will be destroyed, please force exit TurnEdit.";
+				this.msgboxStringsMain[10] = "Help file not found.";
+				this.msgboxStringsMain[11] = "Failed to open help: ";
+				this.msgboxStringsMain[12] = "Error accessing clipboard.";
+				this.msgboxStringsMain[13] = "Error";
+				this.msgboxStringsMain[14] = "Warning";
+				this.msgboxStringsMain[15] = "Security violation";
+				this.msgboxStringsMain[16] = "Error opening updater: ";
+				this.msgboxStringsMain[17] = "Updater executable file not found.";
+				this.msgboxStringsMain[18] = "File is too big. maximum file size is 50MB.";
+				this.msgboxStringsMain[19] = "Can't load plugins.";
+				this.msgboxStringsMain[20] = "Information";
+				this.msgboxStringsMain[21] = "Plugin name: plgname\r\nDescription: desc\r\nVersion: ver\r\nAuthor: autr";
+				this.msgboxStringsMain[22] = "Failure installing plugin. More information is contains on debug console.";
+				this.msgboxStringsMain[23] = "Invalid plugin format.";
+				this.msgboxStringsMain[24] = "Failure verifying checksum. For a security, plugin installation has aborted.";
+				this.msgboxStringsMain[25] = $"Are you sure want to delete the \"plg\" plugin?";
+				this.msgboxStringsMain[26] = "There's critical error on this application.\r\nTechnical information: \r\n exc\r\nApplication will exit.";
+				this.msgboxStringsMain[27] = "An update is available. Do you want to update now?";
 			}
 		}
     }

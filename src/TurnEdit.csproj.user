@@ -16,5 +16,8 @@
     <Compile Update="SettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Tab.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

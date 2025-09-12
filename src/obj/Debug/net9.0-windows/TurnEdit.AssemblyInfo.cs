@@ -12,11 +12,12 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("TurnEdit")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.5")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.5+4b69a225cb96c5b0768a0f0e5832a657d76abfbe")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright ©️ 2025 youmu1948 All rights reserved.")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.6+e40a64e1cf6b6a480c7484cbdba878a4639a8d3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TurnEdit")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TurnEdit")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.5")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.6")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

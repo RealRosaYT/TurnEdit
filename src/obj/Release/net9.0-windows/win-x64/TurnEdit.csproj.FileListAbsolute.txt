@@ -3,9 +3,6 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\TurnEdit.runtimeconfig.json
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\TurnEdit.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\TurnEdit.pdb
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\MaterialDesignColors.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\MaterialDesignThemes.Wpf.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Microsoft.Xaml.Behaviors.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Microsoft.CSharp.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Microsoft.VisualBasic.Core.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Microsoft.VisualBasic.dll
@@ -395,7 +392,6 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\zh-Hant\UIAutomationProvider.resources.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\zh-Hant\UIAutomationTypes.resources.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\zh-Hant\WindowsBase.resources.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.csproj.AssemblyReference.cache
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\AboutWindow.g.cs
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\MainWindow.g.cs
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\ReplaceWindow.g.cs
@@ -422,5 +418,9 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.pdb
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.genruntimeconfig.cache
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\ref\TurnEdit.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Wpf.Ui.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\Wpf.Ui.Abstractions.dll
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\PluginsLstWindow.g.cs
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\Tab.g.cs
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\PluginsLstWindow.baml
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\Tab.baml
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.Resources.en.resources
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.csproj.GenerateResource.cache

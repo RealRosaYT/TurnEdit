@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Whitespace="preserve"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="xml:space" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  
+  <data name="fileNav" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="viewNav" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="editNav" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="windowNav" xml:space="preserve">
+    <value>Window</value>
+  </data>
+  <data name="helpNav" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="newFileNav" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="openNav" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="saveNav" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="saveAsNav" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="exitNav" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="settingsNav" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="searchNav" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="replaceNav" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="insertDateAndTimeNav" xml:space="preserve">
+    <value>Insert Date and Time</value>
+  </data>
+  <data name="undoNav" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="redoNav" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="cutNav" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="copyNav" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="pasteNav" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="pasteWithQuotes" xml:space="preserve">
+    <value>Paste with Quotes</value>
+  </data>
+  <data name="deleteCurrentLine" xml:space="preserve">
+    <value>Delete Current Line</value>
+  </data>
+  <data name="selectAllNav" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="newWindowNav" xml:space="preserve">
+    <value>New Window</value>
+  </data>
+  <data name="helpOfflineNav" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="aboutTurnEditNav" xml:space="preserve">
+    <value>About TurnEdit</value>
+  </data>
+  <data name="updaterNav" xml:space="preserve">
+    <value>Update TurnEdit</value>
+  </data>
+  <data name="searchOnGoogle" xml:space="preserve">
+    <value>Search on Google</value>
+  </data>
+  <data name="searchOnBing" xml:space="preserve">
+    <value>Search on Bing</value>
+  </data>
+  <data name="searchEngineNav" xml:space="preserve">
+    <value>Search</value>
+  </data>
+
+  <data name="lineStatus" xml:space="preserve">
+    <value>Line: </value>
+  </data>
+  <data name="columnStatus" xml:space="preserve">
+    <value>Column: </value>
+  </data>
+  <data name="totalTextCount" xml:space="preserve">
+    <value>Total Characters: </value>
+  </data>
+
+  <data name="windowTitle" xml:space="preserve">
+    <value>Untitled - TurnEdit</value>
+  </data>
+
+  <data name="msgboxPathNotAllowed" xml:space="preserve">
+    <value>path is not allowed path.</value>
+  </data>
+  <data name="msgboxOpenFileErrorIO" xml:space="preserve">
+    <value>File opening failed because of I/O error.</value>
+  </data>
+  <data name="msgboxOpenFileErrorUnexpected" xml:space="preserve">
+    <value>File opening failed because of unexpected error.</value>
+  </data>
+  <data name="msgboxOpenFileNotFound" xml:space="preserve">
+    <value>Please open file.</value>
+  </data>
+  <data name="msgboxSaveFileErrorIO" xml:space="preserve">
+    <value>Failed to save file because of I/O error.</value>
+  </data>
+  <data name="msgboxSaveFileErrorUnexpected" xml:space="preserve">
+    <value>Failed to save file because of unexpected error.</value>
+  </data>
+  <data name="msgboxUnsavedChanges" xml:space="preserve">
+    <value>Changes are unsaved. Do you want to save your changes?</value>
+  </data>
+  <data name="msgboxWindowCloseErrorIO" xml:space="preserve">
+    <value>Window closing failed because of an I/O error. Unsaved changes will be destroyed. Please force exit TurnEdit.</value>
+  </data>
+  <data name="msgboxWindowCloseErrorSecurity" xml:space="preserve">
+    <value>Window closing failed because of a security violation. Unsaved changes will be destroyed. Please force exit TurnEdit.</value>
+  </data>
+  <data name="msgboxWindowCloseErrorUnexpected" xml:space="preserve">
+    <value>Window closing failed because of an unexpected error. Unsaved changes will be destroyed. Please force exit TurnEdit.</value>
+  </data>
+  <data name="msgboxHelpFileNotFound" xml:space="preserve">
+    <value>Help file not found.</value>
+  </data>
+  <data name="msgboxHelpOpenFailed" xml:space="preserve">
+    <value>Failed to open help: </value>
+  </data>
+  <data name="msgboxClipboardError" xml:space="preserve">
+    <value>Error accessing clipboard.</value>
+  </data>
+  <data name="msgboxTitleError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="msgboxTitleWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="msgboxTitleSecurityViolation" xml:space="preserve">
+    <value>Security violation</value>
+  </data>
+  <data name="msgboxUpdaterOpenFailed" xml:space="preserve">
+    <value>Error opening updater: </value>
+  </data>
+  <data name="msgboxUpdaterNotFound" xml:space="preserve">
+    <value>Updater executable file not found.</value>
+  </data>
+  <data name="msgboxFileTooBig" xml:space="preserve">
+    <value>File is too big. The maximum file size is 50MB.</value>
+  </data>
+</root>

@@ -6,53 +6,61 @@
         xmlns:local="clr-namespace:TurnEdit"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="Untitled - TurnEdit" Height="800" Width="1000" KeyDown="Window_KeyDown" Closing="Window_Closing">
+        Title="Untitled - TurnEdit" Height="800" Width="1000" KeyDown="Window_KeyDown" ResizeMode="CanResizeWithGrip" Closing="Window_Closing">
     <DockPanel>
-        <Menu DockPanel.Dock="Top" x:Name="mainMenu">
-            <MenuItem Header="File" x:Name="fileNav">
-                <MenuItem Header="New" x:Name="newFileNav" Click="newFileNav_Click" InputGestureText="Ctrl+N" />
-                <MenuItem Header="Open" x:Name="openNav" Click="openNav_Click" InputGestureText="Ctrl+O" />
-                <MenuItem Header="Save" x:Name="saveNav" Click="saveNav_Click" InputGestureText="Ctrl+S" />
-                <MenuItem Header="Save As" x:Name="saveAsNav" Click="saveAsNav_Click" InputGestureText="Ctrl+S" />
-				<!--
+		<Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+            <Menu x:Name="mainMenu" HorizontalAlignment="Left">
+                <MenuItem Header="File" x:Name="fileNav">
+                    <MenuItem Header="New" x:Name="newFileNav" Click="newFileNav_Click" InputGestureText="Ctrl+N" />
+                    <MenuItem Header="Open" x:Name="openNav" Click="openNav_Click" InputGestureText="Ctrl+O" />
+                    <MenuItem Header="Save" x:Name="saveNav" Click="saveNav_Click" InputGestureText="Ctrl+S" />
+                    <MenuItem Header="Save As" x:Name="saveAsNav" Click="saveAsNav_Click" InputGestureText="Ctrl+S" />
+                    <!--
                 <MenuItem Header="Recently opened file" x:Name="recentlyOpenedFile">
                 </MenuItem>
 				-->
-                <MenuItem Header="Exit" x:Name="exitNav" Click="ExitTurnEdit" InputGestureText="Alt+F4" />
-            </MenuItem>
-            <MenuItem Header="View" x:Name="viewNav">
-                <MenuItem Header="Settings" x:Name="settingsNav" Click="settingsNav_Click" />
-				<MenuItem Header="Search" x:Name="searchEngineNav">
-					<MenuItem Header="on Google" x:Name="searchOnGoogle" Click="searchOnGoogle_Click" />
-					<MenuItem Header="on Bing" x:Name="searchOnBing" Click="searchOnBing_Click" />
-				</MenuItem>
-            </MenuItem>
-            <MenuItem Header="Edit" x:Name="editNav">
-                <MenuItem Header="Search" x:Name="searchNav" Click="searchNav_Click" InputGestureText="Ctrl+F" />
-                <MenuItem Header="Replace" x:Name="replaceNav" Click="replaceNav_Click" InputGestureText="Ctrl+H" />
-                <Separator />
-                <MenuItem Header="Insert date and time" x:Name="insertDateAndTimeNav" Click="insertDateAndTimeNav_Click" />
-                <Separator />
-                <MenuItem Header="Undo" x:Name="undoNav" InputGestureText="Ctrl+Z" Click="undoNav_Click" />
-                <MenuItem Header="Redo" x:Name="redoNav" InputGestureText="Ctrl+Y" Click="redoNav_Click" />
-                <Separator />
-                <MenuItem Header="Cut" x:Name="cutNav" InputGestureText="Ctrl+X" Click="cutNav_Click" />
-                <MenuItem Header="Copy" x:Name="copyNav" InputGestureText="Ctrl+C" Click="copyNav_Click" />
-                <MenuItem Header="Paste" x:Name="pasteNav" InputGestureText="Ctrl+V" Click="pasteNav_Click" />
-                <MenuItem Header="Paste with quotes" x:Name="pasteWithQuotes" InputGestureText="Ctrl+Q" Click="pasteWithQuotes_Click" />
-                <Separator />
-                <MenuItem Header="Delete current line" x:Name="deleteCurrentLine" InputGestureText="Ctrl+Enter" Click="deleteCurrentLine_Click" />
-                <MenuItem Header="Select all" x:Name="selectAllNav" InputGestureText="Ctrl+A" Click="selectAllNav_Click" />
-            </MenuItem>
-            <MenuItem Header="Window" x:Name="windowNav">
-                <MenuItem Header="New Window" x:Name="newWindowNav" Click="newWindowNav_Click" />
-            </MenuItem>
-            <MenuItem Header="Help" x:Name="helpNav">
-				<MenuItem Header="Help" x:Name="helpOfflineNav" Click="helpNav_Click" />
-				<MenuItem Header="Update Turnedit" x:Name="updaterNav" Click="updaterNav_Click" />
-                <MenuItem Header="About TurnEdit" x:Name="aboutTurnEditNav" Click="aboutTurnEditNav_Click" />
-            </MenuItem>
-        </Menu>
+                    <MenuItem Header="Exit" x:Name="exitNav" Click="ExitTurnEdit" InputGestureText="Alt+F4" />
+                </MenuItem>
+                <MenuItem Header="View" x:Name="viewNav">
+                    <MenuItem Header="Settings" x:Name="settingsNav" Click="settingsNav_Click" />
+                    <MenuItem Header="Plugins" x:Name="pluginsNav" Click="pluginsNav_Click" />
+                    <MenuItem Header="Line number" IsCheckable="True" IsChecked="True" Checked="IsLineNumberShowed_Checked" Unchecked="IsLineNumberShowed_Unchecked" x:Name="IsLineNumberShowed" />
+                    <MenuItem Header="Search" x:Name="searchEngineNav">
+                        <MenuItem Header="on Google" x:Name="searchOnGoogle" Click="searchOnGoogle_Click" />
+                        <MenuItem Header="on Bing" x:Name="searchOnBing" Click="searchOnBing_Click" />
+                    </MenuItem>
+                    <!-- This feature is experimental, please implement this feature! -->
+                    <!--
+                    <MenuItem Header="Move line" x:Name="moveLineNav" Click="moveLineNav_Click" />
+                    -->
+                </MenuItem>
+                <MenuItem Header="Edit" x:Name="editNav">
+                    <MenuItem Header="Search" x:Name="searchNav" Click="searchNav_Click" InputGestureText="Ctrl+F" />
+                    <MenuItem Header="Replace" x:Name="replaceNav" Click="replaceNav_Click" InputGestureText="Ctrl+H" />
+                    <Separator />
+                    <MenuItem Header="Insert date and time" x:Name="insertDateAndTimeNav" Click="insertDateAndTimeNav_Click" />
+                    <Separator />
+                    <MenuItem Header="Undo" x:Name="undoNav" InputGestureText="Ctrl+Z" Click="undoNav_Click" />
+                    <MenuItem Header="Redo" x:Name="redoNav" InputGestureText="Ctrl+Y" Click="redoNav_Click" />
+                    <Separator />
+                    <MenuItem Header="Cut" x:Name="cutNav" InputGestureText="Ctrl+X" Click="cutNav_Click" />
+                    <MenuItem Header="Copy" x:Name="copyNav" InputGestureText="Ctrl+C" Click="copyNav_Click" />
+                    <MenuItem Header="Paste" x:Name="pasteNav" InputGestureText="Ctrl+V" Click="pasteNav_Click" />
+                    <MenuItem Header="Paste with quotes" x:Name="pasteWithQuotes" InputGestureText="Ctrl+Q" Click="pasteWithQuotes_Click" />
+                    <Separator />
+                    <MenuItem Header="Delete current line" x:Name="deleteCurrentLine" InputGestureText="Ctrl+Enter" Click="deleteCurrentLine_Click" />
+                    <MenuItem Header="Select all" x:Name="selectAllNav" InputGestureText="Ctrl+A" Click="selectAllNav_Click" />
+                </MenuItem>
+                <MenuItem Header="Window" x:Name="windowNav">
+                    <MenuItem Header="New Window" x:Name="newWindowNav" Click="newWindowNav_Click" />
+                </MenuItem>
+                <MenuItem Header="Help" x:Name="helpNav">
+                    <MenuItem Header="Help" x:Name="helpOfflineNav" Click="helpNav_Click" />
+                    <MenuItem Header="Update Turnedit" x:Name="updaterNav" Click="updaterNav_Click" />
+                    <MenuItem Header="About TurnEdit" x:Name="aboutTurnEditNav" Click="aboutTurnEditNav_Click" />
+                </MenuItem>
+            </Menu>
+        </Grid>
         <!--
         <ToolBarTray VerticalAlignment="Top" DockPanel.Dock="Top">
             <ToolBar>
