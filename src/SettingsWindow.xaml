@@ -41,6 +41,10 @@
                             <ComboBoxItem Content="English" IsSelected="True" x:Name="englishLanguage" />
                             <ComboBoxItem Content="日本語" x:Name="japaneseLanguage" />
                         </ComboBox>
+						<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Enable Developer feature" x:Name="developerFeatureTextBlk" Margin="10" />
+						<CheckBox IsChecked="False" Margin="10" x:Name="enableDeveloperFeature" />
+						</StackPanel>
                     </StackPanel>
                 </TabItem>
             </TabControl>

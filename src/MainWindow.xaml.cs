@@ -83,6 +83,10 @@ namespace TurnEdit
 			}
 		}
 		
+		public void occurExc_Click(object? sender, RoutedEventArgs e) {
+			throw new Exception("Exception throwed by TurnEdit debug.");
+		}
+		
         /*
         private void MainWindow_StateChanged(object? sender, EventArgs e)
         {
@@ -102,7 +106,7 @@ namespace TurnEdit
 			var str = await client.GetStringAsync("https://api.github.com/repos/RealRosaYT/TurnEdit/releases/latest");
 			var deserializedJson = JsonSerializer.Deserialize<GitHubRelease>(str);
 			Version GitHubVersion = Version.Parse(deserializedJson.TagName);
-			if (GitHubVersion < version) {
+			if (GitHubVersion > version) {
 				if (File.Exists("TurnEditUpdater.exe")) {
 					MessageBoxResult result = MessageBox.Show(this.msgboxStringsMain[27], this.msgboxStringsMain[13], MessageBoxButton.YesNo, MessageBoxImage.Question);
 					if (result == MessageBoxResult.Yes) {

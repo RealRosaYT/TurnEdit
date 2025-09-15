@@ -58,6 +58,12 @@
                     <MenuItem Header="Help" x:Name="helpOfflineNav" Click="helpNav_Click" />
                     <MenuItem Header="Update Turnedit" x:Name="updaterNav" Click="updaterNav_Click" />
                     <MenuItem Header="About TurnEdit" x:Name="aboutTurnEditNav" Click="aboutTurnEditNav_Click" />
+					<MenuItem Header="For developers" x:Name="forDevelopers" Visibility="Collapsed">
+						<MenuItem Header="Throw a exception" x:Name="occurExc" Click="occurExc_Click" />
+						<!--
+						<MenuItem Header="Debug information" x:Name="debugInformation" />
+						-->
+					</MenuItem>
                 </MenuItem>
             </Menu>
         </Grid>

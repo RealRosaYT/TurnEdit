@@ -78,6 +78,10 @@ public static class PluginLoader
             {
 				string expectedFileHashDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "checksums");
 				string expectedFileHashTextFile = System.IO.Path.Combine(expectedFileHashDirectory, System.IO.Path.GetFileNameWithoutExtension(file) + "-sha256.txt");
+				if (!File.Exists(expectedFileHashTextFile)) {
+					// Skip plugin loading
+					continue;
+				}
 				string expectedFileHash = System.IO.File.ReadAllText(expectedFileHashTextFile);
 				if (CalculateSha256(file) == expectedFileHash) {
 					// Do nothing

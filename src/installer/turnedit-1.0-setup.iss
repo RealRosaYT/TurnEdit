@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TurnEdit"
-#define MyAppVersion "1.6"
+#define MyAppVersion "1.6.1"
 #define MyAppExeName "TurnEdit.exe"
 
 [Setup]
@@ -23,7 +23,7 @@ ArchitecturesAllowed=x64compatible
 ; the 64-bit view of the registry.
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-LicenseFile=C:\youmu\projects\turnedit-repository\LICENSE.md
+LicenseFile=C:\youmu\projects\turnedit-wpf\license.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 OutputBaseFilename=turnedit-setup
@@ -40,9 +40,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\turnedit-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\youmu\projects\turnedit-updater\bin\Release\net9.0-windows\win-x64\publish\TurnEditUpdater.exe"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
 Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\japanese\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion; Languages: japanese
 Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\english\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion; Languages: english
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+
+[Dirs]
+Name: "{app}\plugins"
+Name: "{app}\checksums" 
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

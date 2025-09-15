@@ -25,6 +25,7 @@ namespace TurnEdit
 			this._mainWindow = _mainWindow;
             var plugins = PluginLoader.LoadPlugins();
             pluginsLstView.ItemsSource = plugins;
+			InitializePluginListWindowI18n();
         }
 		public void InitializePluginListWindowI18n() {
 			switch (this._mainWindow.TurnEditLanguage) {

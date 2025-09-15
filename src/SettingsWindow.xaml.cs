@@ -30,7 +30,8 @@ namespace TurnEdit
         public string? ThemeMode { get; set; }
         public string? TextFont { get; set; }
         public double TextFontSize { get; set; }
-		public string? language {get; set;}
+		public string? language { get; set; }
+		public bool EnableDeveloperFeature { get; set; }
     }
     public class TurnEditLanguage
     {
@@ -91,7 +92,7 @@ namespace TurnEdit
             {
                 string json = await File.ReadAllTextAsync(SettingsPath);
                 var obj = JsonSerializer.Deserialize<TurnEditSettings>(json);
-                createFileWhenFNotExists!.IsEnabled = obj!.CreateFileWhenFileNotExists;
+                createFileWhenFNotExists!.IsChecked = obj!.CreateFileWhenFileNotExists;
                 defaultDirectory!.Text = obj!.DefaultDirectoryWhenFileOpen;
                 thememd.Text = obj.ThemeMode;
                 txtfnt.Text = obj.TextFont;
@@ -100,6 +101,11 @@ namespace TurnEdit
 					languageCmbBox.SelectedItem = japaneseLanguage;
 				} else if (obj.language == "en-US") {
 					languageCmbBox.SelectedItem = englishLanguage;
+				}
+				if (obj.EnableDeveloperFeature != null) {
+					if (obj.EnableDeveloperFeature == true) {
+						enableDeveloperFeature.IsChecked = true;
+					}
 				}
             }
             catch (Exception ex)
@@ -149,7 +155,8 @@ namespace TurnEdit
                     ThemeMode = thememd.Text,
                     TextFont = txtfnt.Text,
                     TextFontSize = double.Parse(fontSize.Text),
-					language = languageCode
+					language = languageCode,
+					EnableDeveloperFeature = enableDeveloperFeature.IsEnabled
                 };
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {
@@ -189,7 +196,8 @@ namespace TurnEdit
                     ThemeMode = thememd.Text,
                     TextFont = txtfnt.Text,
                     TextFontSize = double.Parse(fontSize.Text),
-					language = languageCode2
+					language = languageCode2,
+					EnableDeveloperFeature = enableDeveloperFeature.IsEnabled
                 };
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {

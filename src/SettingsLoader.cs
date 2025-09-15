@@ -33,6 +33,7 @@ namespace TurnEdit
             public string? TextFont { get; set; }
             public double TextFontSize { get; set; }
 			public string? language { get; set; }
+			public bool EnableDeveloperFeature { get; set; }
         }
         public bool CheckSettingsFileExists()
         {
@@ -80,6 +81,11 @@ namespace TurnEdit
                 {
                     this.AppTheme = "Auto";
                 }
+				if (obj.EnableDeveloperFeature != null) {
+					if (obj.EnableDeveloperFeature == true) {
+					forDevelopers.Visibility = Visibility.Visible;
+					}
+				}
 				LoadTurnEditLanguage(obj?.language);
 				this.TurnEditLanguage = obj!.language;
 				InitlaizeMsgboxStrings(obj?.language);
@@ -140,6 +146,8 @@ namespace TurnEdit
 				totalTextCount.Text = "文字の総数: 0";
 				pluginsNav.Header = "プラグイン";
 				IsLineNumberShowed.Header = "行番号";
+				forDevelopers.Header = "開発者向け機能";
+				occurExc.Header = "例外をスロー";
 			}
 		}
 		private void InitlaizeMsgboxStrings(string? languageCode2) {

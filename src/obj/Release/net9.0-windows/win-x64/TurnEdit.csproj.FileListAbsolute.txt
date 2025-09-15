@@ -227,7 +227,6 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\hostfxr.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\hostpolicy.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\mscordaccore.dll
-C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\mscordaccore_amd64_amd64_9.0.825.36511.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\mscordbi.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\mscorrc.dll
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\msquic.dll
@@ -424,3 +423,4 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\Tab.baml
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.Resources.en.resources
 C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\obj\Release\net9.0-windows\win-x64\TurnEdit.csproj.GenerateResource.cache
+C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\mscordaccore_amd64_amd64_9.0.925.41916.dll

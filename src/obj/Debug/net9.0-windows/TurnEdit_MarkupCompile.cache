@@ -1,5 +1,5 @@
 ﻿TurnEdit
-1.6
+1.6.1
 
 winexe
 C#
@@ -13,7 +13,7 @@ C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\App.xaml
 71111074839
 11597911044
 151172278695
-200-44685031
+200-1531957912
 AboutWindow.xaml;MainWindow.xaml;PluginsLstWindow.xaml;ReplaceWindow.xaml;SearchWindow.xaml;SettingsWindow.xaml;Tab.xaml;
 
 False

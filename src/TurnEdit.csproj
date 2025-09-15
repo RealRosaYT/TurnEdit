@@ -7,9 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>turnedit-icon.ico</ApplicationIcon>
-    <Version>1.6</Version>
-    <AssemblyVersion>1.6</AssemblyVersion>
-    <FileVersion>1.6</FileVersion>
+    <Version>1.6.1</Version>
+    <AssemblyVersion>1.6.1</AssemblyVersion>
+    <FileVersion>1.6.1</FileVersion>
 	<Copyright>Copyright ©️ 2025 youmu1948 All rights reserved.</Copyright>
 	<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
   </PropertyGroup>
