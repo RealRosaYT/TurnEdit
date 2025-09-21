@@ -70,10 +70,11 @@ namespace TurnEdit
 				cancelSettings.Content = "キャンセル";
 				this.Title = "設定";
 				this.SettingsWindowMsgboxStrings[0] = "設定を保存できませんでした: exc";
-				this.SettingsWindowMsgboxStrings[1] = "エラー";
+				this.SettingsWindowMsgboxStrings[1] = "TurnEdit";
+				developerFeatureTextBlk.Text = "開発者向け機能を有効にする";
 			} else if (this._mainwindow.TurnEditLanguage == "en-US") {
 				this.SettingsWindowMsgboxStrings[0] = "Failed to save settings: exc";
-				this.SettingsWindowMsgboxStrings[1] = "Error";
+				this.SettingsWindowMsgboxStrings[1] = "TurnEdit";
 			}
 		}
         /// <summary>
@@ -91,8 +92,11 @@ namespace TurnEdit
             try
             {
                 string json = await File.ReadAllTextAsync(SettingsPath);
-                var obj = JsonSerializer.Deserialize<TurnEditSettings>(json);
+                var obj = await Task.Run(() => {
+					return JsonSerializer.Deserialize<TurnEditSettings>(json);
+				});
                 createFileWhenFNotExists!.IsChecked = obj!.CreateFileWhenFileNotExists;
+				denyFiledblOpen!.IsChecked = obj!.DenyFileDoubleOpen;
                 defaultDirectory!.Text = obj!.DefaultDirectoryWhenFileOpen;
                 thememd.Text = obj.ThemeMode;
                 txtfnt.Text = obj.TextFont;
@@ -105,6 +109,8 @@ namespace TurnEdit
 				if (obj.EnableDeveloperFeature != null) {
 					if (obj.EnableDeveloperFeature == true) {
 						enableDeveloperFeature.IsChecked = true;
+					} else {
+						enableDeveloperFeature.IsChecked = false;
 					}
 				}
             }
@@ -135,7 +141,7 @@ namespace TurnEdit
         /// 3. Use System.Text.Json, and serialize json.
         /// 4. Save serialized JSON to C:\Users\%USERNAME%\AppData\Roaming\TurnEdit\turnedit-settings.json.
         /// </summary>
-        private void applySettings_Click(object sender, RoutedEventArgs e)
+        private async void applySettings_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -156,19 +162,21 @@ namespace TurnEdit
                     TextFont = txtfnt.Text,
                     TextFontSize = double.Parse(fontSize.Text),
 					language = languageCode,
-					EnableDeveloperFeature = enableDeveloperFeature.IsEnabled
+					EnableDeveloperFeature = (bool)enableDeveloperFeature.IsChecked
                 };
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {
                     WriteIndented = true
                 };
-                string settingsJson = JsonSerializer.Serialize(settings, options);
-                string appDataDirectory = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TurnEdit\";
+                string settingsJson = await Task.Run(() => {
+					return JsonSerializer.Serialize(settings, options);
+				});
+                string appDataDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TurnEdit");
                 if (!Directory.Exists(appDataDirectory))
                 {
                     Directory.CreateDirectory(appDataDirectory);
                 }
-                File.WriteAllText($@"{appDataDirectory}turnedit-settings.json", settingsJson);
+                await File.WriteAllTextAsync(System.IO.Path.Combine(appDataDirectory, "turnedit-settings.json"), settingsJson);
 				//SaveTurnEditLanguages(languageCode);
                 this._mainwindow.LoadTurnEditSettings();
             }
@@ -178,7 +186,7 @@ namespace TurnEdit
             }
         }
 
-        private void okSettings_Click(object sender, RoutedEventArgs e)
+        private async void okSettings_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -197,19 +205,21 @@ namespace TurnEdit
                     TextFont = txtfnt.Text,
                     TextFontSize = double.Parse(fontSize.Text),
 					language = languageCode2,
-					EnableDeveloperFeature = enableDeveloperFeature.IsEnabled
+					EnableDeveloperFeature = (bool)enableDeveloperFeature.IsChecked
                 };
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {
                     WriteIndented = true
                 };
-                string settingsJson = JsonSerializer.Serialize(settings, options);
-                string appDataDirectory = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TurnEdit\";
+                string settingsJson = await Task.Run(() => {
+					return JsonSerializer.Serialize(settings, options);
+				});
+                string appDataDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TurnEdit");
                 if (!Directory.Exists(appDataDirectory))
                 {
                     Directory.CreateDirectory(appDataDirectory);
                 }
-                File.WriteAllText($@"{appDataDirectory}turnedit-settings.json", settingsJson);
+                await File.WriteAllTextAsync(System.IO.Path.Combine(appDataDirectory, "turnedit-settings.json"), settingsJson);
 				//SaveTurnEditLanguages(languageCode2);
                 this._mainwindow.LoadTurnEditSettings();
                 this.Close();

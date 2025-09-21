@@ -14,6 +14,7 @@
         <TextBlock Text="This text editor licensed by GNU GPL 3.0." x:Name="licenseText" Margin="5" />
         <TextBlock Text="AppData:" x:Name="appdataForDebug" Margin="5" />
         <TextBlock Text="Installed directory: " Margin="5" x:Name="installedDirectory"  />
+		<TextBlock Text="Common language runtime version: 0" Margin="5" x:Name="clrVersion" />
         <Button Content="OK" Margin="3" x:Name="okButton" Click="okButton_Click" />
     </StackPanel>
 </Window>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TurnEdit"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="Untitled - TurnEdit" Height="800" Width="1000" KeyDown="Window_KeyDown" ResizeMode="CanResizeWithGrip" Closing="Window_Closing">
+        Title="Untitled - TurnEdit" AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver" Height="800" Width="1000" KeyDown="Window_KeyDown" ResizeMode="CanResizeWithGrip" Closing="Window_Closing">
     <DockPanel>
 		<Grid VerticalAlignment="Top" DockPanel.Dock="Top">
             <Menu x:Name="mainMenu" HorizontalAlignment="Left">

@@ -15,6 +15,7 @@ using Microsoft.Win32;
 using System.Configuration;
 using System.Windows.Media.TextFormatting;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace TurnEdit
 {
@@ -56,7 +57,10 @@ namespace TurnEdit
 				string AppDataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TurnEdit");
 				string SettingsPath = System.IO.Path.Combine(AppDataPath, "turnedit-settings.json");
                 string json = await File.ReadAllTextAsync(SettingsPath);
-                TurnEditSettings? obj = JsonSerializer.Deserialize<TurnEditSettings>(json);
+                TurnEditSettings? obj = await Task.Run(() => 
+				{
+					return JsonSerializer.Deserialize<TurnEditSettings>(json);
+				});
                 mainTextBox.FontSize = obj!.TextFontSize;
                 this.CreateFileFileNotExists = obj.CreateFileWhenFileNotExists;
                 FontFamily font = new FontFamily(obj.TextFont);
@@ -84,6 +88,10 @@ namespace TurnEdit
 				if (obj.EnableDeveloperFeature != null) {
 					if (obj.EnableDeveloperFeature == true) {
 					forDevelopers.Visibility = Visibility.Visible;
+					this.DeveloperMode = true;
+					} else {
+						forDevelopers.Visibility = Visibility.Collapsed;
+						this.DeveloperMode = false;
 					}
 				}
 				LoadTurnEditLanguage(obj?.language);
@@ -166,9 +174,9 @@ namespace TurnEdit
 				this.msgboxStringsMain[10] = "ヘルプファイルが見つかりません。";
 				this.msgboxStringsMain[11] = "ヘルプを開けませんでした: exc";
 				this.msgboxStringsMain[12] = "クリップボードのアクセス中にエラーが発生しました。";
-				this.msgboxStringsMain[13] = "エラー";
-				this.msgboxStringsMain[14] = "警告";
-				this.msgboxStringsMain[15] = "セキュリティ違反";
+				this.msgboxStringsMain[13] = "TurnEdit";
+				this.msgboxStringsMain[14] = "TurnEdit";
+				this.msgboxStringsMain[15] = "TurnEdit";
 				this.msgboxStringsMain[16] = "アップデーターを開けませんでした: ";
 				this.msgboxStringsMain[17] = "アップデーターの実行ファイルが見つかりません。";
 				this.msgboxStringsMain[18] = "ファイルが大き過ぎます。最大のファイルサイズは50MBです。";
@@ -181,6 +189,7 @@ namespace TurnEdit
 				this.msgboxStringsMain[25] = "本当に 「plg」プラグインを削除してよろしいですか ?";
 				this.msgboxStringsMain[26] = "アプリケーションで重大なエラーが発生しました。\r\n技術情報: \r\n exc\r\nアプリケーションを終了します。";
 				this.msgboxStringsMain[27] = "アップデートが利用可能です。更新しますか ?";
+				this.msgboxStringsMain[28] = "アプリケーションで重大なエラーが発生しました。\r\nアプリケーションを終了します。";
 			}
 			else if (languageCode2 == "en-US")
 			{
@@ -197,9 +206,9 @@ namespace TurnEdit
 				this.msgboxStringsMain[10] = "Help file not found.";
 				this.msgboxStringsMain[11] = "Failed to open help: ";
 				this.msgboxStringsMain[12] = "Error accessing clipboard.";
-				this.msgboxStringsMain[13] = "Error";
-				this.msgboxStringsMain[14] = "Warning";
-				this.msgboxStringsMain[15] = "Security violation";
+				this.msgboxStringsMain[13] = "TurnEdit";
+				this.msgboxStringsMain[14] = "TurnEdit";
+				this.msgboxStringsMain[15] = "TurnEdit";
 				this.msgboxStringsMain[16] = "Error opening updater: ";
 				this.msgboxStringsMain[17] = "Updater executable file not found.";
 				this.msgboxStringsMain[18] = "File is too big. maximum file size is 50MB.";
@@ -212,6 +221,7 @@ namespace TurnEdit
 				this.msgboxStringsMain[25] = $"Are you sure want to delete the \"plg\" plugin?";
 				this.msgboxStringsMain[26] = "There's critical error on this application.\r\nTechnical information: \r\n exc\r\nApplication will exit.";
 				this.msgboxStringsMain[27] = "An update is available. Do you want to update now?";
+				this.msgboxStringsMain[28] = "There's critical error on this application.\r\n Application will exit.";
 			}
 		}
     }

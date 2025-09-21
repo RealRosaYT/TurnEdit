@@ -37,6 +37,10 @@ namespace TurnEdit
 				licenseText.Text = "このテキストエディタはGNU GPL 3.0に基づいてライセンスされています。";
 				this.Title = "TurnEdit のバージョン情報";
 			}
+			clrVersion.Text = "Common language runtime version: " + Environment.Version.ToString();
+			if (this._mainWindow.TurnEditLanguage == "ja-JP") {
+				clrVersion.Text = "共通言語ランタイムのバージョン: " + Environment.Version.ToString();
+			}
         }
         private void okButton_Click(object sender, RoutedEventArgs e)
         {

@@ -39,14 +39,23 @@ namespace TurnEdit
         public string? AppTheme;
         public string? CommandLineArgumentFileName;
 		public bool? AcssFromApp;
+		public bool DeveloperMode;
         // public  List<string>? recentFiles;
         public MainWindow()
         {
             //this.CommandLineArgumentFileName = null;
             InitializeComponent();
+			Loaded += (sender, args) =>
+        {
+            Wpf.Ui.Appearance.SystemThemeWatcher.Watch(
+                this,                                    // Window class
+                Wpf.Ui.Controls.WindowBackdropType.Mica, // Background type
+                true                                     // Whether to change accents automatically
+            );
+        };
             this.IsFileOpened = false;
             this.currentFileName = null;
-            this.msgboxStringsMain = new string[28];
+            this.msgboxStringsMain = new string[29];
             mainTextBox.Width = this.Width;
             mainTextBox.Height = this.Height - mainMenu.Height;
             this.CreateFileFileNotExists = null;
@@ -124,7 +133,11 @@ namespace TurnEdit
 		/// </summary>
 		public void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
 			Exception ex = (Exception)e.ExceptionObject;
+			if (this.DeveloperMode) {
 			MessageBox.Show(this.msgboxStringsMain[26].Replace("exc", ex.ToString()), this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+			} else {
+				MessageBox.Show(this.msgboxStringsMain[28], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 			Environment.Exit(1);
 		}
         /// <summary>
@@ -190,7 +203,7 @@ namespace TurnEdit
         {
             await OpenFile();
         }
-        public void OpenInCommandLineArgument(string filePath)
+        public async void OpenInCommandLineArgument(string filePath)
         {
             try
             {
@@ -208,7 +221,7 @@ namespace TurnEdit
                     MessageBox.Show(this.msgboxStringsMain[18], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 IsPathSafe(validatedPath);
-                string content = File.ReadAllText(validatedPath);
+                string content = await File.ReadAllTextAsync(validatedPath);
                 this.mainTextBox.Text = content;
                 this.currentFileName = validatedPath;
                 this.Title = $"{this.currentFileName} - TurnEdit";
@@ -509,12 +522,16 @@ namespace TurnEdit
                         if (this.currentFileName is not null)
                         {
                             SaveFile();
-							Environment.Exit(0);
+							if (Application.Current.Windows.OfType<MainWindow>().Count() <= 1) {
+							Application.Current.Shutdown();
+							}
                         }
                         else if (this.currentFileName is null)
                         {
                             await SaveAs();
-							Environment.Exit(0);
+							if (Application.Current.Windows.OfType<MainWindow>().Count() <= 1) {
+							Application.Current.Shutdown();
+							}
                         }
                     }
                     else if (msgbox == MessageBoxResult.Cancel)
@@ -523,10 +540,14 @@ namespace TurnEdit
                     }
                     else
                     {
-						Environment.Exit(0);
+						if (Application.Current.Windows.OfType<MainWindow>().Count() <= 1) {
+						Application.Current.Shutdown();
+						}
                     }
                 }
-				Environment.Exit(0);
+				if (Application.Current.Windows.OfType<MainWindow>().Count() <= 1) {
+				Application.Current.Shutdown();
+				}
             }
             catch (IOException)
             {
@@ -545,19 +566,8 @@ namespace TurnEdit
         {
             try
             {
-                if (File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-help.chm")))
-                {
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = "C:\\Windows\\hh.exe",
-                        Arguments = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "turnedit-help.chm"),
-                        UseShellExecute = false
-                    });
-                }
-                else
-                {
-                    MessageBox.Show(this.msgboxStringsMain[10], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                var helpWindow = new HelpWindow();
+				helpWindow.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -657,6 +667,25 @@ namespace TurnEdit
 					this.DragMove();
 				}
 			}
+		}
+		private void Window_Drop(object sender, DragEventArgs e) {
+			string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+			if (files == null) {
+				return;
+			}
+			if (System.IO.File.Exists(files[0]) == false) {
+				return;
+			}
+			this.Title = files[0] + " - TurnEdit";
+			OpenInCommandLineArgument(files[0]);
+		}
+		private void Window_PreviewDragOver(object sender, DragEventArgs e) {
+			if (e.Data.GetDataPresent(DataFormats.FileDrop, true)) {
+				e.Effects = DragDropEffects.Copy;
+			} else {
+				e.Effects = DragDropEffects.None;
+			}
+			e.Handled = true;
 		}
     }
 }
