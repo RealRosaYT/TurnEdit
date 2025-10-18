@@ -6,7 +6,7 @@ on:
 
 jobs:
   create_hash_file:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Download release asset
         uses: actions/github-script@v6
