@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TurnEdit"
-#define MyAppVersion "1.6.1"
+#define MyAppVersion "1.7"
 #define MyAppExeName "TurnEdit.exe"
 
 [Setup]
@@ -40,9 +40,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\bin\Release\net9.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\turnedit-icon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\youmu\projects\turnedit-updater\bin\Release\net9.0-windows\win-x64\publish\TurnEditUpdater.exe"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
-Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\japanese\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion; Languages: japanese
-Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\english\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion; Languages: english
+Source: "C:\youmu\projects\turnedit-updater\bin\Release\net9.0-windows\win-x64\TurnEditUpdater.exe"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
+Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\japanese\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion onlyifdoesntexist; Languages: japanese
+Source: "C:\youmu\projects\turnedit-wpf\TurnEdit\TurnEdit\english\turnedit-settings.json"; DestDir: "{userappdata}\TurnEdit"; Flags: ignoreversion onlyifdoesntexist; Languages: english
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Dirs]

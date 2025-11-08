@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CompletionPriority_High" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="Tag_a" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="Tag_div" xml:space="preserve">
+    <value>div</value>
+  </data>
+  <data name="Tag_p" xml:space="preserve">
+    <value>img</value>
+  </data>
+  <data name="Tag_html" xml:space="preserve">
+    <value>html</value>
+  </data>
+  <data name="Tag_head" xml:space="preserve">
+    <value>head</value>
+  </data>
+  <data name="Tag_body" xml:space="preserve">
+    <value>body</value>
+  </data>
+  <data name="Tag_title" xml:space="preserve">
+    <value>title</value>
+  </data>
+  <data name="Tag_link" xml:space="preserve">
+    <value>link</value>
+  </data>
+  <data name="Tag_style" xml:space="preserve">
+    <value>style</value>
+  </data>
+  <data name="Tag_script" xml:space="preserve">
+    <value>script</value>
+  </data>
+  <data name="Tag_meta" xml:space="preserve">
+    <value>meta</value>
+  </data>
+  <data name="Tag_article" xml:space="preserve">
+    <value>article</value>
+  </data>
+  <data name="Tag_section" xml:space="preserve">
+    <value>section</value>
+  </data>
+  <data name="Tag_nav" xml:space="preserve">
+    <value>nav</value>
+  </data>
+  <data name="Tag_aside" xml:space="preserve">
+    <value>aside</value>
+  </data>
+  <data name="Tag_h1" xml:space="preserve">
+    <value>h1</value>
+  </data>
+  <data name="Tag_h2" xml:space="preserve">
+    <value>h2</value>
+  </data>
+  <data name="Tag_h3" xml:space="preserve">
+    <value>h3</value>
+  </data>
+  <data name="Tag_h4" xml:space="preserve">
+    <value>h4</value>
+  </data>
+  <data name="Tag_h5" xml:space="preserve">
+    <value>h5</value>
+  </data>
+  <data name="Tag_h6" xml:space="preserve">
+    <value>h6</value>
+  </data>
+  <data name="Tag_hgroup" xml:space="preserve">
+    <value>hgroup</value>
+  </data>
+  <data name="Tag_header" xml:space="preserve">
+    <value>header</value>
+  </data>
+  <data name="Tag_footer" xml:space="preserve">
+    <value>footer</value>
+  </data>
+  <data name="Tag_address" xml:space="preserve">
+    <value>address</value>
+  </data>
+  <data name="Tag_hr" xml:space="preserve">
+    <value>hr</value>
+  </data>
+  <data name="Tag_pre" xml:space="preserve">
+    <value>pre</value>
+  </data>
+  <data name="Tag_code" xml:space="preserve">
+    <value>code</value>
+  </data>
+  <data name="Tag_ol" xml:space="preserve">
+    <value>ol</value>
+  </data>
+  <data name="Tag_ul" xml:space="preserve">
+    <value>ul</value>
+  </data>
+  <data name="Tag_li" xml:space="preserve">
+    <value>li</value>
+  </data>
+  <data name="Tag_menu" xml:space="preserve">
+    <value>menu</value>
+  </data>
+  <data name="Tag_dl" xml:space="preserve">
+    <value>dl</value>
+  </data>
+  <data name="Tag_dt" xml:space="preserve">
+    <value>dt</value>
+  </data>
+  <data name="Tag_dd" xml:space="preserve">
+    <value>dd</value>
+  </data>
+  <data name="Tag_figure" xml:space="preserve">
+    <value>figure</value>
+  </data>
+  <data name="Tag_figcaption" xml:space="preserve">
+    <value>figcaption</value>
+  </data>
+  <data name="Tag_main" xml:space="preserve">
+    <value>main</value>
+  </data>
+  <data name="Tag_search" xml:space="preserve">
+    <value>search</value>
+  </data>
+  <data name="Tag_blockquote" xml:space="preserve">
+    <value>blockquote</value>
+  </data>
+  <data name="Tag_canvas" xml:space="preserve">
+    <value>canvas</value>
+  </data>
+  <data name="Tag_iframe" xml:space="preserve">
+    <value>iframe</value>
+  </data>
+  <data name="Tag_video" xml:space="preserve">
+    <value>video</value>
+  </data>
+  <data name="Tag_audio" xml:space="preserve">
+    <value>audio</value>
+  </data>
+  <data name="Tag_source" xml:space="preserve">
+    <value>source</value>
+  </data>
+  <data name="Tag_track" xml:space="preserve">
+    <value>track</value>
+  </data>
+  <data name="Tag_map" xml:space="preserve">
+    <value>map</value>
+  </data>
+  <data name="Tag_area" xml:space="preserve">
+    <value>area</value>
+  </data>
+  <data name="Tag_table" xml:space="preserve">
+    <value>table</value>
+  </data>
+  <data name="Tag_caption" xml:space="preserve">
+    <value>caption</value>
+  </data>
+  <data name="Tag_colgroup" xml:space="preserve">
+    <value>colgroup</value>
+  </data>
+  <data name="Tag_col" xml:space="preserve">
+    <value>col</value>
+  </data>
+  <data name="Tag_tbody" xml:space="preserve">
+    <value>tbody</value>
+  </data>
+  <data name="Tag_thead" xml:space="preserve">
+    <value>thead</value>
+  </data>
+  <data name="Tag_tfoot" xml:space="preserve">
+    <value>tfoot</value>
+  </data>
+  <data name="Tag_tr" xml:space="preserve">
+    <value>tr</value>
+  </data>
+  <data name="Tag_td" xml:space="preserve">
+    <value>td</value>
+  </data>
+  <data name="Tag_th" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="Tag_form" xml:space="preserve">
+    <value>form</value>
+  </data>
+  <data name="Tag_fieldset" xml:space="preserve">
+    <value>fieldset</value>
+  </data>
+  <data name="Tag_legend" xml:space="preserve">
+    <value>legend</value>
+  </data>
+  <data name="Tag_label" xml:space="preserve">
+    <value>label</value>
+  </data>
+  <data name="Tag_input" xml:space="preserve">
+    <value>input</value>
+  </data>
+  <data name="Tag_button" xml:space="preserve">
+    <value>button</value>
+  </data>
+  <data name="Tag_select" xml:space="preserve">
+    <value>select</value>
+  </data>
+  <data name="Tag_option" xml:space="preserve">
+    <value>option</value>
+  </data>
+  <data name="Tag_textarea" xml:space="preserve">
+    <value>textarea</value>
+  </data>
+  <data name="Tag_progress" xml:space="preserve">
+    <value>progress</value>
+  </data>
+  <data name="Tag_meter" xml:space="preserve">
+    <value>meter</value>
+  </data>
+  <data name="Tag_datalist" xml:space="preserve">
+    <value>datalist</value>
+  </data>
+  <data name="Tag_optgroup" xml:space="preserve">
+    <value>optgroup</value>
+  </data>
+  <data name="Tag_samp" xml:space="preserve">
+    <value>samp</value>
+  </data>
+  <data name="Tag_span" xml:space="preserve">
+    <value>span</value>
+  </data>
+  <data name="Tag_br" xml:space="preserve">
+    <value>br</value>
+  </data>
+  <data name="Tag_em" xml:space="preserve">
+    <value>em</value>
+  </data>
+  <data name="Tag_strong" xml:space="preserve">
+    <value>strong</value>
+  </data>
+  <data name="Tag_i" xml:space="preserve">
+    <value>i</value>
+  </data>
+  <data name="Tag_b" xml:space="preserve">
+    <value>b</value>
+  </data>
+  <data name="Tag_u" xml:space="preserve">
+    <value>u</value>
+  </data>
+  <data name="Tag_sub" xml:space="preserve">
+    <value>sub</value>
+  </data>
+  <data name="Tag_sup" xml:space="preserve">
+    <value>sup</value>
+  </data>
+  <data name="Tag_kbd" xml:space="preserve">
+    <value>kbd</value>
+  </data>
+  <data name="Attr_class" xml:space="preserve">
+    <value>class</value>
+  </data>
+  <data name="Attr_id" xml:space="preserve">
+    <value>id</value>
+  </data>
+  <data name="Attr_style" xml:space="preserve">
+    <value>style</value>
+  </data>
+  <data name="Attr_src" xml:space="preserve">
+    <value>src</value>
+  </data>
+  <data name="Attr_href" xml:space="preserve">
+    <value>href</value>
+  </data>
+  <data name="Attr_alt" xml:space="preserve">
+    <value>alt</value>
+  </data>
+  <data name="Attr_title" xml:space="preserve">
+    <value>title</value>
+  </data>
+  <data name="Attr_lang" xml:space="preserve">
+    <value>lang</value>
+  </data>
+  <data name="Attr_dir" xml:space="preserve">
+    <value>dir</value>
+  </data>
+  <data name="Attr_data" xml:space="preserve">
+    <value>data-</value>
+  </data>
+  <data name="Attr_type" xml:space="preserve">
+    <value>type</value>
+  </data>
+  <data name="Attr_name" xml:space="preserve">
+    <value>name</value>
+  </data>
+  <data name="Attr_value" xml:space="preserve">
+    <value>value</value>
+  </data>
+  <data name="Attr_placeholder" xml:space="preserve">
+    <value>placeholder</value>
+  </data>
+  <data name="Attr_maxlength" xml:space="preserve">
+    <value>maxlength</value>
+  </data>
+  <data name="Attr_min" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="Attr_max" xml:space="preserve">
+    <value>max</value>
+  </data>
+  <data name="Attr_step" xml:space="preserve">
+    <value>step</value>
+  </data>
+  <data name="Attr_required" xml:space="preserve">
+    <value>required</value>
+  </data>
+  <data name="Attr_disabled" xml:space="preserve">
+    <value>disabled</value>
+  </data>
+  <data name="Attr_readonly" xml:space="preserve">
+    <value>readonly</value>
+  </data>
+  <data name="Attr_checked" xml:space="preserve">
+    <value>checked</value>
+  </data>
+  <data name="Attr_selected" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="Attr_multiple" xml:space="preserve">
+    <value>multiple</value>
+  </data>
+  <data name="Attr_form" xml:space="preserve">
+    <value>form</value>
+  </data>
+  <data name="Attr_method" xml:space="preserve">
+    <value>method</value>
+  </data>
+  <data name="Attr_action" xml:space="preserve">
+    <value>action</value>
+  </data>
+  <data name="Attr_target" xml:space="preserve">
+    <value>target</value>
+  </data>
+  <data name="Attr_rel" xml:space="preserve">
+    <value>rel</value>
+  </data>
+  <data name="Attr_media" xml:space="preserve">
+    <value>media</value>
+  </data>
+  <data name="Attr_charset" xml:space="preserve">
+    <value>charset</value>
+  </data>
+  <data name="Attr_width" xml:space="preserve">
+    <value>width</value>
+  </data>
+  <data name="Attr_height" xml:space="preserve">
+    <value>height</value>
+  </data>
+  <data name="Attr_colspan" xml:space="preserve">
+    <value>colspan</value>
+  </data>
+  <data name="Attr_rowspan" xml:space="preserve">
+    <value>rowspan</value>
+  </data>
+  <data name="Attr_aria_label" xml:space="preserve">
+    <value>aria-label</value>
+  </data>
+  <data name="Attr_role" xml:space="preserve">
+    <value>role</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+</root>

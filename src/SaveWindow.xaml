@@ -1,0 +1,26 @@
+<Window x:Class="TurnEdit.SaveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TurnEdit"
+        mc:Ignorable="d"
+        Title="Save As" Height="600" Width="800" ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical">
+		<StackPanel Orientation="Horizontal" Margin="10">
+			<TextBox x:Name="inputDirectory" Margin="5" />
+			<Button Content="Go" x:Name="goDirectory" Margin="5" Click="goDirectory_Click" />
+		</StackPanel>
+        <ListView x:Name="directoryView" Margin="10" Height="400" />
+		<StackPanel Orientation="Horizontal" Margin="10">
+			<ComboBox x:Name="saveEncoding" SelectedIndex="1" Margin="5">
+				<ComboBoxItem Content="ANSI" />
+				<ComboBoxItem Content="UTF-8" />
+				<ComboBoxItem Content="UTF-16 LE" />
+				<ComboBoxItem Content="UTF-32" />
+			</ComboBox>
+			<Button Content="Save" x:Name="saveBtn" Margin="5" />
+			<Button Content="Cancel" x:Name="cancelSaving" Click="cancelSaving_Click" Margin="5" />
+		</StackPanel>
+    </StackPanel>
+</Window>

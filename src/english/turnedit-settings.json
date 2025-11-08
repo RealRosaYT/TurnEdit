@@ -3,7 +3,10 @@
   "CreateFileWhenFileNotExists": true,
   "DefaultDirectoryWhenFileOpen": "",
   "ThemeMode": "Light",
-  "TextFont": "MS Gothic",
+  "TextFont": "Segoe UI",
   "TextFontSize": 15,
-  "language": "en-US"
+  "language": "en-US",
+  "EnableDeveloperFeature": false,
+  "ShowLineNumber": true,
+  "MakeLinkClickable": true
 }

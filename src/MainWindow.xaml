@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TurnEdit"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+		xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="Untitled - TurnEdit" AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver" Height="800" Width="1000" KeyDown="Window_KeyDown" ResizeMode="CanResizeWithGrip" Closing="Window_Closing">
+	<Window.Resources>
+		<Style TargetType="{x:Type avalonEdit:SearchPanel}" x:Key="LightSearchPanelStyle">
+			<Setter Property="Background" Value="White"/>
+        </Style>
+
+		<Style TargetType="{x:Type avalonEdit:SearchPanel}" x:Key="DarkSearchPanelStyle">
+        <Setter Property="Background" Value="#333333"/> <Setter Property="Foreground" Value="White"/> </Style>
+	</Window.Resources>
     <DockPanel>
 		<Grid VerticalAlignment="Top" DockPanel.Dock="Top">
             <Menu x:Name="mainMenu" HorizontalAlignment="Left">
@@ -23,16 +32,12 @@
                 </MenuItem>
                 <MenuItem Header="View" x:Name="viewNav">
                     <MenuItem Header="Settings" x:Name="settingsNav" Click="settingsNav_Click" />
-                    <MenuItem Header="Plugins" x:Name="pluginsNav" Click="pluginsNav_Click" />
-                    <MenuItem Header="Line number" IsCheckable="True" IsChecked="True" Checked="IsLineNumberShowed_Checked" Unchecked="IsLineNumberShowed_Unchecked" x:Name="IsLineNumberShowed" />
                     <MenuItem Header="Search" x:Name="searchEngineNav">
                         <MenuItem Header="on Google" x:Name="searchOnGoogle" Click="searchOnGoogle_Click" />
                         <MenuItem Header="on Bing" x:Name="searchOnBing" Click="searchOnBing_Click" />
                     </MenuItem>
-                    <!-- This feature is experimental, please implement this feature! -->
-                    <!--
                     <MenuItem Header="Move line" x:Name="moveLineNav" Click="moveLineNav_Click" />
-                    -->
+					<MenuItem Header="Scroll to end" x:Name="scrollToEnd" Click="scrollToEnd_Click" />
                 </MenuItem>
                 <MenuItem Header="Edit" x:Name="editNav">
                     <MenuItem Header="Search" x:Name="searchNav" Click="searchNav_Click" InputGestureText="Ctrl+F" />
@@ -54,6 +59,10 @@
                 <MenuItem Header="Window" x:Name="windowNav">
                     <MenuItem Header="New Window" x:Name="newWindowNav" Click="newWindowNav_Click" />
                 </MenuItem>
+				<MenuItem Header="Languages" x:Name="languagesNav" />
+				<MenuItem Header="Plugins" x:Name="pluginsTopNav">
+					<MenuItem Header="Plugins" x:Name="pluginsNav" Click="pluginsNav_Click" />
+				</MenuItem>
                 <MenuItem Header="Help" x:Name="helpNav">
                     <MenuItem Header="Help" x:Name="helpOfflineNav" Click="helpNav_Click" />
                     <MenuItem Header="Update Turnedit" x:Name="updaterNav" Click="updaterNav_Click" />
@@ -82,7 +91,7 @@
                 <TextBlock Text="Column: 0" x:Name="columnStatus" />
             </StatusBarItem>
             <StatusBarItem>
-                <TextBlock Text="Total text count: 0" x:Name="totalTextCount" />
+                <TextBlock Text="Length: 0" x:Name="totalTextCount" />
             </StatusBarItem>
         </StatusBar>
 		<Grid>
@@ -90,8 +99,7 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<TextBox IsReadOnly="True" x:Name="lineNumberTxtBox" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Grid.Column="0" />
-			<TextBox x:Name="mainTextBox" ScrollViewer.ScrollChanged="mainTextBox_ScrollChanged" x:FieldModifier="public" FontFamily="Segoe UI" AcceptsReturn="True" KeyUp="mainTextBox_KeyUp" TextChanged="mainTextBox_TextChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            <avalonEdit:TextEditor x:Name="mainTextBox" x:FieldModifier="public" FontFamily="Segoe UI" KeyUp="mainTextBox_KeyUp" TextChanged="mainTextBox_TextChanged" ShowLineNumbers="True" Grid.Column="1" />
 		</Grid>
     </DockPanel>
 </Window>

@@ -35,6 +35,8 @@ namespace TurnEdit
             public double TextFontSize { get; set; }
 			public string? language { get; set; }
 			public bool EnableDeveloperFeature { get; set; }
+			public bool ShowLineNumber { get; set; }
+			public bool MakeLinkClickable { get; set; }
         }
         public bool CheckSettingsFileExists()
         {
@@ -85,15 +87,15 @@ namespace TurnEdit
                 {
                     this.AppTheme = "Auto";
                 }
-				if (obj.EnableDeveloperFeature != null) {
-					if (obj.EnableDeveloperFeature == true) {
+				if (obj.EnableDeveloperFeature == true) {
 					forDevelopers.Visibility = Visibility.Visible;
 					this.DeveloperMode = true;
-					} else {
-						forDevelopers.Visibility = Visibility.Collapsed;
-						this.DeveloperMode = false;
-					}
+				} else {
+					forDevelopers.Visibility = Visibility.Collapsed;
+					this.DeveloperMode = false;
 				}
+				mainTextBox.ShowLineNumbers = obj.ShowLineNumber;
+				mainTextBox.Options.EnableHyperlinks = obj.MakeLinkClickable;
 				LoadTurnEditLanguage(obj?.language);
 				this.TurnEditLanguage = obj!.language;
 				InitlaizeMsgboxStrings(obj?.language);
@@ -109,6 +111,9 @@ namespace TurnEdit
                 this.DefaultDirectory = null;
                 this.AppTheme = "Light";
 				this.TurnEditLanguage = "en-US";
+				this.DeveloperMode = false;
+				mainTextBox.ShowLineNumbers = true;
+				mainTextBox.Options.EnableHyperlinks = true;
             }
         }
 		/// <summary>
@@ -153,9 +158,55 @@ namespace TurnEdit
 				columnStatus.Text = "列: 1";
 				totalTextCount.Text = "文字の総数: 0";
 				pluginsNav.Header = "プラグイン";
-				IsLineNumberShowed.Header = "行番号";
 				forDevelopers.Header = "開発者向け機能";
 				occurExc.Header = "例外をスロー";
+				scrollToEnd.Header = "末尾へ移動";
+				moveLineNav.Header = "行を移動";
+				pluginsTopNav.Header = "プラグイン";
+				languagesNav.Header = "言語";
+			} else if (languageCode == "en-US") {
+				fileNav.Header = "File";
+				viewNav.Header = "View";
+				editNav.Header = "Edit";
+				windowNav.Header = "Window";
+				helpNav.Header = "Help";
+				newFileNav.Header = "New";
+				openNav.Header = "Open";
+				saveNav.Header = "Save";
+				saveAsNav.Header = "Save As";
+				//recentlyOpenedFile.Header = "最近開いたファイル";
+				exitNav.Header = "Exit";
+				settingsNav.Header = "Settings";
+				searchNav.Header = "Search";
+				replaceNav.Header = "Replace";
+				insertDateAndTimeNav.Header = "Insert date and time";
+				undoNav.Header = "Undo";
+				redoNav.Header = "Redo";
+				cutNav.Header = "Cut";
+				copyNav.Header = "Copy";
+				pasteNav.Header = "Paste";
+				pasteWithQuotes.Header = "Paste with quotes";
+				deleteCurrentLine.Header = "Delete current line";
+				selectAllNav.Header = "Select all";
+				newWindowNav.Header = "New Window";
+				helpNav.Header = "Help";
+				helpOfflineNav.Header = "Help";
+				aboutTurnEditNav.Header = "About TurnEdit";
+				updaterNav.Header = "Update TurnEdit";
+				searchOnGoogle.Header = "on Google";
+				searchOnBing.Header = "on Bing";
+				searchEngineNav.Header = "Search";
+				this.Title = "Untitled - TurnEdit";
+				lineStatus.Text = "Line: 1";
+				columnStatus.Text = "Column: 1";
+				totalTextCount.Text = "Length: 0";
+				pluginsNav.Header = "Plugins";
+				forDevelopers.Header = "For developers";
+				occurExc.Header = "Throw a exception";
+				scrollToEnd.Header = "Scroll to end";
+				moveLineNav.Header = "Move line";
+				pluginsTopNav.Header = "Plugins";
+				languagesNav.Header = "Languages";
 			}
 		}
 		private void InitlaizeMsgboxStrings(string? languageCode2) {
@@ -187,9 +238,9 @@ namespace TurnEdit
 				this.msgboxStringsMain[23] = "不正なプラグインの形式です。";
 				this.msgboxStringsMain[24] = "チェックサムの検証に失敗しました。セキュリティのため、プラグインのインストールを中止します。";
 				this.msgboxStringsMain[25] = "本当に 「plg」プラグインを削除してよろしいですか ?";
-				this.msgboxStringsMain[26] = "アプリケーションで重大なエラーが発生しました。\r\n技術情報: \r\n exc\r\nアプリケーションを終了します。";
+				this.msgboxStringsMain[26] = "アプリケーションで重大なエラーが発生しました。\r\n技術情報: \r\n exc\r\n TurnEdit は終了します。";
 				this.msgboxStringsMain[27] = "アップデートが利用可能です。更新しますか ?";
-				this.msgboxStringsMain[28] = "アプリケーションで重大なエラーが発生しました。\r\nアプリケーションを終了します。";
+				this.msgboxStringsMain[28] = "アプリケーションで重大なエラーが発生しました。\r\n TurnEdit は終了します。";
 			}
 			else if (languageCode2 == "en-US")
 			{
@@ -219,9 +270,9 @@ namespace TurnEdit
 				this.msgboxStringsMain[23] = "Invalid plugin format.";
 				this.msgboxStringsMain[24] = "Failure verifying checksum. For a security, plugin installation has aborted.";
 				this.msgboxStringsMain[25] = $"Are you sure want to delete the \"plg\" plugin?";
-				this.msgboxStringsMain[26] = "There's critical error on this application.\r\nTechnical information: \r\n exc\r\nApplication will exit.";
+				this.msgboxStringsMain[26] = "There's critical error on this application.\r\nTechnical information: \r\n exc\r\n TurnEdit will terminating.";
 				this.msgboxStringsMain[27] = "An update is available. Do you want to update now?";
-				this.msgboxStringsMain[28] = "There's critical error on this application.\r\n Application will exit.";
+				this.msgboxStringsMain[28] = "There's critical error on this application.\r\n TurnEdit will terminating.";
 			}
 		}
     }

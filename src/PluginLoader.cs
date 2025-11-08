@@ -96,7 +96,7 @@ public static class PluginLoader
                     {
                         var plugin = Activator.CreateInstance(type) as PluginInformationsTemplate;
 						PluginManager.LoadedPluginsFile.Add(file);
-                        plugins.Add(plugin);
+                        plugins.Add(plugin!);
                     }
                 }
             }

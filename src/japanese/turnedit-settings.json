@@ -3,7 +3,10 @@
   "CreateFileWhenFileNotExists": true,
   "DefaultDirectoryWhenFileOpen": "",
   "ThemeMode": "Light",
-  "TextFont": "MS Gothic",
+  "TextFont": "Yu Gothic UI",
   "TextFontSize": 15,
-  "language": "ja-JP"
+  "language": "ja-JP",
+  "EnableDeveloperFeature": false,
+  "ShowLineNumber": true,
+  "MakeLinkClickable": true
 }

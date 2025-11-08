@@ -32,6 +32,8 @@ namespace TurnEdit
         public double TextFontSize { get; set; }
 		public string? language { get; set; }
 		public bool EnableDeveloperFeature { get; set; }
+		public bool ShowLineNumber { get; set; }
+		public bool MakeLinkClickable { get; set; }
     }
     public class TurnEditLanguage
     {
@@ -68,6 +70,8 @@ namespace TurnEdit
 				applySettings.Content = "適用";
 				okSettings.Content = "OK";
 				cancelSettings.Content = "キャンセル";
+				showLineNumber.Content = "行番号を表示する";
+				makeURLClickable.Content = "URLをクリック可能にする";
 				this.Title = "設定";
 				this.SettingsWindowMsgboxStrings[0] = "設定を保存できませんでした: exc";
 				this.SettingsWindowMsgboxStrings[1] = "TurnEdit";
@@ -101,17 +105,17 @@ namespace TurnEdit
                 thememd.Text = obj.ThemeMode;
                 txtfnt.Text = obj.TextFont;
                 fontSize.Text = obj.TextFontSize.ToString();
+				showLineNumber!.IsChecked = obj!.ShowLineNumber;
+				makeURLClickable!.IsChecked = obj!.MakeLinkClickable;
 				if (obj.language == "ja-JP") {
 					languageCmbBox.SelectedItem = japaneseLanguage;
 				} else if (obj.language == "en-US") {
 					languageCmbBox.SelectedItem = englishLanguage;
 				}
-				if (obj.EnableDeveloperFeature != null) {
-					if (obj.EnableDeveloperFeature == true) {
-						enableDeveloperFeature.IsChecked = true;
-					} else {
-						enableDeveloperFeature.IsChecked = false;
-					}
+				if (obj.EnableDeveloperFeature == true) {
+					enableDeveloperFeature.IsChecked = true;
+				} else {
+					enableDeveloperFeature.IsChecked = false;
 				}
             }
             catch (Exception ex)
@@ -162,7 +166,9 @@ namespace TurnEdit
                     TextFont = txtfnt.Text,
                     TextFontSize = double.Parse(fontSize.Text),
 					language = languageCode,
-					EnableDeveloperFeature = (bool)enableDeveloperFeature.IsChecked
+					EnableDeveloperFeature = (bool)enableDeveloperFeature.IsChecked!,
+					ShowLineNumber = (bool)showLineNumber.IsChecked!,
+					MakeLinkClickable = (bool)makeURLClickable.IsChecked!
                 };
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {
@@ -205,7 +211,9 @@ namespace TurnEdit
                     TextFont = txtfnt.Text,
                     TextFontSize = double.Parse(fontSize.Text),
 					language = languageCode2,
-					EnableDeveloperFeature = (bool)enableDeveloperFeature.IsChecked
+					EnableDeveloperFeature = (bool)enableDeveloperFeature.IsChecked!,
+					ShowLineNumber = (bool)showLineNumber.IsChecked!,
+					MakeLinkClickable = (bool)makeURLClickable.IsChecked!
                 };
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {

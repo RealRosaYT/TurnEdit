@@ -10,7 +10,8 @@
         <StackPanel Orientation="Vertical">
             <TabControl Height="420">
                 <TabItem Header="Design" x:Name="designTab">
-                    <StackPanel Background="#FFE5E5E5">
+					<ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                    <StackPanel>
                         <TextBlock Text="Font" Margin="10" x:Name="fontTextblk" />
                         <ComboBox Margin="10" x:Name="txtfnt" ItemsSource="{x:Static Fonts.SystemFontFamilies}"></ComboBox>
                         <TextBlock Text="Mode(Under construction)" Margin="10" x:Name="modeTextblk" />
@@ -21,7 +22,10 @@
                         </ComboBox>
                         <TextBlock Text="Font Size" Margin="10" x:Name="fontSizeTextblk" />
                         <TextBox x:Name="fontSize" Margin="10" PreviewTextInput="fontSize_PreviewTextInput" />
+						<CheckBox Content="Show line number" Margin="10" x:Name="showLineNumber" />
+						<CheckBox Content="Make URL clickable" Margin="10" x:Name="makeURLClickable" />
                     </StackPanel>
+					</ScrollViewer>
                 </TabItem>
                 <TabItem Header="File/Folder" x:Name="fileAndFolderTab">
                     <StackPanel Margin="10">

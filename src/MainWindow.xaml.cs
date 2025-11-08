@@ -15,7 +15,6 @@ using System.Configuration;
 using System.Windows.Media.TextFormatting;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Linq;
 using System.Security;
 using System.Windows.Controls.Ribbon;
 
@@ -23,7 +22,16 @@ namespace TurnEdit
 {
 	using System.Text.Json;
 	using System.Text.Json.Serialization;
-	public class GitHubRelease {
+	using ICSharpCode.AvalonEdit;
+	using ICSharpCode.AvalonEdit.Editing;
+	using ICSharpCode.AvalonEdit.Highlighting;
+	using ICSharpCode.AvalonEdit.Search;
+	using ICSharpCode.AvalonEdit.Folding;
+	using System.Linq;
+	using System.Collections.Generic;
+    using ICSharpCode.AvalonEdit.CodeCompletion;
+
+    public class GitHubRelease {
 		[JsonPropertyName("tag_name")]
 		public string? TagName {get; set;}
 	}
@@ -32,7 +40,6 @@ namespace TurnEdit
     /// </summary>
     public partial class MainWindow : Window
     {
-		private static MainWindow _instance;
         public bool IsFileOpened;
         public string? currentFileName;
         public bool ChangesUnsaved;
@@ -40,19 +47,12 @@ namespace TurnEdit
         public string? CommandLineArgumentFileName;
 		public bool? AcssFromApp;
 		public bool DeveloperMode;
+        private CompletionWindow completionWindow;
         // public  List<string>? recentFiles;
         public MainWindow()
         {
             //this.CommandLineArgumentFileName = null;
             InitializeComponent();
-			Loaded += (sender, args) =>
-        {
-            Wpf.Ui.Appearance.SystemThemeWatcher.Watch(
-                this,                                    // Window class
-                Wpf.Ui.Controls.WindowBackdropType.Mica, // Background type
-                true                                     // Whether to change accents automatically
-            );
-        };
             this.IsFileOpened = false;
             this.currentFileName = null;
             this.msgboxStringsMain = new string[29];
@@ -78,17 +78,28 @@ namespace TurnEdit
             // this is using when officially released
             //this.ThemeMode = ThemeMode.Light;
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.OnUnhandledException);
+			InitializeLanguagesList();
+			if (IsSystemLightTheme()) {
+				mainTextBox.Background = Brushes.White;
+				mainTextBox.Foreground = Brushes.Black;
+			} else {
+				mainTextBox.Background = Brushes.Black;
+				mainTextBox.Foreground = Brushes.White;
+			}
+			FoldingManager foldingManager = FoldingManager.Install(mainTextBox.TextArea);
+			XmlFoldingStrategy foldingstrategy = new XmlFoldingStrategy();
+			foldingstrategy.UpdateFoldings(foldingManager, mainTextBox.Document);
 			CheckTurnEditUpdate();
         }
 		public MainWindow(string filePath) : this() {
 			OpenInCommandLineArgument(filePath);
 		}
-		public static MainWindow Instance {
-			get {
-				if (_instance == null) {
-					_instance = new MainWindow();
-				}
-				return _instance;
+		private bool IsSystemLightTheme() {
+			const string keyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+			const string valueName = "AppsUseLightTheme";
+			using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(keyPath)) {
+				var keyvalue = key?.GetValue(valueName);
+				return keyvalue is int i && i > 0;
 			}
 		}
 		
@@ -106,15 +117,18 @@ namespace TurnEdit
             }
         }
         */
-		
+		private void mainTextBox_TextChanged(object sender, EventArgs e) {
+			this.ChangesUnsaved = true;
+		}
 		private async void CheckTurnEditUpdate() {
 			try {
-			Version version = Version.Parse(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            string versionstr = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!.ToString();
+			Version version = Version.Parse(versionstr);
 			var client = new System.Net.Http.HttpClient();
 			client.DefaultRequestHeaders.UserAgent.ParseAdd("TurnEdit-Updater");
 			var str = await client.GetStringAsync("https://api.github.com/repos/RealRosaYT/TurnEdit/releases/latest");
-			var deserializedJson = JsonSerializer.Deserialize<GitHubRelease>(str);
-			Version GitHubVersion = Version.Parse(deserializedJson.TagName);
+			GitHubRelease? deserializedJson = JsonSerializer.Deserialize<GitHubRelease>(str);
+			Version GitHubVersion = Version.Parse(deserializedJson!.TagName!);
 			if (GitHubVersion > version) {
 				if (File.Exists("TurnEditUpdater.exe")) {
 					MessageBoxResult result = MessageBox.Show(this.msgboxStringsMain[27], this.msgboxStringsMain[13], MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -123,7 +137,7 @@ namespace TurnEdit
 					}
 				}
 			}
-			} catch (Exception ex) {
+			} catch (Exception) {
 				return;
 			}
 		}
@@ -133,10 +147,16 @@ namespace TurnEdit
 		/// </summary>
 		public void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
 			Exception ex = (Exception)e.ExceptionObject;
-			if (this.DeveloperMode) {
-			MessageBox.Show(this.msgboxStringsMain[26].Replace("exc", ex.ToString()), this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+			string fatalError;
+			if (this.TurnEditLanguage == "ja-JP") {
+					fatalError = "致命的なエラー";
 			} else {
-				MessageBox.Show(this.msgboxStringsMain[28], this.msgboxStringsMain[13], MessageBoxButton.OK, MessageBoxImage.Error);
+				fatalError = "Fatal error";
+			}
+			if (this.DeveloperMode) {
+			MessageBox.Show(this.msgboxStringsMain[26].Replace("exc", ex.ToString()), this.msgboxStringsMain[13] + " - " + fatalError, MessageBoxButton.OK, MessageBoxImage.Error);
+			} else {
+				MessageBox.Show(this.msgboxStringsMain[28], this.msgboxStringsMain[13] + " - " + fatalError, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			Environment.Exit(1);
 		}
@@ -188,8 +208,8 @@ namespace TurnEdit
 
         private void searchNav_Click(object sender, RoutedEventArgs e)
         {
-            SearchWindow searchWindow = new SearchWindow(this);
-            searchWindow.Show();
+           SearchWindow searchWindow = new SearchWindow(this);
+		   searchWindow.Show();
         }
 
         private void insertDateAndTimeNav_Click(object sender, RoutedEventArgs e)
@@ -227,6 +247,8 @@ namespace TurnEdit
                 this.Title = $"{this.currentFileName} - TurnEdit";
                 this.IsFileOpened = true;
                 this.ChangesUnsaved = false;
+				IHighlightingDefinition language = HighlightingManager.Instance.GetDefinitionByExtension(System.IO.Path.GetExtension(filePath));
+				mainTextBox.SyntaxHighlighting = language;
             }
             catch (System.Security.SecurityException)
             {
@@ -240,22 +262,6 @@ namespace TurnEdit
             {
                 MessageBox.Show($"Error opening file because unexpected error: {ex.ToString()}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-        private void UpdateLineNumbers()
-        {
-            var text = mainTextBox.Text;
-            var lines = text.Split(new char[] { '\n' }, StringSplitOptions.None);
-            int lineCount = lines.Length;
-            if (text.Length > 0 && lines.Last().Length == 0)
-            {
-                lineCount--;
-            }
-            StringBuilder sb = new StringBuilder();
-            for (int i = 1; i <= lineCount; i++)
-            {
-                sb.AppendLine(i.ToString());
-            }
-            lineNumberTxtBox.Text = sb.ToString();
         }
         private void searchOnGoogle_Click(object sender, RoutedEventArgs e)
         {
@@ -303,6 +309,8 @@ namespace TurnEdit
                     this.IsFileOpened = true;
                     this.Title = $@"{this.currentFileName} - TurnEdit";
                     this.ChangesUnsaved = false;
+					IHighlightingDefinition language = HighlightingManager.Instance.GetDefinitionByExtension(System.IO.Path.GetExtension(ofd.FileName));
+					mainTextBox.SyntaxHighlighting = language;
                 }
             }
             catch (System.Security.SecurityException ex)
@@ -334,7 +342,7 @@ namespace TurnEdit
         {
             try
             {
-                if (File.Exists("TurnEditUpdater.exe"))
+                if (File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TurnEditUpdater.exe")))
                 {
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                     {
@@ -436,8 +444,8 @@ namespace TurnEdit
         /// </summary>
         private void replaceNav_Click(object sender, RoutedEventArgs e)
         {
-            ReplaceWindow replaceWindow = new ReplaceWindow(this);
-            replaceWindow.Show();
+			ReplaceWindow replaceWindow = new ReplaceWindow(this);
+			replaceWindow.Show();
         }
 
         private async void Window_KeyDown(object sender, KeyEventArgs e)
@@ -464,37 +472,36 @@ namespace TurnEdit
             else if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 SearchWindow searchWindow = new SearchWindow(this);
-                searchWindow.Show();
+				searchWindow.Show();
             }
             else if (e.Key == Key.H && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 ReplaceWindow replaceWindow = new ReplaceWindow(this);
-                replaceWindow.Show();
+				replaceWindow.Show();
             }
         }
 
         private void mainTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            int caretIndex = mainTextBox.CaretIndex;
-            int lineIndex = mainTextBox.GetLineIndexFromCharacterIndex(caretIndex);
-            int firstCharIndexInLine = mainTextBox.GetCharacterIndexFromLineIndex(lineIndex);
-            int columnIndex = caretIndex - firstCharIndexInLine;
+            Caret caret = mainTextBox.TextArea.Caret;
+			int line = caret.Line;
+			int column = caret.Column;
             if (this.TurnEditLanguage == "ja-JP")
             {
-                lineStatus.Text = $@"行: {lineIndex + 1}";
-                columnStatus.Text = $@"列: {columnIndex + 1}";
+                lineStatus.Text = $@"行: {line}";
+                columnStatus.Text = $@"列: {column}";
             }
             else if (this.TurnEditLanguage == "en-US")
             {
-                lineStatus.Text = $@"Line: {lineIndex + 1}";
-                columnStatus.Text = $@"Column: {columnIndex + 1}";
+                lineStatus.Text = $@"Line: {line}";
+                columnStatus.Text = $@"Column: {column}";
             }
         }
 
         private void mainTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.ChangesUnsaved = true;
-            int textLength = mainTextBox.Text.Replace("\n", null).Length;
+            int textLength = mainTextBox.Text.Length;
             if (this.TurnEditLanguage == "en-US")
             {
                 totalTextCount.Text = "Total text count: " + textLength;
@@ -503,12 +510,6 @@ namespace TurnEdit
             {
                 totalTextCount.Text = "文字の総数: " + textLength;
             }
-            UpdateLineNumbers();
-        }
-        private void mainTextBox_ScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            UpdateLineNumbers();
-            lineNumberTxtBox.ScrollToVerticalOffset(mainTextBox.VerticalOffset);
         }
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -607,14 +608,7 @@ namespace TurnEdit
 
         private void deleteCurrentLine_Click(object sender, RoutedEventArgs e)
         {
-            int caretIndex = mainTextBox.CaretIndex;
-            int lineIndex = mainTextBox.GetLineIndexFromCharacterIndex(caretIndex);
-            int firstCharIndexInLine = mainTextBox.GetCharacterIndexFromLineIndex(lineIndex);
-            int columnIndex = caretIndex - firstCharIndexInLine;
-            string oldLineText = mainTextBox.GetLineText(lineIndex);
-            mainTextBox.SelectionStart = firstCharIndexInLine;
-            mainTextBox.SelectionLength = oldLineText.Length;
-            mainTextBox.SelectedText = "";
+			
         }
 
         private void pasteWithQuotes_Click(object sender, RoutedEventArgs e)
@@ -648,14 +642,10 @@ namespace TurnEdit
             _pluginsWindow.ShowDialog();
         }
 		public void IsLineNumberShowed_Checked(object sender, RoutedEventArgs e) {
-			if (lineNumberTxtBox != null) {
-			lineNumberTxtBox.Visibility = Visibility.Visible;
-			}
+			
 		}
 		public void IsLineNumberShowed_Unchecked(object sender, RoutedEventArgs e) {
-			if (lineNumberTxtBox != null) {
-			lineNumberTxtBox.Visibility = Visibility.Collapsed;
-			}
+			
 		}
 		private void MainWindow_MouseLeftButtonDown(object? sender, MouseButtonEventArgs e) {
 			if (e.LeftButton == MouseButtonState.Pressed) {
@@ -669,7 +659,7 @@ namespace TurnEdit
 			}
 		}
 		private void Window_Drop(object sender, DragEventArgs e) {
-			string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+			string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
 			if (files == null) {
 				return;
 			}
@@ -686,6 +676,35 @@ namespace TurnEdit
 				e.Effects = DragDropEffects.None;
 			}
 			e.Handled = true;
+		}
+		private void InitializeLanguagesList() {
+			var manager = HighlightingManager.Instance;
+			List<string> languageNames = manager.HighlightingDefinitions
+				.Select(def => def.Name)
+				.ToList();
+			foreach (var lang in languageNames) {
+				MenuItem item = new MenuItem();
+				item.Header = lang;
+				item.Click += (sender, e) => langClick(sender, e, lang);
+				languagesNav.Items.Add(item);
+			}
+		}
+        /// <summary>
+        /// This method handles when clicked language menu.
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="language">Language</param>
+		private void langClick(object sender, RoutedEventArgs e, string language) {
+			IHighlightingDefinition langDefinition = HighlightingManager.Instance.GetDefinition(language);
+			mainTextBox.SyntaxHighlighting = langDefinition;
+		}
+		private void moveLineNav_Click(object sender, RoutedEventArgs e) {
+			MoveLineWindow moveLineWindow = new MoveLineWindow(this);
+			moveLineWindow.Show();
+		}
+		private void scrollToEnd_Click(object sender, RoutedEventArgs e) {
+			mainTextBox.ScrollToEnd();
 		}
     }
 }
