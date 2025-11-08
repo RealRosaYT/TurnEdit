@@ -1,0 +1,50 @@
+name: Generate SHA256 on Release
+
+on:
+  release:
+    types: [published] # リリースが公開されたときにトリガー
+
+jobs:
+  create_hash_file:
+    runs-on: self-hosted
+    steps:
+      - name: Download release asset
+        uses: actions/github-script@v6
+        id: download_asset
+        with:
+          script: |
+            const release = await github.rest.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: context.ref.split('/').pop()
+            });
+            const asset = release.data.assets.find(a => a.name === 'turnedit-setup.exe');
+            if (!asset) {
+              core.setFailed('Asset not found: turnedit-setup.exe');
+              return;
+            }
+            const assetUrl = asset.browser_download_url;
+            console.log(`Downloading asset from: ${assetUrl}`);
+            const response = await fetch(assetUrl);
+            const arrayBuffer = await response.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            require('fs').writeFileSync('turnedit-setup.exe', buffer);
+            core.setOutput('asset_path', 'turnedit-setup.exe');
+          # 認証トークンを使用してファイルをダウンロードする
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Calculate SHA256 hash
+        id: hash_file
+        run: |
+          SHA256_HASH=$(sha256sum ${{ steps.download_asset.outputs.asset_path }} | awk '{print $1}')
+          echo "Calculated SHA256: $SHA256_HASH"
+          echo "$SHA256_HASH" > turnedit-setup.exe.sha256
+          echo "hash_path=turnedit-setup.exe.sha256" >> $GITHUB_OUTPUT
+        
+      - name: Upload SHA256 file to release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ steps.hash_file.outputs.hash_path }}
+          asset_name: ${{ steps.hash_file.outputs.hash_path }}
+          asset_content_type: text/plain
