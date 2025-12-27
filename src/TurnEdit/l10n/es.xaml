@@ -1,0 +1,157 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Main menu -->
+    <sys:String x:Key="Menu.File">Archivo</sys:String>
+    <sys:String x:Key="Menu.View">Ver</sys:String>
+    <sys:String x:Key="Menu.Edit">Editar</sys:String>
+    <sys:String x:Key="Menu.Languages">Idiomas</sys:String>
+    <sys:String x:Key="Menu.Window">Ventana</sys:String>
+    <sys:String x:Key="Menu.Help">Ayuda</sys:String>
+
+    <!-- File menu items -->
+    <sys:String x:Key="Menu.New">Nuevo</sys:String>
+    <sys:String x:Key="Menu.Open">Abrir</sys:String>
+    <sys:String x:Key="Menu.Save">Guardar</sys:String>
+    <sys:String x:Key="Menu.SaveAs">Guardar como</sys:String>
+    <sys:String x:Key="Menu.Exit">Salir</sys:String>
+
+    <!-- View menu -->
+    <sys:String x:Key="Menu.Settings">Ajustes</sys:String>
+    <sys:String x:Key="Menu.SearchEngine">Buscar</sys:String>
+    <sys:String x:Key="Menu.MoveLine">Mover línea</sys:String>
+    <sys:String x:Key="Menu.ScrollToEnd">Ir al final</sys:String>
+
+    <!-- Edit menu -->
+    <sys:String x:Key="Menu.Search">Buscar</sys:String>
+    <sys:String x:Key="Menu.Replace">Reemplazar</sys:String>
+    <sys:String x:Key="Menu.InsertDateTime">Insertar fecha y hora</sys:String>
+    <sys:String x:Key="Menu.Undo">Deshacer</sys:String>
+    <sys:String x:Key="Menu.Redo">Rehacer</sys:String>
+    <sys:String x:Key="Menu.Cut">Cortar</sys:String>
+    <sys:String x:Key="Menu.Copy">Copiar</sys:String>
+    <sys:String x:Key="Menu.Paste">Pegar</sys:String>
+    <sys:String x:Key="Menu.PasteWithQuotes">Pegar con comillas</sys:String>
+    <sys:String x:Key="Menu.DeleteCurrentLine">Eliminar línea actual</sys:String>
+    <sys:String x:Key="Menu.SelectAll">Seleccionar todo</sys:String>
+
+    <!-- Window -->
+    <sys:String x:Key="Menu.NewWindow">Nueva ventana</sys:String>
+
+    <!-- Help -->
+    <sys:String x:Key="Help.Offline">Ayuda</sys:String>
+    <sys:String x:Key="Help.Update">Actualizar TurnEdit</sys:String>
+    <sys:String x:Key="Help.About">Acerca de TurnEdit</sys:String>
+
+    <!-- Status -->
+    <sys:String x:Key="Status.Line">Línea</sys:String>
+    <sys:String x:Key="Status.Column">Columna</sys:String>
+    <sys:String x:Key="Status.TotalTextCount">Total de caracteres</sys:String>
+
+    <!-- Message boxes / errors -->
+    <sys:String x:Key="Msg.PathNotAllowed">La ruta no está permitida.</sys:String>
+    <sys:String x:Key="Msg.FileOpenIOError">Error de E/S al abrir el archivo.</sys:String>
+    <sys:String x:Key="Msg.FileOpenUnexpectedError">Error inesperado al abrir el archivo.</sys:String>
+    <sys:String x:Key="Msg.PleaseOpenFile">Por favor, abra un archivo.</sys:String>
+    <sys:String x:Key="Msg.SaveIOError">Error de E/S al guardar el archivo.</sys:String>
+    <sys:String x:Key="Msg.SaveUnexpectedError">Error inesperado al guardar el archivo.</sys:String>
+    <sys:String x:Key="Msg.UnsavedChangesQuestion">Hay cambios sin guardar. ¿Desea guardar los cambios?</sys:String>
+    <sys:String x:Key="Msg.WindowCloseIOError">Error al cerrar la ventana debido a E/S. Los cambios no guardados se perderán. Por favor, cierre TurnEdit forzosamente.</sys:String>
+    <sys:String x:Key="Msg.WindowCloseSecurityError">Error al cerrar la ventana por violación de seguridad. Los cambios no guardados se perderán. Por favor, cierre TurnEdit forzosamente.</sys:String>
+    <sys:String x:Key="Msg.WindowCloseUnexpectedError">Error inesperado al cerrar la ventana. Los cambios no guardados se perderán. Por favor, cierre TurnEdit forzosamente.</sys:String>
+    <sys:String x:Key="Msg.HelpFileNotFound">Archivo de ayuda no encontrado.</sys:String>
+    <sys:String x:Key="Msg.FailedToOpenHelp">No se pudo abrir la ayuda:</sys:String>
+    <sys:String x:Key="Msg.ClipboardError">Error al acceder al portapapeles.</sys:String>
+    <sys:String x:Key="Msg.UpdaterOpenError">Error al abrir el actualizador:</sys:String>
+    <sys:String x:Key="Msg.UpdaterNotFound">No se encontró el ejecutable del actualizador.</sys:String>
+    <sys:String x:Key="Msg.FileTooLarge">El archivo es demasiado grande. El tamaño máximo es 50MB.</sys:String>
+    <sys:String x:Key="Msg.CantLoadPlugins">No se pueden cargar los complementos.</sys:String>
+    <sys:String x:Key="Msg.PluginInstallFailure">Fallo al instalar el complemento. Más información en la consola de depuración.</sys:String>
+    <sys:String x:Key="Msg.InvalidPluginFormat">Formato de complemento inválido.</sys:String>
+    <sys:String x:Key="Msg.PluginChecksumFailed">La verificación del checksum falló. Por seguridad, la instalación del complemento se ha abortado.</sys:String>
+    <sys:String x:Key="Msg.DeletePluginConfirm">¿Está seguro de que desea eliminar el complemento "{0}"?</sys:String>
+    <sys:String x:Key="Msg.CriticalErrorWithDetails">Se ha producido un error crítico en la aplicación.\r\nInformación técnica: \r\n {0}\r\n TurnEdit se cerrará.</sys:String>
+    <sys:String x:Key="Msg.CriticalError">Se ha producido un error crítico en la aplicación.\r\n TurnEdit se cerrará.</sys:String>
+    <sys:String x:Key="Msg.UpdateAvailable">Hay una actualización disponible. ¿Desea actualizar ahora?</sys:String>
+
+    <!-- Settings / UI labels -->
+    <sys:String x:Key="Settings.Title">Ajustes</sys:String>
+    <sys:String x:Key="Settings.DesignTab">Diseño</sys:String>
+    <sys:String x:Key="Settings.FileFolderTab">Archivo/Carpeta</sys:String>
+    <sys:String x:Key="Settings.OthersTab">Otros</sys:String>
+
+    <sys:String x:Key="Settings.Font">Fuente</sys:String>
+    <sys:String x:Key="Settings.FontSize">Tamaño de fuente</sys:String>
+    <sys:String x:Key="Settings.ThemeMode">Modo de tema</sys:String>
+    <sys:String x:Key="Settings.ShowLineNumber">Mostrar número de línea</sys:String>
+    <sys:String x:Key="Settings.MakeUrlClickable">Hacer URL clicables</sys:String>
+    <sys:String x:Key="Settings.DenyFileDoubleOpen">Denegar apertura duplicada de archivos (en desarrollo)</sys:String>
+    <sys:String x:Key="Settings.CreateFileWhenNotExists">Crear archivo si no existe</sys:String>
+    <sys:String x:Key="Settings.DefaultDirectory">Directorio predeterminado</sys:String>
+    <sys:String x:Key="Settings.EnableAI">Activar AI</sys:String>
+    <sys:String x:Key="Settings.SelectModel">Seleccionar modelo:</sys:String>
+    <sys:String x:Key="Settings.ApiKey">Clave API:</sys:String>
+    <sys:String x:Key="Settings.EnableAiContextMenu">Habilitar menú contextual de AI</sys:String>
+    <sys:String x:Key="Settings.Language">Idioma</sys:String>
+    <sys:String x:Key="Settings.EnableDeveloperFeature">Activar funciones de desarrollador</sys:String>
+    <sys:String x:Key="Settings.Apply">Aplicar</sys:String>
+    <sys:String x:Key="Settings.OK">Aceptar</sys:String>
+    <sys:String x:Key="Settings.Cancel">Cancelar</sys:String>
+
+    <!-- Plugins / About -->
+    <sys:String x:Key="Plugins.Title">Complementos</sys:String>
+    <sys:String x:Key="Plugins.InfoTemplate">Nombre: {0}\r\nDescripción: {1}\r\nVersión: {2}\r\nAutor: {3}</sys:String>
+    <sys:String x:Key="About.Title">Acerca de TurnEdit</sys:String>
+
+    <!-- AI helper messages -->
+    <sys:String x:Key="AI.ErrorGeneratedNull">El contenido generado por la IA es nulo.</sys:String>
+    <sys:String x:Key="AI.UnsupportedModel">El modelo de IA especificado no es compatible.</sys:String>
+
+    <!-- Generic -->
+    <sys:String x:Key="Generic.Ok">Aceptar</sys:String>
+    <sys:String x:Key="Generic.Cancel">Cancelar</sys:String>
+    <sys:String x:Key="Generic.Error">Error</sys:String>
+    <sys:String x:Key="Generic.Information">Información</sys:String>
+
+    <!-- Plugins: headers / buttons -->
+    <sys:String x:Key="Plugins.NameHeader">Nombre</sys:String>
+    <sys:String x:Key="Plugins.DescriptionHeader">Descripción</sys:String>
+    <sys:String x:Key="Plugins.VersionHeader">Versión</sys:String>
+    <sys:String x:Key="Plugins.AuthorHeader">Autor</sys:String>
+    <sys:String x:Key="Plugins.Install">Instalar</sys:String>
+    <sys:String x:Key="Plugins.Uninstall">Desinstalar</sys:String>
+    <sys:String x:Key="Plugins.Enable">Habilitar</sys:String>
+    <sys:String x:Key="Plugins.Disable">Deshabilitar</sys:String>
+    <sys:String x:Key="Plugins.Update">Actualizar</sys:String>
+    <sys:String x:Key="Plugins.Details">Detalles</sys:String>
+    <sys:String x:Key="Plugins.ConfirmUninstall">¿Seguro que desea desinstalar "{0}"?</sys:String>
+
+  <!-- Language display names -->
+  <sys:String x:Key="Language.English">English</sys:String>
+  <sys:String x:Key="Language.Japanese">日本語</sys:String>
+  <sys:String x:Key="Language.SimplifiedChinese">简体中文</sys:String>
+  <sys:String x:Key="Language.Spanish">Español</sys:String>
+  <sys:String x:Key="Language.Korean">한국어</sys:String>
+
+  <!-- Search window -->
+  <sys:String x:Key="Search.Title">Buscar</sys:String>
+  <sys:String x:Key="Search.Label">Texto a buscar:</sys:String>
+  <sys:String x:Key="Search.ButtonFind">Buscar</sys:String>
+  <sys:String x:Key="Search.ButtonCancel">Cancelar</sys:String>
+
+  <!-- Replace window -->
+  <sys:String x:Key="Replace.Title">Reemplazar</sys:String>
+  <sys:String x:Key="Replace.LabelFind">Buscar:</sys:String>
+  <sys:String x:Key="Replace.LabelReplace">Reemplazar con:</sys:String>
+  <sys:String x:Key="Replace.ButtonReplace">Reemplazar</sys:String>
+  <sys:String x:Key="Replace.ButtonReplaceAll">Reemplazar todo</sys:String>
+  <sys:String x:Key="Replace.ButtonCancel">Cancelar</sys:String>
+
+  <!-- About / version info -->
+  <sys:String x:Key="About.VersionLabel">Versión:</sys:String>
+  <sys:String x:Key="About.ReleaseDateLabel">Fecha de lanzamiento:</sys:String>
+  <sys:String x:Key="About.PrereleaseWarningShort">Prelanzamiento</sys:String>
+  <sys:String x:Key="About.PrereleaseWarningLong">Esta es una versión previa (beta/preview) y puede ser inestable o incompleta. Use bajo su propia responsabilidad.</sys:String>
+  <sys:String x:Key="Title.Untitled">Sin título</sys:String>
+</ResourceDictionary>

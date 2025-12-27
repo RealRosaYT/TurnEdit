@@ -1,0 +1,17 @@
+{
+  "DenyFileDoubleOpen": true,
+  "CreateFileWhenFileNotExists": true,
+  "DefaultDirectoryWhenFileOpen": "",
+  "ThemeMode": "Auto",
+  "TextFont": "Yu Gothic UI",
+  "TextFontSize": 14,
+  "language": "ja-JP",
+  "EnableDeveloperFeature": false,
+  "ShowLineNumber": true,
+  "MakeLinkClickable": true,
+  "IsAIEnabled": false,
+  "AIModel": 1,
+  "AIApiKey": "",
+  "IsAiContextMenuEnabled": false,
+  "DisableHardwareAcceleration": false
+}

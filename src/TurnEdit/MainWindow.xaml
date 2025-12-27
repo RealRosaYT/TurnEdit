@@ -1,0 +1,224 @@
+﻿<ui:FluentWindow x:Class="TurnEdit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TurnEdit"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+		xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+		ExtendsContentIntoTitleBar="True"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        Foreground="{DynamicResource WindowForegroundBrush}"         
+        mc:Ignorable="d"
+        Title="Untitled - TurnEdit" AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver" Height="800" Width="1000" KeyDown="Window_KeyDown" ResizeMode="CanResizeWithGrip" Closing="Window_Closing">
+    <DockPanel>
+        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Menu x:Name="mainMenu" Grid.Column="0" PreviewMouseLeftButtonDown="Menu_PreviewMouseLeftButtonDown" Background="{DynamicResource MenuBackgroundBrush}" Foreground="{DynamicResource MenuForegroundBrush}">
+                <MenuItem Header="{DynamicResource Menu.File}" x:Name="fileNav">
+                    <MenuItem Header="{DynamicResource Menu.New}" x:Name="newFileNav" Click="newFileNav_Click" InputGestureText="Ctrl+N" />
+                    <MenuItem Header="{DynamicResource Menu.Open}" x:Name="openNav" Click="openNav_Click" InputGestureText="Ctrl+O" />
+                    <MenuItem Header="{DynamicResource Menu.Save}" x:Name="saveNav" Click="saveNav_Click" InputGestureText="Ctrl+S" />
+                    <MenuItem Header="{DynamicResource Menu.SaveAs}" x:Name="saveAsNav" Click="saveAsNav_Click" InputGestureText="Ctrl+S" />
+                    <!--
+                <MenuItem Header="Recently opened file" x:Name="recentlyOpenedFile">
+                </MenuItem>
+				-->
+                    <MenuItem Header="{DynamicResource Menu.Exit}" x:Name="exitNav" Click="ExitTurnEdit" InputGestureText="Alt+F4" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Menu.View}" x:Name="viewNav">
+                    <MenuItem Header="{DynamicResource Menu.Settings}" x:Name="settingsNav" Click="settingsNav_Click" />
+                    <MenuItem Header="{DynamicResource Menu.SearchEngine}" x:Name="searchEngineNav">
+                        <MenuItem Header="on Google" x:Name="searchOnGoogle" Click="searchOnGoogle_Click" />
+                        <MenuItem Header="on Bing" x:Name="searchOnBing" Click="searchOnBing_Click" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Menu.MoveLine}" x:Name="moveLineNav" Click="moveLineNav_Click" />
+                    <MenuItem Header="{DynamicResource Menu.ScrollToEnd}" x:Name="scrollToEnd" Click="scrollToEnd_Click" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Menu.Edit}" x:Name="editNav">
+                    <MenuItem Header="{DynamicResource Menu.Search}" x:Name="searchNav" Click="searchNav_Click" InputGestureText="Ctrl+F" />
+                    <MenuItem Header="{DynamicResource Menu.Replace}" x:Name="replaceNav" Click="replaceNav_Click" InputGestureText="Ctrl+H" />
+                    <Separator />
+                    <MenuItem Header="{DynamicResource Menu.InsertDateTime}" x:Name="insertDateAndTimeNav">
+                        <MenuItem Header="Today" Click="insertDateAndTimeNav_Click" />
+                        <MenuItem Header="Yesterday" x:Name="yesterdayInsert" Click="yesterdayInsert_Click" />
+                        <MenuItem Header="Day before yesterday" x:Name="dayBeforeYesterdayInsert" Click="dayBeforeYesterdayInsert_Click" />
+                        <MenuItem Header="Tomorrow" x:Name="tomorrowInsert" Click="tomorrowInsert_Click" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource Menu.Undo}" x:Name="undoNav" InputGestureText="Ctrl+Z" Click="undoNav_Click" />
+                    <MenuItem Header="{DynamicResource Menu.Redo}" x:Name="redoNav" InputGestureText="Ctrl+Y" Click="redoNav_Click" />
+                    <Separator />
+                    <MenuItem Header="{DynamicResource Menu.Cut}" x:Name="cutNav" InputGestureText="Ctrl+X" Click="cutNav_Click" />
+                    <MenuItem Header="{DynamicResource Menu.Copy}" x:Name="copyNav" InputGestureText="Ctrl+C" Click="copyNav_Click" />
+                    <MenuItem Header="{DynamicResource Menu.Paste}" x:Name="pasteNav" InputGestureText="Ctrl+V" Click="pasteNav_Click" />
+                    <MenuItem Header="{DynamicResource Menu.PasteWithQuotes}" x:Name="pasteWithQuotes" InputGestureText="Ctrl+Q" Click="pasteWithQuotes_Click" />
+                    <Separator />
+                    <MenuItem Header="{DynamicResource Menu.DeleteCurrentLine}" x:Name="deleteCurrentLine" InputGestureText="Ctrl+Enter" Click="deleteCurrentLine_Click" />
+                    <MenuItem Header="{DynamicResource Menu.SelectAll}" x:Name="selectAllNav" InputGestureText="Ctrl+A" Click="selectAllNav_Click" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Menu.Window}" x:Name="windowNav">
+                    <MenuItem Header="{DynamicResource Menu.NewWindow}" x:Name="newWindowNav" Click="newWindowNav_Click" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Menu.Languages}" x:Name="languagesNav" />
+                <MenuItem Header="{DynamicResource Plugins.Title}" x:Name="pluginsTopNav">
+                    <MenuItem Header="{DynamicResource Plugins.Title}" x:Name="pluginsNav" Click="pluginsNav_Click" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Menu.Help}" x:Name="helpNav">
+                    <MenuItem Header="{DynamicResource Help.Offline}" x:Name="helpOfflineNav" Click="helpNav_Click" />
+                    <MenuItem Header="{DynamicResource Help.Update}" x:Name="updaterNav" Click="updaterNav_Click" />
+                    <MenuItem Header="{DynamicResource Help.About}" x:Name="aboutTurnEditNav" Click="aboutTurnEditNav_Click" />
+                    <MenuItem Header="For developers" x:Name="forDevelopers" Visibility="Collapsed">
+                        <MenuItem Header="Throw a exception" x:Name="occurExc" Click="occurExc_Click" />
+                        <!--
+						<MenuItem Header="Debug information" x:Name="debugInformation" />
+						-->
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <ui:TitleBar Grid.Column="1" x:Name="mainTitleBar" Background="{DynamicResource TitleBarBackgroundBrush}" Foreground="{DynamicResource TitleBarForegroundBrush}" />
+        </Grid>
+        <ToolBarTray VerticalAlignment="Top" DockPanel.Dock="Top">
+            <ToolBar SnapsToDevicePixels="True">
+                <ui:Button x:Name="fileOpenToolBar" Margin="4" Background="Transparent" BorderBrush="Transparent" Click="fileOpenToolBar_Click">
+                    <ui:Button.Icon>
+                        <ui:SymbolIcon Symbol="FolderOpen20" FontSize="23" />
+                    </ui:Button.Icon>
+                    <ui:Button.ToolTip>
+                        <ToolTip Content="{DynamicResource Menu.Open}" />
+                    </ui:Button.ToolTip>
+                </ui:Button>
+                <ui:Button x:Name="fileSaveToolBar" Margin="4" Background="Transparent" BorderBrush="Transparent" Click="fileSaveToolBar_Click">
+                    <ui:Button.Icon>
+                        <ui:SymbolIcon Symbol="Save16" FontSize="23" />
+                    </ui:Button.Icon>
+                    <ui:Button.ToolTip>
+                        <ToolTip Content="{DynamicResource Menu.Save}" />
+                    </ui:Button.ToolTip>
+                </ui:Button>
+                <ui:Button x:Name="fileSaveAsToolBar" Margin="4" Background="Transparent" BorderBrush="Transparent" Click="fileSaveAsToolBar_Click">
+                    <ui:Button.Icon>
+                        <ui:SymbolIcon Symbol="SaveEdit20" FontSize="23" />
+                    </ui:Button.Icon>
+                    <ui:Button.ToolTip>
+                        <ToolTip Content="{DynamicResource Menu.SaveAs}" />
+                    </ui:Button.ToolTip>
+                </ui:Button>
+                <ui:Button x:Name="fileNewToolBar" Margin="4" Background="Transparent" BorderBrush="Transparent" Click="fileNewToolBar_Click">
+                    <ui:Button.Icon>
+                        <ui:SymbolIcon Symbol="New16" FontSize="23" />
+                    </ui:Button.Icon>
+                    <ui:Button.ToolTip>
+                        <ToolTip Content="{DynamicResource Menu.New}" />
+                    </ui:Button.ToolTip>
+                </ui:Button>
+                <ui:Button x:Name="editSearchToolBar" Margin="4" Background="Transparent" BorderBrush="Transparent" Click="editSearchToolBar_Click">
+                    <ui:Button.Icon>
+                        <ui:SymbolIcon Symbol="Search16" FontSize="23" />
+                    </ui:Button.Icon>
+                    <ui:Button.ToolTip>
+                        <ToolTip Content="{DynamicResource Menu.Search}" />
+                    </ui:Button.ToolTip>
+                </ui:Button>
+            </ToolBar>
+        </ToolBarTray>
+        <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Line: 0" x:Name="lineStatus" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Column: 0" x:Name="columnStatus" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Length: 0" x:Name="totalTextCount" />
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+			<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- タブはエディタ領域を包含する -->
+            <TabControl Grid.Row="1" x:Name="tabView" SelectionChanged="TabView_SelectionChanged">
+                <TabControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </TabControl.ItemsPanel>
+                <TabControl.Template>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                            <ContentPresenter Grid.Row="1" ContentSource="SelectedContent" />
+                        </Grid>
+                    </ControlTemplate>
+                </TabControl.Template>
+                <TabItem Header="{DynamicResource Title.Untitled}">
+                    <!-- 既存の mainTextBox を最初のタブへ移動 -->
+                    <avalonEdit:TextEditor x:Name="mainTextBox" KeyDown="OnKeyDown" Background="{DynamicResource EditorBackgroundBrush}" Foreground="{DynamicResource EditorForegroundBrush}" x:FieldModifier="public" FontFamily="Segoe UI" KeyUp="mainTextBox_KeyUp" TextChanged="mainTextBox_TextChanged" ShowLineNumbers="True">
+                        <avalonEdit:TextEditor.ContextMenu>
+                            <ContextMenu>
+                                <ui:MenuItem Command="Cut" Header="{DynamicResource Menu.Cut}">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon Symbol="Cut20" />
+                                    </ui:MenuItem.Icon>
+                                </ui:MenuItem>
+                                <ui:MenuItem Command="Copy" Header="{DynamicResource Menu.Copy}">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon Symbol="Copy20" />
+                                    </ui:MenuItem.Icon>
+                                </ui:MenuItem>
+                                <ui:MenuItem Command="Paste" Header="{DynamicResource Menu.Paste}">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon Symbol="ClipboardPaste16" />
+                                    </ui:MenuItem.Icon>
+                                </ui:MenuItem>
+                                <ui:MenuItem Command="Delete" Header="Delete">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon Symbol="Delete16" />
+                                    </ui:MenuItem.Icon>
+                                </ui:MenuItem>
+                                <Separator />
+                                <ui:MenuItem Command="Undo" Header="{DynamicResource Menu.Undo}">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon  Symbol="ArrowUndo16"/>
+                                    </ui:MenuItem.Icon>
+                                </ui:MenuItem>
+                                <ui:MenuItem Command="Redo" Header="{DynamicResource Menu.Redo}">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon Symbol="ArrowRedo16" />
+                                    </ui:MenuItem.Icon>
+                                </ui:MenuItem>
+                                <ui:MenuItem Header="AI actions" x:Name="aiActions" Visibility="Collapsed">
+                                    <ui:MenuItem.Icon>
+                                        <ui:SymbolIcon Symbol="Sparkle16" />
+                                    </ui:MenuItem.Icon>
+                                    <ui:MenuItem Header="Summerize" x:Name="summerizeTextAI" Click="summerizeTextAI_Click" />
+                                    <ui:MenuItem Header="Proofread" x:Name="proofreadTextAI" Click="proofreadTextAI_Click" />
+                                    <ui:MenuItem Header="Write more" x:Name="writeMoreTextAI" Click="writeMoreTextAI_Click" />
+                                </ui:MenuItem>
+                            </ContextMenu>
+                        </avalonEdit:TextEditor.ContextMenu>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+                <TabItem Tag="addTab" x:Name="addTab">
+                    <TabItem.Header>
+                        <ui:SymbolIcon Symbol="Add12" />
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</ui:FluentWindow>

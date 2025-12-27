@@ -1,0 +1,46 @@
+TurnEdit 2.0 Alpha 1 Release Notes
+Date: December 2025
+
+This is the first alpha release of TurnEdit 2.0, representing a complete architectural rewrite focusing on modern performance, UI/UX, and AI integration. Please note that this is an alpha build and will contain bugs or incomplete features.
+
+---
+New Features and Improvements
+---
+
+* **Complete Application Rearchitecting (WPF / .NET):**
+    * Fully rebuilt using WPF on .NET 10.0 for superior performance, responsiveness, and a modern desktop experience.
+    * Improved stability and responsiveness, now supporting large files up to 50MB.
+
+* **Next-Generation AI Integration:**
+    * **AI Backend Agnostic:** Implemented settings and logic to connect with leading AI models (Gemini, OpenAI, Grok).
+    * **Contextual AI Menu (In Progress):** Right-click context menu implemented to trigger AI tasks (e.g., Code Optimization, Summarization) based on selected text.
+    * Settings UI added for API Key and model selection management.
+
+* **Modern User Interface (UI/UX):**
+    * Refined, clean, and modern design optimized for clarity and speed.
+    * Full support for system-wide themes and customizable fonts/sizes.
+
+* **Advanced Multi-Language Support:**
+    * Full localization implemented for Japanese, English, Korean, Spanish, Chinese Simplified, and Chinese Traditional.
+    * Installer (Inno Setup) updated to reflect all available languages.
+
+* **Performance and Stability:**
+    * Faster document loading and saving times.
+    * Optimized memory usage compared to previous versions.
+
+---
+Known Issues
+---
+
+* The core AI functionality (model call and response handling) is still under active development and may be unstable.
+* Some multi-language resource files may have minor translation issues.
+* The installer (Inno Setup) is correctly configured, but SmartScreen false positives for version 1.7 are being addressed with Microsoft.
+* The initial settings JSON file creation logic is tied to the installer's language selection.
+
+---
+Feedback
+---
+
+We encourage all users to test this alpha release and report any bugs, performance issues, or feature requests. Your feedback on the new AI integration and core stability is crucial for the final release of TurnEdit 2.0.
+
+Thank you for testing TurnEdit!

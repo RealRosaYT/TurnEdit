@@ -1,0 +1,24 @@
+﻿<Application x:Class="TurnEdit.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TurnEdit"
+			 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+			 ShutdownMode="OnExplicitShutdown"
+			 >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
+            <SolidColorBrush x:Key="WindowForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#FFF0F0F0" />
+            <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="MenuBackgroundBrush" Color="#FFF0F0F0" />
+            <SolidColorBrush x:Key="MenuForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="EditorBackgroundBrush" Color="White" />
+            <SolidColorBrush x:Key="EditorForegroundBrush" Color="Black" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
